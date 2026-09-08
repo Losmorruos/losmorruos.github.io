@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="Club Deportivo Los Morruos de bola canaria en Fuerteventura. Noticias, partidos, resultados, clasificación, plantilla, entrenamientos, galería, merchandising y aplicación oficial." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
-  <link rel="canonical" href="https://losmorruos.github.io/clublosmorruos.com/" />
+  <link rel="canonical" href="https://losmorruos.github.io/" />
   <link rel="manifest" href="manifest.json" />
   <link rel="preload" as="image" href="logo-64.webp" type="image/webp" />
   <link rel="icon" href="logo-192.png" sizes="192x192" />
@@ -17,26 +17,26 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-08-v26-push"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-09-v28-root"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
   <meta property="og:description" content="Web oficial del Club Deportivo Los Morruos de bola canaria en Fuerteventura. Partidos, resultados, clasificación, noticias y aplicación del club." />
-  <meta property="og:url" content="https://losmorruos.github.io/clublosmorruos.com/" />
-  <meta property="og:image" content="https://losmorruos.github.io/clublosmorruos.com/logo-512.png" />
+  <meta property="og:url" content="https://losmorruos.github.io/" />
+  <meta property="og:image" content="https://losmorruos.github.io/logo-512.png" />
   <meta property="og:locale" content="es_ES" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
   <meta name="twitter:description" content="Club Deportivo Los Morruos de bola canaria en Fuerteventura." />
-  <meta name="twitter:image" content="https://losmorruos.github.io/clublosmorruos.com/logo-512.png" />
+  <meta name="twitter:image" content="https://losmorruos.github.io/logo-512.png" />
   <meta name="keywords" content="Los Morruos, Los Morrudos, Club Deportivo Los Morruos, Club Deportivo Los Morrudos, bola canaria, bola canaria Fuerteventura, Morro Jable, Fuerteventura" />
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@graph":[
-      {"@type":"SportsTeam","@id":"https://losmorruos.github.io/clublosmorruos.com/#club","name":"Club Deportivo Los Morruos","alternateName":["Los Morruos","Los Morrudos"],"sport":"Bola canaria","url":"https://losmorruos.github.io/clublosmorruos.com/","logo":"https://losmorruos.github.io/clublosmorruos.com/logo-512.png","areaServed":{"@type":"Place","name":"Fuerteventura, Canarias, España"}},
-      {"@type":"WebSite","@id":"https://losmorruos.github.io/clublosmorruos.com/#website","url":"https://losmorruos.github.io/clublosmorruos.com/","name":"Club Deportivo Los Morruos","alternateName":"Los Morruos","inLanguage":"es"},
-      {"@type":["WebApplication","MobileApplication"],"@id":"https://losmorruos.github.io/clublosmorruos.com/#app","name":"App Club Deportivo Los Morruos","alternateName":"Los Morruos","applicationCategory":"SportsApplication","operatingSystem":"Android, iOS, Windows, macOS","url":"https://losmorruos.github.io/clublosmorruos.com/","description":"Aplicación web progresiva oficial del Club Deportivo Los Morruos."}
+      {"@type":"SportsTeam","@id":"https://losmorruos.github.io/#club","name":"Club Deportivo Los Morruos","alternateName":["Los Morruos","Los Morrudos"],"sport":"Bola canaria","url":"https://losmorruos.github.io/","logo":"https://losmorruos.github.io/logo-512.png","areaServed":{"@type":"Place","name":"Fuerteventura, Canarias, España"}},
+      {"@type":"WebSite","@id":"https://losmorruos.github.io/#website","url":"https://losmorruos.github.io/","name":"Club Deportivo Los Morruos","alternateName":"Los Morruos","inLanguage":"es"},
+      {"@type":["WebApplication","MobileApplication"],"@id":"https://losmorruos.github.io/#app","name":"App Club Deportivo Los Morruos","alternateName":"Los Morruos","applicationCategory":"SportsApplication","operatingSystem":"Android, iOS, Windows, macOS","url":"https://losmorruos.github.io/","description":"Aplicación web progresiva oficial del Club Deportivo Los Morruos."}
     ]
   }
   </script>
@@ -1111,7 +1111,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     // ── Repositorio de GitHub donde vive data.json (fijo para todos los móviles) ──
     // Solo el TOKEN se guarda en cada dispositivo admin. Owner/repo/branch son públicos.
     const GITHUB_OWNER = "Losmorruos";
-    const GITHUB_REPO = "clublosmorruos.com";
+    const GITHUB_REPO = "losmorruos.github.io";
     const GITHUB_BRANCH = "main";
     const GITHUB_PATH = "data.json";
 
@@ -3120,25 +3120,22 @@ Chándal|45€|Chándal completo|si"></textarea>
     
     
     function getAppBasePath() {
-      const host = (location.hostname || "").toLowerCase();
-      const path = location.pathname || "/";
-      if (host === "losmorruos.github.io" || path.indexOf("clublosmorruos.com") !== -1) {
-        return "/clublosmorruos.com/";
-      }
-      let p = path;
-      if (/\.html?$/i.test(p)) p = p.replace(/\/[^/]+$/, "/");
-      if (!p.endsWith("/")) p += "/";
-      return p === "//" ? "/" : p;
+      // Deploy actual: https://losmorruos.github.io/ (raíz del dominio)
+      return "/";
     }
 
     // ── OneSignal: rutas para GitHub Pages (project site en subcarpeta) ──
     // Docs: serviceWorkerPath es relativo al origen SIN barra inicial.
     // Usamos carpeta /push/ para no chocar con el SW de la PWA (sw.js).
+    // Código OneSignal (Custom Code) adaptado a GitHub Pages:
+    // https://losmorruos.github.io/
+    // El snippet por defecto del dashboard busca el worker en la RAÍZ del dominio
+    // (404). Aquí se indica la carpeta real del worker.
+    // OneSignal: la app está en https://losmorruos.github.io/ (repo user pages)
+    // El worker está en la raíz: /OneSignalSDKWorker.js  → snippet por defecto del dashboard
     function getOneSignalInitOptions() {
       return {
-        appId: ONESIGNAL_APP_ID,
-        serviceWorkerPath: "clublosmorruos.com/push/OneSignalSDKWorker.js",
-        serviceWorkerParam: { scope: "/clublosmorruos.com/push/" },
+        appId: "f35f765a-8ead-416d-b642-fc075bbcdf92",
         allowLocalhostAsSecureOrigin: true,
         notifyButton: { enable: false }
       };
@@ -3152,7 +3149,6 @@ Chándal|45€|Chándal completo|si"></textarea>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     let oneSignalInitError = null;
     OneSignalDeferred.push(async function (OneSignal) {
-      if (!ONESIGNAL_APP_ID || ONESIGNAL_APP_ID.startsWith("TU_")) return;
       try {
         await OneSignal.init(getOneSignalInitOptions());
         try {
@@ -3163,7 +3159,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         } catch (_) {}
       } catch (e) {
         oneSignalInitError = e;
-        console.warn("OneSignal init error (se reintentará al pulsar Activar avisos):", e);
+        console.warn("OneSignal init:", e);
       }
     });
 
@@ -3250,7 +3246,7 @@ Chándal|45€|Chándal completo|si"></textarea>
           await new Promise(r => setTimeout(r, 200));
         }
         if (!OneSignal.User || !OneSignal.User.PushSubscription) {
-          alert("OneSignal no creó la suscripción.\n\nComprueba en OneSignal:\nSettings → Platforms → Web\nSite URL = https://losmorruos.github.io/clublosmorruos.com/\n\nY que exista el archivo:\n/clublosmorruos.com/push/OneSignalSDKWorker.js");
+          alert("OneSignal no creó la suscripción.\n\nComprueba en OneSignal:\nSettings → Platforms → Web\nSite URL = https://losmorruos.github.io/\n\nY que exista el archivo:\n/OneSignalSDKWorker.js");
           setLabel("Activar avisos");
           return;
         }
@@ -3529,8 +3525,7 @@ Chándal|45€|Chándal completo|si"></textarea>
       renderAll();
       checkRegistration();
       if ("serviceWorker" in navigator) {
-        const swUrl = getAppBasePath() + "sw.js";
-        navigator.serviceWorker.register(swUrl, { scope: getAppBasePath() }).catch(() => {});
+        navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {});
       }
       // En iOS mostrar banner de instalación si no está en modo standalone
       if (isIos() && !isStandalone() && localStorage.getItem(INSTALL_DISMISS_KEY) !== "1") {

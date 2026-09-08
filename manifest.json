@@ -1,8 +1,8 @@
 {
-  "name": "Los Morruos - Bola Canaria",
+  "name": "Club Deportivo Los Morruos - Bola Canaria",
   "short_name": "Los Morruos",
-  "description": "App oficial del Club Deportivo Los Morruos - Bola Canaria Fuerteventura",
-  "start_url": "./index.html",
+  "description": "Aplicación oficial del Club Deportivo Los Morruos de bola canaria en Fuerteventura. Noticias, partidos, resultados, clasificación y contenidos del club.",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0A0A0A",
   "theme_color": "#0A0A0A",
@@ -26,5 +26,11 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "id": "./",
+  "scope": "./",
+  "lang": "es",
+  "categories": [
+    "sports"
   ]
 }

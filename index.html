@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-08-sponsors-upload-onesignal"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-08-notif-gesture"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -3164,84 +3164,122 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     async function toggleNotifications() {
+      const label = document.getElementById("notif-toggle-label");
+      const setLabel = (t) => { if (label) label.textContent = t; };
+
       if (!ONESIGNAL_APP_ID || ONESIGNAL_APP_ID.startsWith("TU_")) {
-        alert("Falta el App ID de OneSignal en el código (ONESIGNAL_APP_ID).\nCrea una app en onesignal.com y pega el App ID.");
+        alert("Falta el App ID de OneSignal en el código (ONESIGNAL_APP_ID).");
         return;
       }
       if (location.protocol !== "https:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-        alert("Las notificaciones solo funcionan en HTTPS (GitHub Pages, etc.).\nAhora estás en: " + location.protocol);
+        alert("Las notificaciones solo funcionan en HTTPS.\nAhora: " + location.protocol);
         return;
       }
-      if (!("Notification" in window) && !("PushManager" in window)) {
-        alert("Este navegador no soporta notificaciones push.");
+      if (!("Notification" in window)) {
+        alert("Este navegador no soporta la API de notificaciones.");
         return;
       }
-      // iOS: debe ser PWA instalada
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+      // iOS: requiere PWA instalada
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
       const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
       if (isIOS && !isStandalone) {
-        alert("En iPhone/iPad:\n1) Abre la app en Safari\n2) Comparte → «Añadir a pantalla de inicio»\n3) Ábrela desde el icono\n4) Activa avisos otra vez.\n\nSin instalarla como app, iOS no permite push.");
+        alert("En iPhone/iPad hay que instalar la app:\nSafari → Compartir → Añadir a pantalla de inicio.\nLuego ábrela desde el icono y activa avisos.");
         return;
       }
-      // Si el init automático falló, reintentamos aquí con la ruta forzada
-      if (oneSignalInitError) {
-        console.warn("Reintentando OneSignal tras error previo:", oneSignalInitError);
-        oneSignalInitError = null;
-      }
-      if (!window.OneSignal) {
-        // esperar hasta 5s
-        for (let i = 0; i < 10 && !window.OneSignal; i++) await new Promise(r => setTimeout(r, 500));
-      }
-      if (!window.OneSignal) {
-        alert("OneSignal no cargó.\nComprueba conexión a internet y que no haya bloqueadores.\nApp ID: " + ONESIGNAL_APP_ID);
+
+      // 1) Pedir permiso NATIVE al momento del clic (si no, Chrome no muestra el diálogo)
+      let perm = Notification.permission;
+      if (perm === "denied") {
+        alert("Las notificaciones están BLOQUEADAS para este sitio.\n\nEn el ordenador (Chrome):\n1) Icono de candado a la izquierda de la URL\n2) Notificaciones → Permitir\n3) Recarga la página y vuelve a pulsar «Activar avisos»");
         return;
       }
-      try {
-        const OneSignal = window.OneSignal;
-        // Asegurar init
-        // Siempre (re)inicializar con rutas del subdirectorio si aún no hay User
-        if (!OneSignal.User || !OneSignal.User.PushSubscription) {
-          try {
-            await OneSignal.init(getOneSignalInitOptions());
-          } catch (e) {
-            console.warn("OneSignal re-init:", e);
-            // Último intento: registrar el SW a mano y reintentar
-            try {
-              if ("serviceWorker" in navigator) {
-                await navigator.serviceWorker.register("/clublosmorruos.com/OneSignalSDKWorker.js", { scope: "/clublosmorruos.com/" });
-              }
-              await OneSignal.init(getOneSignalInitOptions());
-            } catch (e2) {
-              alert("No se pudo activar OneSignal.\n" + (e2.message || e2) + "\n\nEn OneSignal Dashboard → Settings → Platforms → Web:\nSite URL = https://losmorruos.github.io/clublosmorruos.com/");
-              return;
-            }
-          }
-        }
-        const perm = Notification.permission;
-        if (perm === "denied") {
-          alert("Has bloqueado las notificaciones para este sitio.\n\nChrome/Android: icono candado → Notificaciones → Permitir.\nSafari: Ajustes → Safari → [sitio] → Permitir.");
+      if (perm === "default") {
+        try {
+          setLabel("Esperando permiso…");
+          perm = await Notification.requestPermission();
+        } catch (e) {
+          alert("No se pudo pedir el permiso: " + (e.message || e));
+          setLabel("Activar avisos");
           return;
         }
-        const optedIn = OneSignal.User?.PushSubscription?.optedIn;
+      }
+      if (perm !== "granted") {
+        alert("No se activaron los avisos.\nPermiso del navegador: " + perm + "\n\nDebes pulsar «Permitir» en el diálogo del navegador.");
+        setLabel("Activar avisos");
+        return;
+      }
+
+      // 2) Cargar / inicializar OneSignal
+      setLabel("Conectando…");
+      oneSignalInitError = null;
+      if (!window.OneSignal) {
+        for (let i = 0; i < 20 && !window.OneSignal; i++) {
+          await new Promise(r => setTimeout(r, 250));
+        }
+      }
+      if (!window.OneSignal) {
+        alert("OneSignal no llegó a cargar.\nPrueba sin bloqueadores de anuncios y recarga la página.\nApp ID: " + ONESIGNAL_APP_ID);
+        setLabel("Activar avisos");
+        return;
+      }
+
+      try {
+        const OneSignal = window.OneSignal;
+        try {
+          await Promise.race([
+            OneSignal.init(getOneSignalInitOptions()),
+            new Promise((_, rej) => setTimeout(() => rej(new Error("Tiempo de espera agotado al iniciar OneSignal")), 12000))
+          ]);
+        } catch (e) {
+          // Puede fallar si ya estaba iniciado; seguimos
+          console.warn("OneSignal.init:", e);
+        }
+
+        // Esperar a que exista la API de suscripción
+        for (let i = 0; i < 20; i++) {
+          if (OneSignal.User && OneSignal.User.PushSubscription) break;
+          await new Promise(r => setTimeout(r, 200));
+        }
+        if (!OneSignal.User || !OneSignal.User.PushSubscription) {
+          alert("OneSignal no preparó la suscripción push.\nRevisa en OneSignal Dashboard → Settings → Platforms → Web\nque el Site URL sea:\nhttps://losmorruos.github.io/clublosmorruos.com/");
+          setLabel("Activar avisos");
+          return;
+        }
+
+        const optedIn = !!OneSignal.User.PushSubscription.optedIn;
         if (optedIn) {
           await OneSignal.User.PushSubscription.optOut();
           updateNotifButton();
           alert("Avisos desactivados en este dispositivo.");
-        } else {
-          await OneSignal.Notifications.requestPermission();
-          await OneSignal.User.PushSubscription.optIn();
-          updateNotifButton();
-          const nowOpted = OneSignal.User?.PushSubscription?.optedIn;
-          const id = OneSignal.User?.PushSubscription?.id;
-          if (nowOpted) {
-            alert("✓ Avisos activados.\nID suscripción: " + (id || "ok") + "\n\nRecibirás notificaciones cuando el admin publique partidos, resultados o noticias (si tiene la REST API Key configurada).");
-          } else {
-            alert("No se pudo completar la suscripción.\nPermiso del navegador: " + Notification.permission + "\n\nPrueba: recargar la página, aceptar el permiso, y en OneSignal Dashboard → Audience comprueba que aparece un usuario.");
+          return;
+        }
+
+        setLabel("Activando…");
+        try {
+          if (OneSignal.Notifications && OneSignal.Notifications.requestPermission) {
+            await OneSignal.Notifications.requestPermission();
           }
+        } catch (e) { console.warn("OneSignal.requestPermission", e); }
+
+        await OneSignal.User.PushSubscription.optIn();
+        // Pequeña espera a que OneSignal actualice el estado
+        await new Promise(r => setTimeout(r, 500));
+        updateNotifButton();
+
+        const nowOpted = !!OneSignal.User.PushSubscription.optedIn;
+        const id = OneSignal.User.PushSubscription.id;
+        if (nowOpted) {
+          alert("✓ Avisos activados correctamente.\nID: " + (id || "ok") + "\n\nPara enviar avisos desde Administración hace falta la REST API Key de OneSignal.");
+        } else {
+          alert("El permiso del navegador es «granted», pero OneSignal no completó la suscripción.\n\nPrueba:\n1) Recargar con Ctrl+F5\n2) Site URL en OneSignal = https://losmorruos.github.io/clublosmorruos.com/\n3) Pulsar de nuevo «Activar avisos»");
+          setLabel("Activar avisos");
         }
       } catch (e) {
         console.warn("toggleNotifications error:", e);
-        alert("Error: " + (e.message || e));
+        alert("Error al activar avisos:\n" + (e.message || e));
+        setLabel("Activar avisos");
       }
     }
 

@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-08-sponsors-desktop"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-08-sponsors-upload-onesignal"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -864,17 +864,37 @@ service cloud.firestore {
             <button onclick="saveTrainings()" class="admin-btn w-full">Guardar entrenamientos</button>
           </div>
         </div>
-                <div id="atab-sponsors" class="admin-tab-content hidden">
-          <h3 class="font-semibold text-gold mb-2">Patrocinadores y colaboradores</h3>
-          <p class="text-xs text-gray-500 mb-2">Una línea por patrocinador: Nombre|Rol|LogoURL|Web (rol: Colaborador / Patrocinador oficial / Patrocinador principal)</p>
-          <textarea id="a-sponsors" class="admin-input h-28 font-mono text-xs" placeholder="Padilla SPAR|Colaborador|logo-padilla-spar.png|"></textarea>
-          <div class="mt-3 space-y-2">
-            <label class="text-xs text-gray-400">URL del dossier de patrocinio (PDF)</label>
+        <div id="atab-sponsors" class="admin-tab-content hidden space-y-4">
+          <h3 class="font-semibold text-gold">Patrocinadores y colaboradores</h3>
+
+          <div class="card p-4 space-y-3">
+            <h4 class="text-sm font-semibold text-gold">Colaboradores</h4>
+            <p class="text-[11px] text-gray-500">Empresas colaboradoras (ej. Padilla SPAR).</p>
+            <div id="a-collab-list" class="space-y-2"></div>
+            <button type="button" onclick="addSponsorRow('Colaborador')" class="admin-btn-secondary w-full text-sm">+ Añadir colaborador</button>
+          </div>
+
+          <div class="card p-4 space-y-3">
+            <h4 class="text-sm font-semibold text-gold">Patrocinadores</h4>
+            <p class="text-[11px] text-gray-500">Patrocinador oficial o principal.</p>
+            <div id="a-sponsor-list" class="space-y-2"></div>
+            <div class="flex gap-2">
+              <button type="button" onclick="addSponsorRow('Patrocinador oficial')" class="admin-btn-secondary flex-1 text-sm">+ Oficial</button>
+              <button type="button" onclick="addSponsorRow('Patrocinador principal')" class="admin-btn-secondary flex-1 text-sm">+ Principal</button>
+            </div>
+          </div>
+
+          <div class="card p-4 space-y-3">
+            <h4 class="text-sm font-semibold text-gold">Dossier de patrocinio</h4>
+            <label class="text-xs text-gray-400">URL del PDF</label>
             <input id="a-dossier-url" class="admin-input" placeholder="dossier-patrocinio.pdf" />
-            <label class="text-xs text-gray-400">Nota / texto bajo el dossier (opcional)</label>
+            <label class="text-xs text-gray-400">Nota (opcional)</label>
             <input id="a-dossier-note" class="admin-input" placeholder="Temporada 2026/2027" />
           </div>
-          <button onclick="saveSponsors()" class="admin-btn w-full mt-3">Guardar patrocinadores</button>
+
+          <button onclick="saveSponsors()" class="admin-btn w-full">Guardar todo</button>
+          <!-- compat hidden textarea for legacy -->
+          <textarea id="a-sponsors" class="hidden"></textarea>
         </div>
 <div id="atab-venue" class="admin-tab-content hidden">
           <div class="card p-4 space-y-3">
@@ -2765,11 +2785,15 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     function showAdminTab(name) {
       document.querySelectorAll(".admin-tab-content").forEach(el => el.classList.add("hidden"));
-      document.getElementById("atab-" + name).classList.remove("hidden");
+      const panel = document.getElementById("atab-" + name);
+      if (panel) panel.classList.remove("hidden");
       document.querySelectorAll(".admin-tab").forEach(el => {
         el.classList.toggle("bg-gold", el.dataset.atab === name);
         el.classList.toggle("text-dark", el.dataset.atab === name);
       });
+      if (name === "sponsors") {
+        try { renderAdminSponsors(); } catch (e) { console.warn(e); }
+      }
       if (name === "users") {
         const cfg = loadFirebaseConfig();
         const ta = document.getElementById("a-firebase-config");
@@ -2856,11 +2880,10 @@ Chándal|45€|Chándal completo|si"></textarea>
           }
           elT.value = tnotes;
         }
-        const sp = (data.sponsors || []).map(s => [s.name||"",s.role||"",s.logo||"",s.web||""].join("|")).join("\n");
-        const elSp = document.getElementById("a-sponsors"); if (elSp) elSp.value = sp;
         const setd = (id,val) => { const e = document.getElementById(id); if (e) e.value = (val == null ? "" : val); };
         setd("a-dossier-url", (data.dossier && data.dossier.url) || "dossier-patrocinio.pdf");
         setd("a-dossier-note", (data.dossier && data.dossier.note) || "");
+        try { renderAdminSponsors(); } catch (e) { console.warn(e); }
         const v = data.venue || {};
         const setv = (id,val) => { const e = document.getElementById(id); if (e) e.value = (val == null ? "" : val); };
         setv("a-venue-name", v.name); setv("a-venue-address", v.address);
@@ -3077,6 +3100,22 @@ Chándal|45€|Chándal completo|si"></textarea>
       }
     }
 
+    
+    // ── Base path de la app (necesario en GitHub Pages /subcarpeta/) ──
+    function getAppBasePath() {
+      let p = location.pathname || "/";
+      if (/\.html?$/i.test(p)) p = p.replace(/\/[^/]+$/, "/");
+      if (!p.endsWith("/")) p += "/";
+      if (p === "//") p = "/";
+      return p;
+    }
+    function getOneSignalWorkerPath(file) {
+      // OneSignal resuelve la ruta respecto al ORIGEN (dominio), no a la página.
+      // En Pages del tipo usuario.github.io/repo/ hay que incluir el nombre del repo.
+      const base = getAppBasePath(); // p.ej. /clublosmorruos.com/
+      return (base + (file || "OneSignalSDKWorker.js")).replace(/^\//, "");
+    }
+
     // ── Notificaciones push (OneSignal) ──
     // Usamos nuestro propio sw.js (que ya importa el worker de OneSignal, ver sw.js)
     // en vez del archivo por defecto, y NO auto-preguntamos permiso: solo se pide
@@ -3086,13 +3125,12 @@ Chándal|45€|Chándal completo|si"></textarea>
     OneSignalDeferred.push(async function (OneSignal) {
       if (!ONESIGNAL_APP_ID || ONESIGNAL_APP_ID.startsWith("TU_")) return; // no configurado todavía
       try {
-        // Scope bajo el subdirectorio de GitHub Pages (/Los-Morruos-ap/)
-        const swScope = (location.pathname.replace(/\/[^/]*$/, "/") || "/");
+        const swScope = getAppBasePath();
         await OneSignal.init({
           appId: ONESIGNAL_APP_ID,
           serviceWorkerParam: { scope: swScope },
-          serviceWorkerPath: "OneSignalSDKWorker.js",
-          serviceWorkerUpdaterPath: "OneSignalSDKUpdaterWorker.js",
+          serviceWorkerPath: getOneSignalWorkerPath("OneSignalSDKWorker.js"),
+          serviceWorkerUpdaterPath: getOneSignalWorkerPath("OneSignalSDKUpdaterWorker.js"),
           allowLocalhostAsSecureOrigin: true,
           notifyButton: { enable: false }
         });
@@ -3136,7 +3174,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         return;
       }
       if (oneSignalInitError) {
-        alert("Error al iniciar OneSignal: " + (oneSignalInitError.message || oneSignalInitError) + "\n\nRevisa que el App ID sea correcto y que el dominio esté permitido en OneSignal (Settings → Platforms → Web).");
+        alert("Error al iniciar OneSignal:\n" + (oneSignalInitError.message || oneSignalInitError) + "\n\nComprueba:\n1) Domain Site URL en OneSignal = https://losmorruos.github.io/clublosmorruos.com/\n2) Archivos OneSignalSDKWorker.js en la carpeta del repo\n3) App ID correcto");
         return;
       }
       if (!window.OneSignal) {
@@ -3151,12 +3189,12 @@ Chándal|45€|Chándal completo|si"></textarea>
         const OneSignal = window.OneSignal;
         // Asegurar init
         if (!OneSignal.User) {
-          const swScope2 = (location.pathname.replace(/\/[^/]*$/, "/") || "/");
+          const swScope2 = getAppBasePath();
           await OneSignal.init({
             appId: ONESIGNAL_APP_ID,
             serviceWorkerParam: { scope: swScope2 },
-            serviceWorkerPath: "OneSignalSDKWorker.js",
-            serviceWorkerUpdaterPath: "OneSignalSDKUpdaterWorker.js",
+            serviceWorkerPath: getOneSignalWorkerPath("OneSignalSDKWorker.js"),
+            serviceWorkerUpdaterPath: getOneSignalWorkerPath("OneSignalSDKUpdaterWorker.js"),
             allowLocalhostAsSecureOrigin: true,
             notifyButton: { enable: false }
           });
@@ -3256,11 +3294,16 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (!el) return;
       const list = (data && Array.isArray(data.sponsors)) ? data.sponsors.filter(s => s && s.name) : [];
       if (!list.length) {
-        el.innerHTML = `<div class="empty-state col-span-full">Aún no hay patrocinadores publicados.</div>`;
+        el.innerHTML = `<div class="empty-state" style="grid-column:1/-1">Aún no hay patrocinadores publicados.</div>`;
       } else {
-        el.innerHTML = list.map(s => {
+        // Orden: principales, oficiales, colaboradores
+        const order = { "Patrocinador principal": 0, "Patrocinador oficial": 1, "Colaborador": 2 };
+        const sorted = [...list].sort((a, b) => (order[a.role] ?? 5) - (order[b.role] ?? 5));
+        el.innerHTML = sorted.map(s => {
           const role = s.role || "Colaborador";
-          const logo = s.logo ? `<img src="${s.logo}" alt="${s.name}" loading="lazy" onerror="this.style.display='none'" />` : `<div class="w-16 h-16 rounded-xl bg-gold/20 flex items-center justify-center text-2xl">🤝</div>`;
+          const logo = s.logo
+            ? `<img src="${s.logo}" alt="${s.name}" loading="lazy" onerror="this.style.display='none'" />`
+            : `<div class="w-16 h-16 rounded-xl bg-gold/20 flex items-center justify-center text-2xl">🤝</div>`;
           const nameHtml = s.web
             ? `<a href="${s.web}" target="_blank" rel="noopener" class="sp-name text-gold no-underline hover:underline">${s.name}</a>`
             : `<span class="sp-name">${s.name}</span>`;
@@ -3269,25 +3312,127 @@ Chándal|45€|Chándal completo|si"></textarea>
       }
       const dossier = (data && data.dossier) || {};
       const btn = document.getElementById("dossier-open-btn");
-      if (btn) {
-        btn.href = dossier.url || "dossier-patrocinio.pdf";
-      }
+      if (btn) btn.href = dossier.url || "dossier-patrocinio.pdf";
       const note = document.getElementById("dossier-extra-note");
       if (note) note.textContent = dossier.note || "";
     }
+    function isCollabRole(role) {
+      const r = (role || "").toLowerCase();
+      return r.includes("colabor");
+    }
+    function renderAdminSponsors() {
+      const collabEl = document.getElementById("a-collab-list");
+      const sponsorEl = document.getElementById("a-sponsor-list");
+      if (!collabEl && !sponsorEl) return;
+      if (!data.sponsors) data.sponsors = [];
+      const collabs = data.sponsors.filter(s => isCollabRole(s.role));
+      const spons = data.sponsors.filter(s => !isCollabRole(s.role));
+      const rowHtml = (s, idxGlobal) => {
+        const logoPrev = s.logo
+          ? `<img src="${s.logo}" alt="" class="w-12 h-12 object-contain rounded bg-white/5 border border-dark-border" />`
+          : `<div class="w-12 h-12 rounded bg-dark-border flex items-center justify-center text-xs text-gray-500">Logo</div>`;
+        return `<div class="card p-3 space-y-2" data-sp-idx="${idxGlobal}">
+          <div class="flex gap-2 items-start">
+            ${logoPrev}
+            <div class="flex-1 space-y-2 min-w-0">
+              <input class="admin-input text-sm" data-field="name" value="${(s.name||"").replace(/"/g,"&quot;")}" placeholder="Nombre" />
+              <input class="admin-input text-sm" data-field="web" value="${(s.web||"").replace(/"/g,"&quot;")}" placeholder="Web (opcional)" />
+              ${!isCollabRole(s.role) ? `<select class="admin-input text-sm" data-field="role">
+                <option value="Patrocinador oficial"${s.role==="Patrocinador oficial"?" selected":""}>Patrocinador oficial</option>
+                <option value="Patrocinador principal"${s.role==="Patrocinador principal"?" selected":""}>Patrocinador principal</option>
+              </select>` : `<input type="hidden" data-field="role" value="Colaborador" />`}
+            </div>
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            <label class="admin-btn-secondary text-xs cursor-pointer inline-flex items-center">
+              Subir logo
+              <input type="file" accept="image/*" class="hidden" onchange="uploadSponsorLogo(${idxGlobal}, event)" />
+            </label>
+            <button type="button" class="admin-btn-secondary admin-btn-danger text-xs" onclick="removeSponsorRow(${idxGlobal})">Quitar</button>
+          </div>
+        </div>`;
+      };
+      // Map to global indices
+      if (collabEl) {
+        collabEl.innerHTML = collabs.length
+          ? collabs.map(s => rowHtml(s, data.sponsors.indexOf(s))).join("")
+          : `<p class="text-xs text-gray-500">Ningún colaborador aún.</p>`;
+      }
+      if (sponsorEl) {
+        sponsorEl.innerHTML = spons.length
+          ? spons.map(s => rowHtml(s, data.sponsors.indexOf(s))).join("")
+          : `<p class="text-xs text-gray-500">Ningún patrocinador aún.</p>`;
+      }
+    }
+    function collectSponsorForms() {
+      if (!data.sponsors) data.sponsors = [];
+      document.querySelectorAll("#a-collab-list [data-sp-idx], #a-sponsor-list [data-sp-idx]").forEach(card => {
+        const idx = parseInt(card.getAttribute("data-sp-idx"), 10);
+        if (isNaN(idx) || !data.sponsors[idx]) return;
+        const name = card.querySelector('[data-field="name"]')?.value?.trim() || "";
+        const web = card.querySelector('[data-field="web"]')?.value?.trim() || "";
+        const roleEl = card.querySelector('[data-field="role"]');
+        const role = roleEl ? roleEl.value : (data.sponsors[idx].role || "Colaborador");
+        data.sponsors[idx].name = name;
+        data.sponsors[idx].web = web;
+        data.sponsors[idx].role = role;
+      });
+    }
+    function addSponsorRow(role) {
+      collectSponsorForms();
+      if (!data.sponsors) data.sponsors = [];
+      data.sponsors.push({ name: "", role: role || "Colaborador", logo: "", web: "" });
+      renderAdminSponsors();
+    }
+    function removeSponsorRow(idx) {
+      collectSponsorForms();
+      if (!data.sponsors) return;
+      data.sponsors.splice(idx, 1);
+      renderAdminSponsors();
+    }
+    function uploadSponsorLogo(idx, ev) {
+      const file = ev.target.files && ev.target.files[0];
+      if (!file || !file.type.startsWith("image/")) return;
+      collectSponsorForms();
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const max = 400;
+          let w = img.width, h = img.height;
+          if (w > max || h > max) {
+            const r = Math.min(max / w, max / h);
+            w = Math.round(w * r); h = Math.round(h * r);
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+          let dataUrl = canvas.toDataURL("image/webp", 0.85);
+          if (!dataUrl || dataUrl.length < 30) dataUrl = canvas.toDataURL("image/png");
+          if (!data.sponsors[idx]) return;
+          data.sponsors[idx].logo = dataUrl;
+          renderAdminSponsors();
+        };
+        img.onerror = () => {
+          if (!data.sponsors[idx]) return;
+          data.sponsors[idx].logo = reader.result;
+          renderAdminSponsors();
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
     function saveSponsors() {
-      const raw = (document.getElementById("a-sponsors")?.value || "").trim();
-      const sponsors = raw ? raw.split("\n").map(line => {
-        const p = line.split("|").map(x => x.trim());
-        return { name: p[0] || "", role: p[1] || "Colaborador", logo: p[2] || "", web: p[3] || "" };
-      }).filter(s => s.name) : [];
-      data.sponsors = sponsors;
+      collectSponsorForms();
+      data.sponsors = (data.sponsors || []).filter(s => s && s.name && s.name.trim());
       data.dossier = {
         url: (document.getElementById("a-dossier-url")?.value || "").trim() || "dossier-patrocinio.pdf",
         note: (document.getElementById("a-dossier-note")?.value || "").trim()
       };
       persistExtra("Patrocinadores actualizados");
       renderSponsors();
+      renderAdminSponsors();
     }
     function applyLayoutMode() {
       const desktop = window.matchMedia("(min-width: 900px)").matches;
@@ -3312,7 +3457,10 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (firebaseReady) startFirebaseListeners();
       renderAll();
       checkRegistration();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+      if ("serviceWorker" in navigator) {
+        const swUrl = getAppBasePath() + "sw.js";
+        navigator.serviceWorker.register(swUrl, { scope: getAppBasePath() }).catch(() => {});
+      }
       // En iOS mostrar banner de instalación si no está en modo standalone
       if (isIos() && !isStandalone() && localStorage.getItem(INSTALL_DISMISS_KEY) !== "1") {
         setTimeout(showInstallBanner, 2200);

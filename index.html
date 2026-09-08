@@ -11,11 +11,13 @@
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://losmorruos.github.io/clublosmorruos.com/" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="logo.png" />
+  <link rel="preload" as="image" href="logo-64.webp" type="image/webp" />
+  <link rel="icon" href="logo-192.png" sizes="192x192" />
+  <link rel="icon" href="logo-64.png" sizes="64x64" />
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-01-correccion-js"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-08-sponsors-desktop"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -167,6 +169,56 @@ const firebaseConfig = {
     .stat-card .val { font-family:'Oswald',sans-serif; font-size:1.6rem; color:#F5C518; }
     .stat-card .lbl { font-size:11px; color:#888; margin-top:2px; }
 
+
+    /* ── Desktop (versión web) vs móvil ── */
+    .desktop-only { display: none !important; }
+    .mobile-only { display: initial; }
+    @media (min-width: 900px) {
+      .mobile-only { display: none !important; }
+      .desktop-only { display: flex !important; }
+      body.layout-desktop { display: flex; min-height: 100vh; }
+      body.layout-desktop #drawer-overlay { display: none !important; }
+      body.layout-desktop #drawer {
+        position: relative !important; top: 0; left: 0; transform: none !important;
+        height: 100vh; height: 100dvh; width: 260px; max-width: 260px; flex-shrink: 0;
+        border-right: 1px solid #2A2A2A; z-index: 20;
+      }
+      body.layout-desktop #drawer.drawer { transform: none !important; }
+      body.layout-desktop .app-shell {
+        flex: 1; display: flex; flex-direction: column; min-width: 0;
+        max-width: 1100px; margin: 0 auto; width: 100%;
+      }
+      body.layout-desktop header .menu-toggle-btn { display: none !important; }
+      body.layout-desktop main {
+        max-width: 960px !important; padding: 24px 28px 48px !important;
+      }
+      body.layout-desktop .desktop-grid-2 {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      }
+      body.layout-desktop .sponsors-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+    }
+    .sponsors-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .sponsor-card {
+      background: #141414; border: 1px solid #2A2A2A; border-radius: 16px;
+      padding: 16px; text-align: center; display: flex; flex-direction: column;
+      align-items: center; gap: 10px; min-height: 140px; justify-content: center;
+    }
+    .sponsor-card img {
+      max-height: 64px; max-width: 100%; object-fit: contain;
+    }
+    .sponsor-card .sp-name { font-weight: 600; font-size: 14px; color: #f5f5f5; }
+    .sponsor-card .sp-role {
+      font-size: 11px; color: #F5C518; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .dossier-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+      border: 1px solid #F5C518; border-radius: 16px; padding: 20px;
+    }
+
   </style>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <!-- Firebase (compat) para registro de usuarios y actividad en tiempo real -->
@@ -174,15 +226,15 @@ const firebaseConfig = {
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 </head>
 <body class="min-h-screen">
-  <section aria-label="Información del Club Deportivo Los Morruos" style="max-width:900px;margin:0 auto;padding:10px 16px 0;color:#a3a3a3;font-size:12px;line-height:1.5;">
-    <strong style="color:#F5C518;">Club Deportivo Los Morruos · Bola Canaria en Fuerteventura</strong> — Web oficial con noticias, partidos, resultados, clasificación, plantilla, entrenamientos, galería, merchandising y aplicación del club.
+  <section aria-label="Información del Club Deportivo Los Morruos" class="seo-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
+    <strong>Club Deportivo Los Morruos · Bola Canaria en Fuerteventura</strong> — Web oficial con noticias, partidos, resultados, clasificación, plantilla, entrenamientos, galería, merchandising y aplicación del club.
   </section>
 
   <!-- Registro obligatorio para usuarios nuevos -->
   <div id="register-overlay" class="fixed inset-0 z-[100] bg-dark flex items-center justify-center p-5 hidden">
     <div class="card p-6 w-full max-w-sm space-y-4">
       <div class="text-center">
-        <img src="logo.png" alt="Los Morruos" class="w-20 h-20 rounded-2xl object-cover border-2 border-gold mx-auto mb-3" />
+        <picture><source srcset="logo-128.webp" type="image/webp"><img src="logo-128.png" alt="Los Morruos" class="w-20 h-20 rounded-2xl object-cover border-2 border-gold mx-auto mb-3" width="80" height="80" decoding="async" /></picture>
         <h2 class="font-display text-xl text-gold">Bienvenido a Los Morruos</h2>
         <p class="text-sm text-gray-400 mt-1">Regístrate para acceder a la app</p>
       </div>
@@ -206,7 +258,7 @@ const firebaseConfig = {
 
   <!-- Banner instalar PWA (Android/Chrome) -->
   <div id="install-banner" role="dialog" aria-label="Instalar app">
-    <img src="logo.png" alt="Los Morruos" />
+    <picture><source srcset="logo-128.webp" type="image/webp"><img src="logo-128.png" alt="Los Morruos" width="48" height="48" decoding="async" /></picture>
     <div class="ib-text">
       <strong>Instala la app Los Morruos</strong>
       <span>Acceso rápido desde tu pantalla de inicio</span>
@@ -221,7 +273,7 @@ const firebaseConfig = {
   <div id="ios-install-sheet" onclick="if(event.target===this)hideIosInstall()">
     <div class="sheet">
       <div class="text-center mb-2">
-        <img src="logo.png" alt="" class="w-14 h-14 rounded-xl border border-gold mx-auto object-cover" />
+        <picture><source srcset="logo-128.webp" type="image/webp"><img src="logo-128.png" alt="" class="w-14 h-14 rounded-xl border border-gold mx-auto object-cover" width="56" height="56" decoding="async" /></picture>
         <h3 class="font-display text-lg text-gold mt-2">Instalar en iPhone / iPad</h3>
         <p class="text-xs text-gray-400 mt-1">Safari no permite el botón automático. Sigue estos pasos:</p>
       </div>
@@ -236,7 +288,7 @@ const firebaseConfig = {
 
   <aside id="drawer" class="drawer fixed top-0 left-0 h-full w-[280px] max-w-[85vw] bg-[#0f0f0f] z-50 flex flex-col border-r border-dark-border shadow-2xl">
     <div class="p-5 border-b border-dark-border flex items-center gap-3">
-      <img src="logo.png" alt="Los Morruos" class="w-12 h-12 rounded-xl object-cover border-2 border-gold" />
+      <picture><source srcset="logo-128.webp" type="image/webp"><img src="logo-128.png" alt="Los Morruos" class="w-12 h-12 rounded-xl object-cover border-2 border-gold" width="48" height="48" decoding="async" /></picture>
       <div>
         <h2 class="font-display text-lg text-gold leading-tight">LOS MORRUOS</h2>
         <p class="text-xs text-gray-500">Bola Canaria · Fuerteventura</p>
@@ -289,9 +341,9 @@ const firebaseConfig = {
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Entrenamientos
       </button>
-      <button onclick="goTo('galeria')" class="menu-item" data-menu="galeria">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Galería
+            <button onclick="goTo('patrocinadores')" class="menu-item" data-menu="patrocinadores">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        Patrocinadores
       </button>
       <button onclick="goTo('mapa')" class="menu-item" data-menu="mapa">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -330,15 +382,16 @@ const firebaseConfig = {
     </div>
   </aside>
 
+  <div class="app-shell flex-1 min-w-0">
   <header class="sticky top-0 z-30 bg-dark/95 backdrop-blur-md border-b border-dark-border">
     <div class="flex items-center justify-between px-3 py-2.5">
-      <button onclick="openDrawer()" class="p-2 -ml-1 rounded-xl hover:bg-dark-card active:scale-95 transition">
+      <button onclick="openDrawer()" class="menu-toggle-btn p-2 -ml-1 rounded-xl hover:bg-dark-card active:scale-95 transition">
         <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
       <div class="flex items-center gap-2">
-        <img src="logo.png" alt="" class="w-8 h-8 rounded-lg object-cover border border-gold/60" />
+        <picture><source srcset="logo-64.webp" type="image/webp"><img src="logo-64.png" alt="" class="w-8 h-8 rounded-lg object-cover border border-gold/60" width="32" height="32" decoding="async" /></picture>
         <span class="font-display text-base text-gold tracking-wide">LOS MORRUOS</span>
       </div>
       <button onclick="goTo('merch')" class="p-2 -mr-1 rounded-xl hover:bg-dark-card relative" title="Merchandising">
@@ -515,7 +568,7 @@ const firebaseConfig = {
 
 <section id="tab-club" class="tab-content">
       <div class="text-center mb-6">
-        <img src="logo.png" alt="Logo" class="w-28 h-28 mx-auto rounded-2xl object-cover border-2 border-gold shadow-xl shadow-gold/10" />
+        <picture><source srcset="logo-192.webp" type="image/webp"><img src="logo-192.png" alt="Logo" class="w-28 h-28 mx-auto rounded-2xl object-cover border-2 border-gold shadow-xl shadow-gold/10" width="112" height="112" decoding="async" loading="lazy" /></picture>
         <h2 class="font-display text-2xl text-gold mt-4">Club Deportivo Los Morruos</h2>
         <p class="text-gray-400 text-sm">Fuerteventura · Bola Canaria</p>
       </div>
@@ -541,10 +594,24 @@ const firebaseConfig = {
         <div id="entrenos-notes" class="text-sm text-gray-200 whitespace-pre-wrap leading-relaxed min-h-[120px]"></div>
       </div>
     </section>
-    <section id="tab-galeria" class="tab-content">
-      <h2 class="font-display text-xl text-gold mb-3">Galería</h2>
-      <p class="text-xs text-gray-500 mb-3">Momentos del club</p>
-      <div id="gallery-grid" class="gallery-grid"></div>
+        <section id="tab-patrocinadores" class="tab-content">
+      <h2 class="font-display text-xl text-gold mb-1">Patrocinadores y colaboradores</h2>
+      <p class="text-sm text-gray-400 mb-4">Empresas y entidades que impulsan al Club Deportivo Los Morruos.</p>
+      <div id="sponsors-list" class="sponsors-grid mb-6"></div>
+      <div class="dossier-card space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center shrink-0 text-2xl">📄</div>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-display text-lg text-gold">Dossier de patrocinio</h3>
+            <p class="text-sm text-gray-400 mt-1">Propuesta de colaboración temporada 2026/2027. Niveles de patrocinio, contraprestaciones y contacto del club.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <a id="dossier-open-btn" href="dossier-patrocinio.pdf" target="_blank" rel="noopener" class="admin-btn inline-flex items-center justify-center no-underline">Ver / descargar dossier (PDF)</a>
+          <a href="mailto:ClubdeportivolosMorruos@gmail.com?subject=Patrocinio%20Los%20Morruos" class="admin-btn-secondary inline-flex items-center justify-center no-underline">Contactar</a>
+        </div>
+        <p id="dossier-extra-note" class="text-[11px] text-gray-500"></p>
+      </div>
     </section>
     <section id="tab-mapa" class="tab-content">
       <h2 class="font-display text-xl text-gold mb-3">Cancha / Ubicación</h2>
@@ -618,7 +685,7 @@ const firebaseConfig = {
           <button onclick="showAdminTab('club')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="club">Club / Redes</button>
           <button onclick="showAdminTab('users')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="users">Usuarios</button>
           <button onclick="showAdminTab('trainings')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="trainings">Entrenamientos</button>
-          <button onclick="showAdminTab('gallery')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="gallery">Galería</button>
+          <button onclick="showAdminTab('sponsors')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="sponsors">Patrocinadores</button>
           <button onclick="showAdminTab('venue')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="venue">Cancha</button>
           <button onclick="showAdminTab('sociosadmin')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="sociosadmin">Socios</button>
           <button onclick="showAdminTab('merch')" class="admin-tab admin-btn-secondary whitespace-nowrap" data-atab="merch">Merch</button>
@@ -797,24 +864,19 @@ service cloud.firestore {
             <button onclick="saveTrainings()" class="admin-btn w-full">Guardar entrenamientos</button>
           </div>
         </div>
-        <div id="atab-gallery" class="admin-tab-content hidden">
-          <div class="card p-4 space-y-3">
-            <h3 class="font-semibold text-gold">Galería</h3>
-            <p class="text-xs text-gray-500">Añade fotos desde el móvil o el ordenador. También puedes pegar URLs abajo.</p>
-            <div>
-              <label class="admin-btn w-full block text-center cursor-pointer">
-                📷 Elegir fotos de la galería
-                <input type="file" id="a-gallery-files" accept="image/*" multiple class="hidden" onchange="addGalleryFiles(event)" />
-              </label>
-            </div>
-            <p class="text-[10px] text-gray-500">Las fotos se guardan en la app y, si GitHub está configurado, se publican en data.json. La app conserva una copia de respaldo y protege la galería cuando se guardan otros cambios. Usa imágenes no demasiado pesadas.</p>
-            <div id="a-gallery-preview" class="gallery-grid"></div>
-            <p class="text-xs text-gray-500 mt-2">O URLs externas (opcional): URL|Caption</p>
-            <textarea id="a-gallery" class="admin-input h-24 font-mono text-xs"></textarea>
-            <button onclick="saveGallery()" class="admin-btn w-full">Guardar galería</button>
+                <div id="atab-sponsors" class="admin-tab-content hidden">
+          <h3 class="font-semibold text-gold mb-2">Patrocinadores y colaboradores</h3>
+          <p class="text-xs text-gray-500 mb-2">Una línea por patrocinador: Nombre|Rol|LogoURL|Web (rol: Colaborador / Patrocinador oficial / Patrocinador principal)</p>
+          <textarea id="a-sponsors" class="admin-input h-28 font-mono text-xs" placeholder="Padilla SPAR|Colaborador|logo-padilla-spar.png|"></textarea>
+          <div class="mt-3 space-y-2">
+            <label class="text-xs text-gray-400">URL del dossier de patrocinio (PDF)</label>
+            <input id="a-dossier-url" class="admin-input" placeholder="dossier-patrocinio.pdf" />
+            <label class="text-xs text-gray-400">Nota / texto bajo el dossier (opcional)</label>
+            <input id="a-dossier-note" class="admin-input" placeholder="Temporada 2026/2027" />
           </div>
+          <button onclick="saveSponsors()" class="admin-btn w-full mt-3">Guardar patrocinadores</button>
         </div>
-        <div id="atab-venue" class="admin-tab-content hidden">
+<div id="atab-venue" class="admin-tab-content hidden">
           <div class="card p-4 space-y-3">
             <h3 class="font-semibold text-gold">Cancha / Ubicación</h3>
             <div><label class="text-xs text-gray-400">Nombre</label><input id="a-venue-name" class="admin-input mt-1" /></div>
@@ -922,6 +984,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     </section>
 
   </main>
+  </div><!-- /.app-shell -->
 
   <script>
     const DEFAULT = {
@@ -977,6 +1040,13 @@ Chándal|45€|Chándal completo|si"></textarea>
         { name: "Camiseta", price: "Consultar", desc: "Camiseta oficial negra y dorada", available: true },
         { name: "Chándal", price: "Consultar", desc: "Chándal completo Los Morruos", available: true },
       ],
+      sponsors: [
+        { name: "Padilla SPAR", role: "Colaborador", logo: "logo-padilla-spar.png", web: "" }
+      ],
+      dossier: {
+        url: "dossier-patrocinio.pdf",
+        note: "Propuesta de patrocinio · Temporada 2026/2027"
+      },
       news: [
         { date: "2026-08-24", title: "Victoria 13-9 frente a C.D. Corralejo", text: "Los Morruos consiguieron una importante victoria en casa ante el líder de la clasificación." },
         { date: "2026-08-18", title: "Publicado el calendario de septiembre", text: "Ya está disponible el calendario de partidos del mes de septiembre." },
@@ -1295,41 +1365,82 @@ Chándal|45€|Chándal completo|si"></textarea>
       }
     }
 
+    function pickList(remoteVal, fallback) {
+      // Arrays vacíos no deben pisar los datos por defecto
+      if (Array.isArray(remoteVal) && remoteVal.length > 0) return remoteVal;
+      if (Array.isArray(fallback)) return JSON.parse(JSON.stringify(fallback));
+      return [];
+    }
+    function mergeRemoteData(remote) {
+      const base = JSON.parse(JSON.stringify(DEFAULT));
+      const nextMatches = normalizeNextMatches(remote);
+      return {
+        ...base,
+        ...remote,
+        nextMatch: (remote.nextMatch && remote.nextMatch.rival) ? remote.nextMatch : (nextMatches[0] || base.nextMatch),
+        nextMatches: nextMatches,
+        standings: pickList(remote.standings, base.standings),
+        standingsA: pickList(remote.standingsA, pickList(remote.standings, base.standingsA)),
+        standingsB: pickList(remote.standingsB, base.standingsB),
+        matches: pickList(remote.matches, base.matches),
+        players: pickList(remote.players, base.players),
+        news: pickList(remote.news, base.news),
+        torneos: pickList(remote.torneos, base.torneos),
+        merch: normalizarMerchandising(pickList(remote.merch || remote.merchandise, base.merch)),
+        club: { ...base.club, ...(remote.club || {}) },
+        chat: pickList(remote.chat, base.chat),
+        gallery: galleryItems(remote.gallery).length ? remote.gallery : loadGalleryBackup(),
+        trainings: pickList(remote.trainings, base.trainings || []),
+        trainingNotes: (remote.trainingNotes != null && String(remote.trainingNotes).trim() !== "")
+          ? remote.trainingNotes
+          : (base.trainingNotes || ""),
+        venue: remote.venue && (remote.venue.name || remote.venue.address) ? remote.venue : (base.venue || {}),
+        socios: remote.socios || base.socios || {},
+        sponsors: pickList(remote.sponsors, base.sponsors || []),
+        dossier: (remote.dossier && (remote.dossier.url || remote.dossier.note))
+          ? { url: remote.dossier.url || "dossier-patrocinio.pdf", note: remote.dossier.note || "" }
+          : (base.dossier || { url: "dossier-patrocinio.pdf", note: "" })
+      };
+    }
+    async function fetchLocalDataJson() {
+      try {
+        const res = await fetch("./data.json?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) return null;
+        const record = await res.json();
+        if (!record || typeof record !== "object") return null;
+        return record;
+      } catch (e) {
+        console.warn("Local data.json fetch failed", e);
+        return null;
+      }
+    }
     async function loadData() {
       loadRemoteCfg();
       loadOneSignalCfg();
-      const remote = await fetchRemote();
+      // 1) data.json del mismo origen (GitHub Pages) — más fiable en móvil
+      // 2) raw.githubusercontent del repo de sync
+      // 3) localStorage / DEFAULT
+      let remote = await fetchLocalDataJson();
+      if (!remote) remote = await fetchRemote();
       if (remote) {
-        data = {
-          ...JSON.parse(JSON.stringify(DEFAULT)),
-          ...remote,
-          nextMatch: remote.nextMatch || DEFAULT.nextMatch,
-          nextMatches: normalizeNextMatches(remote),
-          standings: remote.standings || DEFAULT.standings,
-          standingsA: remote.standingsA || remote.standings || DEFAULT.standingsA,
-          standingsB: remote.standingsB || DEFAULT.standingsB,
-          matches: remote.matches || DEFAULT.matches,
-          players: remote.players || DEFAULT.players,
-          news: remote.news || DEFAULT.news,
-          torneos: remote.torneos || DEFAULT.torneos,
-          merch: normalizarMerchandising(remote.merch || remote.merchandise || DEFAULT.merch),
-          club: { ...DEFAULT.club, ...(remote.club || {}) },
-          chat: remote.chat || DEFAULT.chat,
-          gallery: galleryItems(remote.gallery).length
-            ? remote.gallery
-            : loadGalleryBackup()
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        data = mergeRemoteData(remote);
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
         return;
       }
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        data = raw ? { ...JSON.parse(JSON.stringify(DEFAULT)), ...JSON.parse(raw) } : JSON.parse(JSON.stringify(DEFAULT));
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          data = mergeRemoteData(parsed);
+        } else {
+          data = JSON.parse(JSON.stringify(DEFAULT));
+          data.nextMatches = normalizeNextMatches(data);
+        }
       } catch {
         data = JSON.parse(JSON.stringify(DEFAULT));
+        data.nextMatches = normalizeNextMatches(data);
       }
-      data.nextMatches = normalizeNextMatches(data);
-      if (!data.nextMatch && data.nextMatches[0]) data.nextMatch = data.nextMatches[0];
+      if (!data.nextMatch && data.nextMatches && data.nextMatches[0]) data.nextMatch = data.nextMatches[0];
     }
 
     function saveDataLocal() {
@@ -1348,19 +1459,30 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     function formatDate(iso) {
-      if (!iso) return "";
-      return new Date(iso + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" });
+      if (!iso || !/^\d{4}-\d{2}-\d{2}/.test(String(iso))) return "";
+      try {
+        return new Date(iso + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" });
+      } catch { return ""; }
     }
     function formatDateLong(iso) {
-      if (!iso) return "";
-      return new Date(iso + "T12:00:00").toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "short" });
+      if (!iso || !/^\d{4}-\d{2}-\d{2}/.test(String(iso))) return String(iso || "");
+      try {
+        return new Date(iso + "T12:00:00").toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "short" });
+      } catch { return String(iso); }
     }
 
     function renderAll() {
-      renderHome(); renderStandings(); renderCalendario(); renderResultados();
-      renderPlayers(); renderNews(); renderTorneos(); renderClub(); renderRedes(); /* chat eliminado */
-      renderEntrenos(); renderGaleria(); renderMapa(); renderStats(); renderSocios(); enhanceHomeCards(); startCountdownTicker();
-      if (adminOk) fillAdminForms();
+      const steps = [
+        renderHome, renderStandings, renderCalendario, renderResultados,
+        renderPlayers, renderNews, renderTorneos, renderClub, renderRedes,
+        renderEntrenos, renderSponsors, renderMapa, renderStats, renderSocios,
+        enhanceHomeCards, startCountdownTicker
+      ];
+      steps.forEach(fn => {
+        try { if (typeof fn === "function") fn(); }
+        catch (e) { console.warn("renderAll step failed:", fn && fn.name, e); }
+      });
+      try { if (adminOk) fillAdminForms(); } catch (e) { console.warn("fillAdminForms", e); }
     }
 
     function normalizeNextMatches(src) {
@@ -1447,11 +1569,22 @@ Chándal|45€|Chándal completo|si"></textarea>
       document.getElementById("home-standings-a").innerHTML = getStandingsA().slice(0, 3).map(s => rowHome(s)).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
       document.getElementById("home-standings-b").innerHTML = getStandingsB().slice(0, 3).map(s => rowHome(s)).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
 
-      document.getElementById("home-news").innerHTML = (data.news || []).slice(0, 2).map(n => `
-        <div class="card p-3 flex gap-3" onclick="goTo('noticias')">
-          <div class="w-14 h-14 rounded-xl bg-gold/20 flex items-center justify-center shrink-0 text-2xl">📰</div>
-          <div><p class="font-medium text-sm leading-snug">${n.title}</p><p class="text-[11px] text-gray-500 mt-1">${formatDate(n.date)}</p></div>
-        </div>`).join("");
+      const newsItems = (data.news || []).slice(0, 2);
+      const newsEl = document.getElementById("home-news");
+      if (newsEl) {
+        if (!newsItems.length) {
+          newsEl.innerHTML = `<div class="empty-state">Aún no hay noticias publicadas.</div>`;
+        } else {
+          newsEl.innerHTML = newsItems.map(n => {
+            const title = (n.title && String(n.title).trim()) || (n.date && !/^\d{4}-\d{2}-\d{2}/.test(String(n.date)) ? n.date : "Noticia");
+            const dateLabel = (n.date && /^\d{4}-\d{2}-\d{2}/.test(String(n.date))) ? formatDate(n.date) : "";
+            return `<div class="card p-3 flex gap-3" onclick="goTo('noticias')">
+              <div class="w-14 h-14 rounded-xl bg-gold/20 flex items-center justify-center shrink-0 text-2xl">📰</div>
+              <div><p class="font-medium text-sm leading-snug">${title}</p>${dateLabel ? `<p class="text-[11px] text-gray-500 mt-1">${dateLabel}</p>` : ""}</div>
+            </div>`;
+          }).join("");
+        }
+      }
     }
 
     function isClubTeam(name) {
@@ -1721,11 +1854,21 @@ Chándal|45€|Chándal completo|si"></textarea>
 
 
     function openDrawer() {
+      if (document.body.classList.contains("layout-desktop")) return;
       document.getElementById("drawer").classList.add("open");
       document.getElementById("drawer-overlay").classList.add("open");
       document.body.style.overflow = "hidden";
     }
     function closeDrawer() {
+      if (document.body.classList.contains("layout-desktop")) {
+        // En escritorio el menú lateral permanece visible
+        const d = document.getElementById("drawer");
+        if (d) d.classList.add("open");
+        const ov = document.getElementById("drawer-overlay");
+        if (ov) ov.classList.remove("open");
+        document.body.style.overflow = "";
+        return;
+      }
       document.getElementById("drawer").classList.remove("open");
       document.getElementById("drawer-overlay").classList.remove("open");
       document.body.style.overflow = "";
@@ -2573,7 +2716,7 @@ Chándal|45€|Chándal completo|si"></textarea>
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
       if (typeof refreshAll === "function") refreshAll();
       else {
-        renderEntrenos(); renderGaleria(); renderMapa(); renderStats(); renderSocios();
+        renderEntrenos(); renderSponsors(); renderMapa(); renderStats(); renderSocios();
       }
       if (typeof saveData === "function") {
         try { saveData(msg); return; } catch {}
@@ -2585,6 +2728,7 @@ Chándal|45€|Chándal completo|si"></textarea>
 
 
     function goTo(name) {
+      if (name === "galeria") name = "patrocinadores";
       if (name === "merch" && typeof renderMerch === "function") try { renderMerch(); } catch {}
       if (name === "stats" && typeof renderStats === "function") try { renderStats(); } catch {}
       if (name === "jugadores" && typeof renderPlayers === "function") try { renderPlayers(); } catch {}
@@ -2712,8 +2856,11 @@ Chándal|45€|Chándal completo|si"></textarea>
           }
           elT.value = tnotes;
         }
-        const gal = (data.gallery || []).map(g => [g.url||"",g.caption||""].join("|")).join("\n");
-        const elG = document.getElementById("a-gallery"); if (elG) elG.value = gal;
+        const sp = (data.sponsors || []).map(s => [s.name||"",s.role||"",s.logo||"",s.web||""].join("|")).join("\n");
+        const elSp = document.getElementById("a-sponsors"); if (elSp) elSp.value = sp;
+        const setd = (id,val) => { const e = document.getElementById(id); if (e) e.value = (val == null ? "" : val); };
+        setd("a-dossier-url", (data.dossier && data.dossier.url) || "dossier-patrocinio.pdf");
+        setd("a-dossier-note", (data.dossier && data.dossier.note) || "");
         const v = data.venue || {};
         const setv = (id,val) => { const e = document.getElementById(id); if (e) e.value = (val == null ? "" : val); };
         setv("a-venue-name", v.name); setv("a-venue-address", v.address);
@@ -2726,7 +2873,6 @@ Chándal|45€|Chándal completo|si"></textarea>
         if (elM) {
           elM.value = (data.merch || []).map(m => [m.name, m.price, m.desc, m.available === false ? "no" : "si"].join("|")).join("\n");
         }
-        try { renderAdminGalleryPreview(); } catch {}
 
       } catch (e) { console.warn("fill extra", e); }
 
@@ -3104,7 +3250,61 @@ Chándal|45€|Chándal completo|si"></textarea>
       try { logActivity("App instalada en este dispositivo"); } catch {}
     });
 
+    
+    function renderSponsors() {
+      const el = document.getElementById("sponsors-list");
+      if (!el) return;
+      const list = (data && Array.isArray(data.sponsors)) ? data.sponsors.filter(s => s && s.name) : [];
+      if (!list.length) {
+        el.innerHTML = `<div class="empty-state col-span-full">Aún no hay patrocinadores publicados.</div>`;
+      } else {
+        el.innerHTML = list.map(s => {
+          const role = s.role || "Colaborador";
+          const logo = s.logo ? `<img src="${s.logo}" alt="${s.name}" loading="lazy" onerror="this.style.display='none'" />` : `<div class="w-16 h-16 rounded-xl bg-gold/20 flex items-center justify-center text-2xl">🤝</div>`;
+          const nameHtml = s.web
+            ? `<a href="${s.web}" target="_blank" rel="noopener" class="sp-name text-gold no-underline hover:underline">${s.name}</a>`
+            : `<span class="sp-name">${s.name}</span>`;
+          return `<div class="sponsor-card"><span class="sp-role">${role}</span>${logo}${nameHtml}</div>`;
+        }).join("");
+      }
+      const dossier = (data && data.dossier) || {};
+      const btn = document.getElementById("dossier-open-btn");
+      if (btn) {
+        btn.href = dossier.url || "dossier-patrocinio.pdf";
+      }
+      const note = document.getElementById("dossier-extra-note");
+      if (note) note.textContent = dossier.note || "";
+    }
+    function saveSponsors() {
+      const raw = (document.getElementById("a-sponsors")?.value || "").trim();
+      const sponsors = raw ? raw.split("\n").map(line => {
+        const p = line.split("|").map(x => x.trim());
+        return { name: p[0] || "", role: p[1] || "Colaborador", logo: p[2] || "", web: p[3] || "" };
+      }).filter(s => s.name) : [];
+      data.sponsors = sponsors;
+      data.dossier = {
+        url: (document.getElementById("a-dossier-url")?.value || "").trim() || "dossier-patrocinio.pdf",
+        note: (document.getElementById("a-dossier-note")?.value || "").trim()
+      };
+      persistExtra("Patrocinadores actualizados");
+      renderSponsors();
+    }
+    function applyLayoutMode() {
+      const desktop = window.matchMedia("(min-width: 900px)").matches;
+      document.body.classList.toggle("layout-desktop", desktop);
+      document.body.classList.toggle("layout-mobile", !desktop);
+      if (desktop) {
+        const drawer = document.getElementById("drawer");
+        if (drawer) drawer.classList.add("open");
+        const ov = document.getElementById("drawer-overlay");
+        if (ov) ov.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    }
+    window.addEventListener("resize", applyLayoutMode);
+
     (async function init() {
+      applyLayoutMode();
       await loadData();
       if (sessionStorage.getItem("morruos_admin") === "1") adminOk = true;
       // Intentar conectar Firebase si ya hay configuración guardada

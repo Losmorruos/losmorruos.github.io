@@ -130,5 +130,17 @@
     ],
     "contact": "+34650858521 / ClubdeportivolosMorruos@gmail.com"
   },
-  "trainingNotes": "Entrenamientos lunes y miércoles a las 18:30\nCancha de Morro Jable\nTraer ropa oscura y agua."
+  "trainingNotes": "Entrenamientos lunes y miércoles a las 18:30\nCancha de Morro Jable\nTraer ropa oscura y agua.",
+  "sponsors": [
+    {
+      "name": "Padilla SPAR",
+      "role": "Colaborador",
+      "logo": "logo-padilla-spar.png",
+      "web": ""
+    }
+  ],
+  "dossier": {
+    "url": "dossier-patrocinio.pdf",
+    "note": "Propuesta de patrocinio · Temporada 2026/2027"
+  }
 }

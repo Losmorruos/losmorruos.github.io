@@ -2,8 +2,19 @@
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
 // v18: Firebase global + migración automática de usuarios antiguos.
-const CACHE = "morruos-v18-firebase-global";
-const ASSETS = ["./index.html", "./logo.png", "./logo-192.png", "./logo-512.png", "./manifest.json"];
+const CACHE = "morruos-v21-sponsors-desktop";
+const ASSETS = [
+  "./index.html",
+  "./manifest.json",
+  "./logo-64.webp", "./logo-64.png",
+  "./logo-128.webp", "./logo-128.png",
+  "./logo-192.webp", "./logo-192.png",
+  "./logo-512.webp", "./logo-512.png",
+  "./logo.webp", "./logo.png",
+  "./merch-sueter.webp", "./merch-sueter.jpg",
+  "./logo-padilla-spar.png", "./logo-padilla-spar.webp",
+  "./dossier-patrocinio.pdf"
+];
 
 const FIREBASE_FIX_SCRIPT = `
 <script>

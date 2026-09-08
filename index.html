@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-09-v29"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-09-v31"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -3133,12 +3133,27 @@ Chándal|45€|Chándal completo|si"></textarea>
     // (404). Aquí se indica la carpeta real del worker.
     // OneSignal: la app está en https://losmorruos.github.io/ (repo user pages)
     // El worker está en la raíz: /OneSignalSDKWorker.js  → snippet por defecto del dashboard
-    function getOneSignalInitOptions() {
+    async function resolveOneSignalWorkerConfig() {
+      // Preferir /push/ (no choca con PWA). Si no existe, raíz (ya está en el repo live).
+      try {
+        const r = await fetch("/push/OneSignalSDKWorker.js", { method: "HEAD", cache: "no-store" });
+        if (r.ok) {
+          return {
+            serviceWorkerPath: "push/OneSignalSDKWorker.js",
+            serviceWorkerParam: { scope: "/push/" }
+          };
+        }
+      } catch (_) {}
+      return {
+        serviceWorkerPath: "OneSignalSDKWorker.js",
+        serviceWorkerParam: { scope: "/" }
+      };
+    }
+    async function getOneSignalInitOptions() {
+      const worker = await resolveOneSignalWorkerConfig();
       return {
         appId: "f35f765a-8ead-416d-b642-fc075bbcdf92",
-        // Un solo service worker: el de la PWA (sw.js ya importa OneSignal)
-        serviceWorkerPath: "sw.js",
-        serviceWorkerParam: { scope: "/" },
+        ...worker,
         allowLocalhostAsSecureOrigin: true,
         notifyButton: { enable: false }
       };
@@ -3153,14 +3168,11 @@ Chándal|45€|Chándal completo|si"></textarea>
     let oneSignalInitError = null;
     OneSignalDeferred.push(async function (OneSignal) {
       try {
-        const t = new Promise((_, rej) => setTimeout(() => rej(new Error("init timeout")), 8000));
-        await Promise.race([OneSignal.init(getOneSignalInitOptions()), t]);
-        try {
-          updateNotifButton();
-          if (OneSignal.User && OneSignal.User.PushSubscription) {
-            OneSignal.User.PushSubscription.addEventListener("change", updateNotifButton);
-          }
-        } catch (_) {}
+        await Promise.race([
+          OneSignal.init(await getOneSignalInitOptions()),
+          new Promise((_, rej) => setTimeout(() => rej(new Error("init timeout")), 10000))
+        ]);
+        try { updateNotifButton(); } catch (_) {}
       } catch (e) {
         oneSignalInitError = e;
         console.warn("OneSignal init:", e);
@@ -3181,37 +3193,26 @@ Chándal|45€|Chándal completo|si"></textarea>
     async function toggleNotifications() {
       const label = document.getElementById("notif-toggle-label");
       const setLabel = (t) => { if (label) label.textContent = t; };
+      const sleep = (ms) => new Promise(r => setTimeout(r, ms));
       const withTimeout = (p, ms, msg) => Promise.race([
-        p,
-        new Promise((_, rej) => setTimeout(() => rej(new Error(msg || ("Tiempo agotado (" + ms + "ms)"))), ms))
+        Promise.resolve(p),
+        new Promise((_, rej) => setTimeout(() => rej(new Error(msg || ("Timeout " + ms + "ms"))), ms))
       ]);
 
       try {
-        if (!ONESIGNAL_APP_ID) {
-          alert("Falta App ID de OneSignal.");
-          return;
-        }
         if (location.protocol !== "https:" && location.hostname !== "localhost") {
           alert("Se necesita HTTPS.");
           return;
         }
-        if (!("Notification" in window)) {
-          alert("Este navegador no soporta notificaciones.");
+        if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+          alert("Este navegador no soporta push.");
           return;
         }
 
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-        const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-        if (isIOS && !isStandalone) {
-          alert("En iPhone: Safari → Compartir → Añadir a pantalla de inicio.\nLuego abre la app desde el icono.");
-          return;
-        }
-
-        // Permiso nativo inmediato
+        // 1) Permiso
         let perm = Notification.permission;
         if (perm === "denied") {
-          alert("Notificaciones bloqueadas.\nCandado de la URL → Notificaciones → Permitir → recarga.");
+          alert("Notificaciones bloqueadas en el navegador.\nCandado de la URL → Notificaciones → Permitir → recarga la página.");
           return;
         }
         if (perm !== "granted") {
@@ -3219,77 +3220,88 @@ Chándal|45€|Chándal completo|si"></textarea>
           perm = await Notification.requestPermission();
         }
         if (perm !== "granted") {
-          alert("Debes pulsar Permitir. Estado: " + perm);
+          alert("Hay que pulsar Permitir. Estado: " + perm);
           setLabel("Activar avisos");
           return;
         }
 
+        // 2) SDK
         setLabel("Cargando…");
-        for (let i = 0; i < 20 && !window.OneSignal; i++) {
-          await new Promise(r => setTimeout(r, 250));
-        }
+        for (let i = 0; i < 20 && !window.OneSignal; i++) await sleep(250);
         if (!window.OneSignal) {
-          alert("No cargó OneSignal (¿bloqueador de anuncios?).");
+          alert("OneSignal no cargó. Prueba sin bloqueadores de anuncios.");
           setLabel("Activar avisos");
           return;
         }
+        const OS = window.OneSignal;
 
-        const OneSignal = window.OneSignal;
-
-        // Init con timeout estricto para no quedarse en "Iniciando…"
-        setLabel("Iniciando…");
+        // 3) Asegurar worker de OneSignal registrado en /push/
+        setLabel("Preparando…");
+        let workerCfg = { serviceWorkerPath: "OneSignalSDKWorker.js", serviceWorkerParam: { scope: "/" } };
+        try { workerCfg = await resolveOneSignalWorkerConfig(); } catch (_) {}
         try {
+          const wpath = "/" + String(workerCfg.serviceWorkerPath || "OneSignalSDKWorker.js").replace(/^\//, "");
+          const wscope = (workerCfg.serviceWorkerParam && workerCfg.serviceWorkerParam.scope) || "/";
           await withTimeout(
-            OneSignal.init(getOneSignalInitOptions()),
-            10000,
-            "OneSignal.init no respondió en 10s"
+            navigator.serviceWorker.register(wpath, { scope: wscope }),
+            8000,
+            "No se registró el service worker de push"
           );
         } catch (e) {
+          console.warn("SW register:", e);
+        }
+
+        // 4) Init
+        setLabel("Iniciando…");
+        try {
+          await withTimeout(OS.init(await getOneSignalInitOptions()), 12000, "OneSignal.init timeout");
+        } catch (e) {
           console.warn("init:", e);
-          // Continuar: a veces ya estaba iniciado
         }
 
+        // 5) Esperar modelo de usuario
         setLabel("Suscribiendo…");
-        for (let i = 0; i < 15; i++) {
-          if (OneSignal.User && OneSignal.User.PushSubscription) break;
-          await new Promise(r => setTimeout(r, 200));
+        let sub = null;
+        for (let i = 0; i < 30; i++) {
+          try {
+            sub = OS.User && OS.User.PushSubscription;
+            if (sub) break;
+          } catch (_) {}
+          await sleep(200);
         }
-
-        if (!OneSignal.User || !OneSignal.User.PushSubscription) {
-          alert("OneSignal no preparó PushSubscription.\n\n1) Site URL en OneSignal = https://losmorruos.github.io\n2) Ctrl+F5\n3) Sin bloqueadores\n\nError previo: " + (oneSignalInitError && oneSignalInitError.message ? oneSignalInitError.message : "ninguno"));
+        if (!sub) {
+          alert("OneSignal no creó PushSubscription.\n\nComprueba:\n1) Site URL = https://losmorruos.github.io\n2) Existe https://losmorruos.github.io/push/OneSignalSDKWorker.js\n3) Ventana de incógnito / sin bloqueadores");
           setLabel("Activar avisos");
           return;
         }
 
-        if (OneSignal.User.PushSubscription.optedIn) {
-          await OneSignal.User.PushSubscription.optOut();
+        if (sub.optedIn) {
+          await sub.optOut();
           updateNotifButton();
           alert("Avisos desactivados.");
           return;
         }
 
         try {
-          if (OneSignal.Notifications && OneSignal.Notifications.requestPermission) {
-            await withTimeout(OneSignal.Notifications.requestPermission(), 8000, "requestPermission timeout");
+          if (OS.Notifications && OS.Notifications.requestPermission) {
+            await withTimeout(OS.Notifications.requestPermission(), 8000, "requestPermission timeout");
           }
         } catch (e) { console.warn(e); }
 
         try {
-          await withTimeout(OneSignal.User.PushSubscription.optIn(), 10000, "optIn timeout");
+          await withTimeout(sub.optIn(), 12000, "optIn timeout");
         } catch (e) {
-          alert("No se pudo completar optIn: " + (e.message || e));
+          alert("Error al suscribir: " + (e.message || e));
           setLabel("Activar avisos");
           return;
         }
 
-        await new Promise(r => setTimeout(r, 600));
+        await sleep(700);
         updateNotifButton();
-
-        if (OneSignal.User.PushSubscription.optedIn) {
-          const id = OneSignal.User.PushSubscription.id || "ok";
-          alert("✓ Avisos activados.\nID: " + id);
+        if (sub.optedIn) {
+          alert("✓ Avisos activados.\nID: " + (sub.id || "ok"));
         } else {
-          alert("No quedó suscrito. Revisa Audience en OneSignal y vuelve a intentar en incógnito.");
+          alert("No quedó optedIn. Revisa Audience en OneSignal.\nPermiso navegador: " + Notification.permission);
           setLabel("Activar avisos");
         }
       } catch (e) {

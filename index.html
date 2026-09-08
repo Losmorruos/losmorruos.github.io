@@ -3101,19 +3101,37 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     
-    // ── Base path de la app (necesario en GitHub Pages /subcarpeta/) ──
+    // ── Base path de la app (GitHub Pages en subcarpeta) ──
     function getAppBasePath() {
-      let p = location.pathname || "/";
+      // Forzar subcarpeta conocida del deploy
+      const host = (location.hostname || "").toLowerCase();
+      const path = location.pathname || "/";
+      if (host === "losmorruos.github.io" || path.indexOf("clublosmorruos.com") !== -1) {
+        return "/clublosmorruos.com/";
+      }
+      let p = path;
       if (/\.html?$/i.test(p)) p = p.replace(/\/[^/]+$/, "/");
       if (!p.endsWith("/")) p += "/";
       if (p === "//") p = "/";
       return p;
     }
     function getOneSignalWorkerPath(file) {
-      // OneSignal resuelve la ruta respecto al ORIGEN (dominio), no a la página.
-      // En Pages del tipo usuario.github.io/repo/ hay que incluir el nombre del repo.
-      const base = getAppBasePath(); // p.ej. /clublosmorruos.com/
-      return (base + (file || "OneSignalSDKWorker.js")).replace(/^\//, "");
+      // Ruta ABSOLUTA desde la raíz del dominio (con barra inicial).
+      // OneSignal v16 registra el worker respecto al origen.
+      const base = getAppBasePath(); // "/clublosmorruos.com/"
+      const name = file || "OneSignalSDKWorker.js";
+      return base + name; // "/clublosmorruos.com/OneSignalSDKWorker.js"
+    }
+    function getOneSignalInitOptions() {
+      // Rutas absolutas con barra inicial (obligatorio en GitHub Pages project site)
+      return {
+        appId: ONESIGNAL_APP_ID,
+        serviceWorkerPath: "/clublosmorruos.com/OneSignalSDKWorker.js",
+        serviceWorkerUpdaterPath: "/clublosmorruos.com/OneSignalSDKUpdaterWorker.js",
+        serviceWorkerParam: { scope: "/clublosmorruos.com/" },
+        allowLocalhostAsSecureOrigin: true,
+        notifyButton: { enable: false }
+      };
     }
 
     // ── Notificaciones push (OneSignal) ──
@@ -3125,15 +3143,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     OneSignalDeferred.push(async function (OneSignal) {
       if (!ONESIGNAL_APP_ID || ONESIGNAL_APP_ID.startsWith("TU_")) return; // no configurado todavía
       try {
-        const swScope = getAppBasePath();
-        await OneSignal.init({
-          appId: ONESIGNAL_APP_ID,
-          serviceWorkerParam: { scope: swScope },
-          serviceWorkerPath: getOneSignalWorkerPath("OneSignalSDKWorker.js"),
-          serviceWorkerUpdaterPath: getOneSignalWorkerPath("OneSignalSDKUpdaterWorker.js"),
-          allowLocalhostAsSecureOrigin: true,
-          notifyButton: { enable: false }
-        });
+        await OneSignal.init(getOneSignalInitOptions());
         updateNotifButton();
         OneSignal.User.PushSubscription.addEventListener("change", updateNotifButton);
       } catch (e) {
@@ -3173,9 +3183,10 @@ Chándal|45€|Chándal completo|si"></textarea>
         alert("En iPhone/iPad:\n1) Abre la app en Safari\n2) Comparte → «Añadir a pantalla de inicio»\n3) Ábrela desde el icono\n4) Activa avisos otra vez.\n\nSin instalarla como app, iOS no permite push.");
         return;
       }
+      // Si el init automático falló, reintentamos aquí con la ruta forzada
       if (oneSignalInitError) {
-        alert("Error al iniciar OneSignal:\n" + (oneSignalInitError.message || oneSignalInitError) + "\n\nComprueba:\n1) Domain Site URL en OneSignal = https://losmorruos.github.io/clublosmorruos.com/\n2) Archivos OneSignalSDKWorker.js en la carpeta del repo\n3) App ID correcto");
-        return;
+        console.warn("Reintentando OneSignal tras error previo:", oneSignalInitError);
+        oneSignalInitError = null;
       }
       if (!window.OneSignal) {
         // esperar hasta 5s
@@ -3188,16 +3199,23 @@ Chándal|45€|Chándal completo|si"></textarea>
       try {
         const OneSignal = window.OneSignal;
         // Asegurar init
-        if (!OneSignal.User) {
-          const swScope2 = getAppBasePath();
-          await OneSignal.init({
-            appId: ONESIGNAL_APP_ID,
-            serviceWorkerParam: { scope: swScope2 },
-            serviceWorkerPath: getOneSignalWorkerPath("OneSignalSDKWorker.js"),
-            serviceWorkerUpdaterPath: getOneSignalWorkerPath("OneSignalSDKUpdaterWorker.js"),
-            allowLocalhostAsSecureOrigin: true,
-            notifyButton: { enable: false }
-          });
+        // Siempre (re)inicializar con rutas del subdirectorio si aún no hay User
+        if (!OneSignal.User || !OneSignal.User.PushSubscription) {
+          try {
+            await OneSignal.init(getOneSignalInitOptions());
+          } catch (e) {
+            console.warn("OneSignal re-init:", e);
+            // Último intento: registrar el SW a mano y reintentar
+            try {
+              if ("serviceWorker" in navigator) {
+                await navigator.serviceWorker.register("/clublosmorruos.com/OneSignalSDKWorker.js", { scope: "/clublosmorruos.com/" });
+              }
+              await OneSignal.init(getOneSignalInitOptions());
+            } catch (e2) {
+              alert("No se pudo activar OneSignal.\n" + (e2.message || e2) + "\n\nEn OneSignal Dashboard → Settings → Platforms → Web:\nSite URL = https://losmorruos.github.io/clublosmorruos.com/");
+              return;
+            }
+          }
         }
         const perm = Notification.permission;
         if (perm === "denied") {

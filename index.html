@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-08-notif-gesture"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-08-v25-fix"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -869,7 +869,7 @@ service cloud.firestore {
 
           <div class="card p-4 space-y-3">
             <h4 class="text-sm font-semibold text-gold">Colaboradores</h4>
-            <p class="text-[11px] text-gray-500">Empresas colaboradoras (ej. Padilla SPAR).</p>
+            <p class="text-[11px] text-gray-500">Empresas colaboradoras del club.</p>
             <div id="a-collab-list" class="space-y-2"></div>
             <button type="button" onclick="addSponsorRow('Colaborador')" class="admin-btn-secondary w-full text-sm">+ Añadir colaborador</button>
           </div>
@@ -1060,9 +1060,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         { name: "Camiseta", price: "Consultar", desc: "Camiseta oficial negra y dorada", available: true },
         { name: "Chándal", price: "Consultar", desc: "Chándal completo Los Morruos", available: true },
       ],
-      sponsors: [
-        { name: "Padilla SPAR", role: "Colaborador", logo: "logo-padilla-spar.png", web: "" }
-      ],
+      sponsors: [],
       dossier: {
         url: "dossier-patrocinio.pdf",
         note: "Propuesta de patrocinio · Temporada 2026/2027"
@@ -1113,7 +1111,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     // ── Repositorio de GitHub donde vive data.json (fijo para todos los móviles) ──
     // Solo el TOKEN se guarda en cada dispositivo admin. Owner/repo/branch son públicos.
     const GITHUB_OWNER = "Losmorruos";
-    const GITHUB_REPO = "Los-Morruos-ap";
+    const GITHUB_REPO = "clublosmorruos.com";
     const GITHUB_BRANCH = "main";
     const GITHUB_PATH = "data.json";
 
@@ -2732,18 +2730,37 @@ Chándal|45€|Chándal completo|si"></textarea>
       };
       persistExtra("Socios actualizados");
     }
-    function persistExtra(msg) {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
-      if (typeof refreshAll === "function") refreshAll();
-      else {
-        renderEntrenos(); renderSponsors(); renderMapa(); renderStats(); renderSocios();
+    async function persistExtra(msg) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        alert("No se pudo guardar en este dispositivo.\nPuede que el logo sea demasiado grande.\n" + (e.message || e));
+        return { ok: false };
       }
+      try {
+        if (typeof renderSponsors === "function") renderSponsors();
+        if (typeof renderEntrenos === "function") renderEntrenos();
+        if (typeof renderMapa === "function") renderMapa();
+        if (typeof renderStats === "function") renderStats();
+        if (typeof renderSocios === "function") renderSocios();
+      } catch (e) { console.warn(e); }
+
       if (typeof saveData === "function") {
-        try { saveData(msg); return; } catch {}
+        try {
+          const r = await saveData(msg);
+          if (r && r.ok === false) {
+            alert((msg || "Guardado") + " (solo en este dispositivo)\n" + (r.msg || ""));
+          } else {
+            alert((msg || "Guardado") + " ✓\n" + ((r && r.msg) ? r.msg : "Guardado en este dispositivo."));
+          }
+          return r || { ok: true };
+        } catch (e) {
+          alert((msg || "Guardado") + " (solo local)\nError: " + (e.message || e));
+          return { ok: false };
+        }
       }
-      if (typeof publishToGitHub === "function" && typeof githubWriteConfigured === "function" && githubWriteConfigured()) {
-        publishToGitHub().then(() => alert(msg + " ✓")).catch(() => alert(msg + " (local)"));
-      } else alert(msg + " ✓");
+      alert((msg || "Guardado") + " ✓");
+      return { ok: true };
     }
 
 
@@ -3141,14 +3158,18 @@ Chándal|45€|Chándal completo|si"></textarea>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     let oneSignalInitError = null;
     OneSignalDeferred.push(async function (OneSignal) {
-      if (!ONESIGNAL_APP_ID || ONESIGNAL_APP_ID.startsWith("TU_")) return; // no configurado todavía
+      if (!ONESIGNAL_APP_ID || ONESIGNAL_APP_ID.startsWith("TU_")) return;
       try {
         await OneSignal.init(getOneSignalInitOptions());
-        updateNotifButton();
-        OneSignal.User.PushSubscription.addEventListener("change", updateNotifButton);
+        try {
+          updateNotifButton();
+          if (OneSignal.User && OneSignal.User.PushSubscription) {
+            OneSignal.User.PushSubscription.addEventListener("change", updateNotifButton);
+          }
+        } catch (_) {}
       } catch (e) {
         oneSignalInitError = e;
-        console.warn("OneSignal init error:", e);
+        console.warn("OneSignal init error (se reintentará al pulsar Activar avisos):", e);
       }
     });
 
@@ -3454,7 +3475,7 @@ Chándal|45€|Chándal completo|si"></textarea>
       reader.onload = () => {
         const img = new Image();
         img.onload = () => {
-          const max = 400;
+          const max = 320;
           let w = img.width, h = img.height;
           if (w > max || h > max) {
             const r = Math.min(max / w, max / h);
@@ -3464,7 +3485,7 @@ Chándal|45€|Chándal completo|si"></textarea>
           canvas.width = w; canvas.height = h;
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, w, h);
-          let dataUrl = canvas.toDataURL("image/webp", 0.85);
+          let dataUrl = canvas.toDataURL("image/jpeg", 0.72);
           if (!dataUrl || dataUrl.length < 30) dataUrl = canvas.toDataURL("image/png");
           if (!data.sponsors[idx]) return;
           data.sponsors[idx].logo = dataUrl;
@@ -3479,16 +3500,26 @@ Chándal|45€|Chándal completo|si"></textarea>
       };
       reader.readAsDataURL(file);
     }
-    function saveSponsors() {
+    async function saveSponsors() {
       collectSponsorForms();
-      data.sponsors = (data.sponsors || []).filter(s => s && s.name && s.name.trim());
+      const list = (data.sponsors || []).filter(s => s && String(s.name || "").trim());
+      if (!list.length) {
+        // Permitir guardar lista vacía (borrar todos) pero avisar
+        const ok = confirm("No hay ningún patrocinador/colaborador con nombre.\n¿Guardar la lista vacía?");
+        if (!ok) return;
+      }
+      data.sponsors = list.map(s => ({
+        name: String(s.name || "").trim(),
+        role: s.role || "Colaborador",
+        logo: s.logo || "",
+        web: s.web || ""
+      }));
       data.dossier = {
         url: (document.getElementById("a-dossier-url")?.value || "").trim() || "dossier-patrocinio.pdf",
         note: (document.getElementById("a-dossier-note")?.value || "").trim()
       };
-      persistExtra("Patrocinadores actualizados");
-      renderSponsors();
-      renderAdminSponsors();
+      await persistExtra("Patrocinadores actualizados (" + data.sponsors.length + ")");
+      try { renderSponsors(); renderAdminSponsors(); } catch (e) { console.warn(e); }
     }
     function applyLayoutMode() {
       const desktop = window.matchMedia("(min-width: 900px)").matches;

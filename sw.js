@@ -2,7 +2,7 @@
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
 // v18: Firebase global + migración automática de usuarios antiguos.
-const CACHE = "morruos-v28-root-onesignal";
+const CACHE = "morruos-v29-sw-onesignal";
 const ASSETS = [
   "./index.html",
   "./manifest.json",

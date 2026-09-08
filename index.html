@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-09-v28-root"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-09-09-v29"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -3136,6 +3136,9 @@ Chándal|45€|Chándal completo|si"></textarea>
     function getOneSignalInitOptions() {
       return {
         appId: "f35f765a-8ead-416d-b642-fc075bbcdf92",
+        // Un solo service worker: el de la PWA (sw.js ya importa OneSignal)
+        serviceWorkerPath: "sw.js",
+        serviceWorkerParam: { scope: "/" },
         allowLocalhostAsSecureOrigin: true,
         notifyButton: { enable: false }
       };
@@ -3150,7 +3153,8 @@ Chándal|45€|Chándal completo|si"></textarea>
     let oneSignalInitError = null;
     OneSignalDeferred.push(async function (OneSignal) {
       try {
-        await OneSignal.init(getOneSignalInitOptions());
+        const t = new Promise((_, rej) => setTimeout(() => rej(new Error("init timeout")), 8000));
+        await Promise.race([OneSignal.init(getOneSignalInitOptions()), t]);
         try {
           updateNotifButton();
           if (OneSignal.User && OneSignal.User.PushSubscription) {
@@ -3177,76 +3181,82 @@ Chándal|45€|Chándal completo|si"></textarea>
     async function toggleNotifications() {
       const label = document.getElementById("notif-toggle-label");
       const setLabel = (t) => { if (label) label.textContent = t; };
+      const withTimeout = (p, ms, msg) => Promise.race([
+        p,
+        new Promise((_, rej) => setTimeout(() => rej(new Error(msg || ("Tiempo agotado (" + ms + "ms)"))), ms))
+      ]);
 
-      if (!ONESIGNAL_APP_ID || String(ONESIGNAL_APP_ID).startsWith("TU_")) {
-        alert("Falta configurar ONESIGNAL_APP_ID en el código.");
-        return;
-      }
-      if (location.protocol !== "https:" && location.hostname !== "localhost") {
-        alert("Las notificaciones requieren HTTPS.");
-        return;
-      }
-      if (!("Notification" in window) || !("serviceWorker" in navigator)) {
-        alert("Este navegador no soporta notificaciones push.");
-        return;
-      }
+      try {
+        if (!ONESIGNAL_APP_ID) {
+          alert("Falta App ID de OneSignal.");
+          return;
+        }
+        if (location.protocol !== "https:" && location.hostname !== "localhost") {
+          alert("Se necesita HTTPS.");
+          return;
+        }
+        if (!("Notification" in window)) {
+          alert("Este navegador no soporta notificaciones.");
+          return;
+        }
 
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-      if (isIOS && !isStandalone) {
-        alert("En iPhone/iPad:\nSafari → Compartir → Añadir a pantalla de inicio.\nÁbrela desde el icono y pulsa Activar avisos.");
-        return;
-      }
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+        if (isIOS && !isStandalone) {
+          alert("En iPhone: Safari → Compartir → Añadir a pantalla de inicio.\nLuego abre la app desde el icono.");
+          return;
+        }
 
-      // 1) Permiso nativo en el mismo clic
-      let perm = Notification.permission;
-      if (perm === "denied") {
-        alert("Notificaciones BLOQUEADAS para este sitio.\n\nChrome: candado junto a la URL → Notificaciones → Permitir.\nLuego recarga y vuelve a intentar.");
-        return;
-      }
-      if (perm !== "granted") {
-        setLabel("Permiso…");
-        try { perm = await Notification.requestPermission(); }
-        catch (e) {
-          alert("No se pudo pedir permiso: " + (e.message || e));
+        // Permiso nativo inmediato
+        let perm = Notification.permission;
+        if (perm === "denied") {
+          alert("Notificaciones bloqueadas.\nCandado de la URL → Notificaciones → Permitir → recarga.");
+          return;
+        }
+        if (perm !== "granted") {
+          setLabel("Permiso…");
+          perm = await Notification.requestPermission();
+        }
+        if (perm !== "granted") {
+          alert("Debes pulsar Permitir. Estado: " + perm);
           setLabel("Activar avisos");
           return;
         }
-      }
-      if (perm !== "granted") {
-        alert("Has de pulsar «Permitir» en el diálogo del navegador.\nEstado actual: " + perm);
-        setLabel("Activar avisos");
-        return;
-      }
 
-      // 2) Esperar SDK
-      setLabel("Cargando…");
-      if (!window.OneSignal) {
-        for (let i = 0; i < 24 && !window.OneSignal; i++) await new Promise(r => setTimeout(r, 250));
-      }
-      if (!window.OneSignal) {
-        alert("No cargó el SDK de OneSignal.\nDesactiva bloqueadores (uBlock, Brave shields…) y recarga.");
-        setLabel("Activar avisos");
-        return;
-      }
-
-      const OneSignal = window.OneSignal;
-      try {
-        setLabel("Iniciando…");
-        try {
-          await OneSignal.init(getOneSignalInitOptions());
-        } catch (e) {
-          // Si ya estaba iniciado, OneSignal suele lanzar error: lo ignoramos
-          console.warn("OneSignal.init:", e);
+        setLabel("Cargando…");
+        for (let i = 0; i < 20 && !window.OneSignal; i++) {
+          await new Promise(r => setTimeout(r, 250));
+        }
+        if (!window.OneSignal) {
+          alert("No cargó OneSignal (¿bloqueador de anuncios?).");
+          setLabel("Activar avisos");
+          return;
         }
 
-        for (let i = 0; i < 25; i++) {
+        const OneSignal = window.OneSignal;
+
+        // Init con timeout estricto para no quedarse en "Iniciando…"
+        setLabel("Iniciando…");
+        try {
+          await withTimeout(
+            OneSignal.init(getOneSignalInitOptions()),
+            10000,
+            "OneSignal.init no respondió en 10s"
+          );
+        } catch (e) {
+          console.warn("init:", e);
+          // Continuar: a veces ya estaba iniciado
+        }
+
+        setLabel("Suscribiendo…");
+        for (let i = 0; i < 15; i++) {
           if (OneSignal.User && OneSignal.User.PushSubscription) break;
           await new Promise(r => setTimeout(r, 200));
         }
+
         if (!OneSignal.User || !OneSignal.User.PushSubscription) {
-          alert("OneSignal no creó la suscripción.\n\nComprueba en OneSignal:\nSettings → Platforms → Web\nSite URL = https://losmorruos.github.io/\n\nY que exista el archivo:\n/OneSignalSDKWorker.js");
+          alert("OneSignal no preparó PushSubscription.\n\n1) Site URL en OneSignal = https://losmorruos.github.io\n2) Ctrl+F5\n3) Sin bloqueadores\n\nError previo: " + (oneSignalInitError && oneSignalInitError.message ? oneSignalInitError.message : "ninguno"));
           setLabel("Activar avisos");
           return;
         }
@@ -3258,23 +3268,28 @@ Chándal|45€|Chándal completo|si"></textarea>
           return;
         }
 
-        setLabel("Activando…");
         try {
           if (OneSignal.Notifications && OneSignal.Notifications.requestPermission) {
-            await OneSignal.Notifications.requestPermission();
+            await withTimeout(OneSignal.Notifications.requestPermission(), 8000, "requestPermission timeout");
           }
-        } catch (_) {}
+        } catch (e) { console.warn(e); }
 
-        await OneSignal.User.PushSubscription.optIn();
-        await new Promise(r => setTimeout(r, 800));
+        try {
+          await withTimeout(OneSignal.User.PushSubscription.optIn(), 10000, "optIn timeout");
+        } catch (e) {
+          alert("No se pudo completar optIn: " + (e.message || e));
+          setLabel("Activar avisos");
+          return;
+        }
+
+        await new Promise(r => setTimeout(r, 600));
         updateNotifButton();
 
-        const ok = !!OneSignal.User.PushSubscription.optedIn;
-        const id = OneSignal.User.PushSubscription.id;
-        if (ok) {
-          alert("✓ Avisos activados.\nID: " + (id || "ok") + "\n\nAhora pega la REST API Key en Admin → Avisos push para poder enviar notificaciones.");
+        if (OneSignal.User.PushSubscription.optedIn) {
+          const id = OneSignal.User.PushSubscription.id || "ok";
+          alert("✓ Avisos activados.\nID: " + id);
         } else {
-          alert("Permiso OK, pero la suscripción OneSignal no quedó activa.\nRecarga (Ctrl+F5) e inténtalo otra vez.\nSi sigue igual, revisa Audience en el panel de OneSignal.");
+          alert("No quedó suscrito. Revisa Audience en OneSignal y vuelve a intentar en incógnito.");
           setLabel("Activar avisos");
         }
       } catch (e) {

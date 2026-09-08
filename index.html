@@ -608,7 +608,7 @@ const firebaseConfig = {
         </div>
         <div class="flex flex-wrap gap-2">
           <a id="dossier-open-btn" href="dossier-patrocinio.pdf" target="_blank" rel="noopener" class="admin-btn inline-flex items-center justify-center no-underline">Ver / descargar dossier (PDF)</a>
-          <a href="mailto:ClubdeportivolosMorruos@gmail.com?subject=Patrocinio%20Los%20Morruos" class="admin-btn-secondary inline-flex items-center justify-center no-underline">Contactar</a>
+          <a id="dossier-contact-btn" href="https://wa.me/34650858521?text=Hola%2C%20me%20interesa%20el%20dossier%20de%20patrocinio%20del%20Club%20Los%20Morruos." target="_blank" rel="noopener" class="admin-btn-secondary inline-flex items-center justify-center no-underline">Contactar por WhatsApp</a>
         </div>
         <p id="dossier-extra-note" class="text-[11px] text-gray-500"></p>
       </div>
@@ -3399,6 +3399,11 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (btn) btn.href = dossier.url || "dossier-patrocinio.pdf";
       const note = document.getElementById("dossier-extra-note");
       if (note) note.textContent = dossier.note || "";
+      const contact = document.getElementById("dossier-contact-btn");
+      if (contact && typeof WHATSAPP_NUMBER !== "undefined") {
+        const msg = "Hola, me interesa el dossier de patrocinio del Club Los Morruos.";
+        contact.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+      }
     }
     function isCollabRole(role) {
       const r = (role || "").toLowerCase();

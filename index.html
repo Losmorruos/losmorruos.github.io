@@ -6,13 +6,37 @@
   <meta name="theme-color" content="#0a0a0a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="description" content="Club Deportivo Los Morruos - Bola Canaria Fuerteventura" />
+  <meta name="description" content="Club Deportivo Los Morruos de bola canaria en Fuerteventura. Noticias, partidos, resultados, clasificación, plantilla, entrenamientos, galería, merchandising y aplicación oficial." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://losmorruos.github.io/clublosmorruos.com/" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="logo.png" />
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-01-correccion-js"><title>Los Morruos | Bola Canaria</title>
+  <meta name="app-build" content="2026-09-01-correccion-js"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Club Deportivo Los Morruos" />
+  <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
+  <meta property="og:description" content="Web oficial del Club Deportivo Los Morruos de bola canaria en Fuerteventura. Partidos, resultados, clasificación, noticias y aplicación del club." />
+  <meta property="og:url" content="https://losmorruos.github.io/clublosmorruos.com/" />
+  <meta property="og:image" content="https://losmorruos.github.io/clublosmorruos.com/logo-512.png" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
+  <meta name="twitter:description" content="Club Deportivo Los Morruos de bola canaria en Fuerteventura." />
+  <meta name="twitter:image" content="https://losmorruos.github.io/clublosmorruos.com/logo-512.png" />
+  <meta name="keywords" content="Los Morruos, Los Morrudos, Club Deportivo Los Morruos, Club Deportivo Los Morrudos, bola canaria, bola canaria Fuerteventura, Morro Jable, Fuerteventura" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {"@type":"SportsTeam","@id":"https://losmorruos.github.io/clublosmorruos.com/#club","name":"Club Deportivo Los Morruos","alternateName":["Los Morruos","Los Morrudos"],"sport":"Bola canaria","url":"https://losmorruos.github.io/clublosmorruos.com/","logo":"https://losmorruos.github.io/clublosmorruos.com/logo-512.png","areaServed":{"@type":"Place","name":"Fuerteventura, Canarias, España"}},
+      {"@type":"WebSite","@id":"https://losmorruos.github.io/clublosmorruos.com/#website","url":"https://losmorruos.github.io/clublosmorruos.com/","name":"Club Deportivo Los Morruos","alternateName":"Los Morruos","inLanguage":"es"},
+      {"@type":["WebApplication","MobileApplication"],"@id":"https://losmorruos.github.io/clublosmorruos.com/#app","name":"App Club Deportivo Los Morruos","alternateName":"Los Morruos","applicationCategory":"SportsApplication","operatingSystem":"Android, iOS, Windows, macOS","url":"https://losmorruos.github.io/clublosmorruos.com/","description":"Aplicación web progresiva oficial del Club Deportivo Los Morruos."}
+    ]
+  }
+  </script>
   <script>
 const firebaseConfig = {
   apiKey: "AIzaSyD975LbcmD-5roITCDT8SFBQVo1Kb2g_es",
@@ -149,6 +173,9 @@ const firebaseConfig = {
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 </head>
 <body class="min-h-screen">
+  <section aria-label="Información del Club Deportivo Los Morruos" style="max-width:900px;margin:0 auto;padding:10px 16px 0;color:#a3a3a3;font-size:12px;line-height:1.5;">
+    <strong style="color:#F5C518;">Club Deportivo Los Morruos · Bola Canaria en Fuerteventura</strong> — Web oficial con noticias, partidos, resultados, clasificación, plantilla, entrenamientos, galería, merchandising y aplicación del club.
+  </section>
 
   <!-- Registro obligatorio para usuarios nuevos -->
   <div id="register-overlay" class="fixed inset-0 z-[100] bg-dark flex items-center justify-center p-5 hidden">
@@ -313,15 +340,12 @@ const firebaseConfig = {
         <img src="logo.png" alt="" class="w-8 h-8 rounded-lg object-cover border border-gold/60" />
         <span class="font-display text-base text-gold tracking-wide">LOS MORRUOS</span>
       </div>
-      <button type="button" onclick="shareApp()" class="p-2 rounded-xl hover:bg-dark-card" title="Compartir app" aria-label="Compartir app">
-        <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4-4 4m4-4v14"/></svg>
-      </button>
       <button onclick="goTo('merch')" class="p-2 -mr-1 rounded-xl hover:bg-dark-card relative" title="Merchandising">
         <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
         </svg>
       </button>
-      </div>
+    </div>
   </header>
 
   <main class="px-4 pt-4 pb-10 max-w-lg mx-auto">
@@ -1273,12 +1297,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     async function loadData() {
       loadRemoteCfg();
       loadOneSignalCfg();
-      let remote = null;
-      try {
-        remote = await fetchRemote();
-      } catch (e) {
-        console.warn("No se pudo cargar data.json remoto; se usará la copia local/default:", e);
-      }
+      const remote = await fetchRemote();
       if (remote) {
         data = {
           ...JSON.parse(JSON.stringify(DEFAULT)),
@@ -1712,11 +1731,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     // ── Firebase (usuarios + actividad en tiempo real) ──
     function loadFirebaseConfig() {
-      // Firebase es global para todos los dispositivos; localStorage solo queda como respaldo.
       try {
-        if (typeof firebaseConfig !== "undefined" && firebaseConfig && firebaseConfig.apiKey && firebaseConfig.projectId) {
-          return { ...firebaseConfig };
-        }
         const raw = localStorage.getItem(FIREBASE_CFG_KEY);
         return raw ? JSON.parse(raw) : null;
       } catch { return null; }
@@ -2188,25 +2203,12 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     function shareText(title, text) {
       const payload = { title: title || "Los Morruos", text: text || "", url: location.href };
-      if (navigator.share) { navigator.share(payload).catch(() => {}); return; }
-      const full = `${title || "Los Morruos"}\n${text || ""}\n${location.href}`;
-      const encoded = encodeURIComponent(full);
-      const wa = `https://wa.me/?text=${encoded}`;
-      const fb = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}&quote=${encodeURIComponent(text || title || "Los Morruos")}`;
-      const x = `https://twitter.com/intent/tweet?text=${encodeURIComponent((title ? title + "\n" : "") + (text || ""))}&url=${encodeURIComponent(location.href)}`;
-      const box = document.createElement("div");
-      box.innerHTML = `<div style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.remove()"><div style="background:#141414;border:1px solid #2A2A2A;border-radius:16px;padding:20px;max-width:360px;width:100%;color:#fff"><h3 style="color:#F5C518;margin:0 0 14px">Compartir partido</h3><div style="display:grid;gap:10px"><a href="${wa}" target="_blank" rel="noopener" style="background:#25D366;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:600">WhatsApp</a><a href="${fb}" target="_blank" rel="noopener" style="background:#1877F2;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:600">Facebook</a><a href="https://www.instagram.com/" target="_blank" rel="noopener" style="background:#2A2A2A;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:600">Instagram</a><a href="${x}" target="_blank" rel="noopener" style="background:#2A2A2A;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:600">X / Twitter</a><button type="button" onclick="navigator.clipboard?.writeText(${JSON.stringify(full)}).then(()=>alert('Enlace copiado ✓'));this.closest('div[style*=fixed]').remove()" style="background:#F5C518;color:#0A0A0A;border:0;padding:12px;border-radius:10px;font-weight:600">Copiar enlace</button></div></div></div>`;
-      document.body.appendChild(box.firstElementChild);
-    }
-
-    function shareApp() {
-      const title = "Club Deportivo Los Morruos";
-      const text = "Descubre la app oficial de Los Morruos: partidos, resultados, noticias y más.";
-      const payload = { title, text, url: location.href };
-      if (navigator.share) { navigator.share(payload).catch(() => {}); return; }
-      const full = `${text}\n${location.href}`;
-      if (navigator.clipboard) navigator.clipboard.writeText(full).then(() => alert("Enlace de la app copiado ✓")).catch(() => prompt("Copia este enlace:", location.href));
-      else prompt("Copia este enlace:", location.href);
+      if (navigator.share) navigator.share(payload).catch(() => {});
+      else {
+        const full = `${title}\n${text}\n${location.href}`;
+        if (navigator.clipboard) navigator.clipboard.writeText(full).then(() => alert("Copiado ✓")).catch(() => prompt("Copia:", full));
+        else prompt("Copia:", full);
+      }
     }
     function emptyState(msg) {
       return `<div class="empty-state">${msg || "Aún no hay datos publicados."}</div>`;
@@ -2334,12 +2336,10 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     function comprarPorWhatsApp(nombre, precio) {
-      const producto = String(nombre || "producto").trim();
       const precioTexto = String(precio || "").trim();
-      const mensaje = `Hola, quiero consultar por ${producto}${precioTexto ? ` (${precioTexto})` : ""} del Club Los Morruos. ¿Me puedes indicar disponibilidad, tallas y precio?`;
+      const mensaje = `Hola, quiero pedir el ${nombre}${precioTexto ? ` (${precioTexto})` : ""} del Club Los Morruos. ¿Me puedes indicar disponibilidad y tallas?`;
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
-      // Abrimos WhatsApp mediante una navegación real del navegador/PWA.
-      window.location.href = url;
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
     function renderMerch() {
@@ -2378,11 +2378,11 @@ Chándal|45€|Chándal completo|si"></textarea>
                 ${disponible ? "Disponible — consulta tallas con el club" : "Agotado / no disponible"}
               </p>
               ${disponible ? `
-                <a href="${`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hola, quiero consultar por ${nombre}${precio ? ` (${precio})` : ""} del Club Los Morruos. ¿Me puedes indicar disponibilidad, tallas y precio?`)}`.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}"
-                  target="_blank" rel="noopener noreferrer"
-                  class="admin-btn w-full mt-3 flex items-center justify-center gap-2 no-underline">
-                  <span>📱</span> Consultar por WhatsApp
-                </a>` : ""}
+                <button type="button"
+                  onclick="comprarPorWhatsApp(${JSON.stringify(nombre)}, ${JSON.stringify(precio)})"
+                  class="admin-btn w-full mt-3 flex items-center justify-center gap-2">
+                  <span>📱</span> Comprar por WhatsApp
+                </button>` : ""}
             </div>
           </div>`;
       }).join("");
@@ -3104,30 +3104,12 @@ Chándal|45€|Chándal completo|si"></textarea>
     });
 
     (async function init() {
-      // Nunca dejamos la pantalla a medias si falla una red, Firebase o un dato remoto.
-      try {
-        await loadData();
-      } catch (e) {
-        console.error("Error cargando los datos de la app:", e);
-        if (!data) data = JSON.parse(JSON.stringify(DEFAULT));
-        try { data.nextMatches = normalizeNextMatches(data); } catch {}
-      }
-      try {
-        if (sessionStorage.getItem("morruos_admin") === "1") adminOk = true;
-      } catch {}
-      try {
-        initFirebase();
-        if (firebaseReady) startFirebaseListeners();
-      } catch (e) {
-        console.warn("Firebase no disponible:", e);
-      }
-      try {
-        renderAll();
-      } catch (e) {
-        console.error("Error pintando la interfaz:", e);
-        // Intento final: al menos pintar la portada con los datos básicos.
-        try { renderHome(); } catch {}
-      }
+      await loadData();
+      if (sessionStorage.getItem("morruos_admin") === "1") adminOk = true;
+      // Intentar conectar Firebase si ya hay configuración guardada
+      initFirebase();
+      if (firebaseReady) startFirebaseListeners();
+      renderAll();
       checkRegistration();
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
       // En iOS mostrar banner de instalación si no está en modo standalone

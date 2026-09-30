@@ -2230,16 +2230,27 @@ Chándal|45€|Chándal completo|si"></textarea>
       box.appendChild(div);
       box.scrollTop = box.scrollHeight;
     }
-    function sendAI() {
+    async function sendAI() {
       const input = document.getElementById("ai-input");
       const text = (input.value || "").trim();
       if (!text) return;
       input.value = "";
       aiAppend("user", text);
-      const reply = processAICommand(text);
+      const reply = await processAICommand(text);
       setTimeout(() => aiAppend("ai", reply), 300);
     }
-    function processAICommand(raw) {
+    async function saveAIChange() {
+      try {
+        const r = await saveData();
+        if (r?.ok && githubWriteConfigured()) return "Publicado en GitHub ✓";
+        return "Guardado en este dispositivo. " + (r?.msg || "Configura GitHub para publicarlo en todos los dispositivos.");
+      } catch (e) {
+        console.error("Error guardando cambio de IA:", e);
+        try { saveDataLocal(); } catch {}
+        return "Guardado en este dispositivo, pero no se pudo publicar en GitHub.";
+      }
+    }
+    async function processAICommand(raw) {
       const t = raw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       // Ayuda
       if (/\b(ayuda|help|comandos|que puedes)\b/.test(t)) {
@@ -2257,7 +2268,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         const rival = m[1].trim().replace(/[.\s]+$/, "");
         if (!data.nextMatch) data.nextMatch = {};
         data.nextMatch.rival = rival;
-        saveDataLocal();
+        const status = await saveAIChange();
         renderAll();
         logActivity("IA: rival cambiado a " + rival);
         return `✓ Rival del próximo partido actualizado a «${rival}».\nRecuerda publicar en GitHub si quieres que todos lo vean.`;
@@ -2274,19 +2285,19 @@ Chándal|45€|Chándal completo|si"></textarea>
         }
         if (!data.nextMatch) data.nextMatch = {};
         data.nextMatch.date = fecha;
-        saveDataLocal();
+        const status = await saveAIChange();
         renderAll();
         logActivity("IA: fecha cambiada a " + fecha);
-        return `✓ Fecha del próximo partido actualizada a ${fecha}.`;
+        return `✓ Fecha del próximo partido actualizada a ${fecha}.\n${status}`;
       }
       // Cambiar hora
       m = t.match(/(?:cambia|pon|actualiza).*(?:hora)\s+(?:a\s+)?(\d{1,2}:\d{2})/i);
       if (m) {
         if (!data.nextMatch) data.nextMatch = {};
         data.nextMatch.time = m[1];
-        saveDataLocal();
+        const status = await saveAIChange();
         renderAll();
-        return `✓ Hora actualizada a ${m[1]}.`;
+        return `✓ Hora actualizada a ${m[1]}.\n${status}`;
       }
       // Cambiar lugar
       m = t.match(/(?:cambia|pon|actualiza).*(?:lugar|cancha|sede)\s+(?:a\s+|en\s+)?(.+)/i);
@@ -2294,9 +2305,9 @@ Chándal|45€|Chándal completo|si"></textarea>
         const lugar = m[1].trim().replace(/[.\s]+$/, "");
         if (!data.nextMatch) data.nextMatch = {};
         data.nextMatch.place = lugar;
-        saveDataLocal();
+        const status = await saveAIChange();
         renderAll();
-        return `✓ Lugar actualizado a «${lugar}».`;
+        return `✓ Lugar actualizado a «${lugar}».\n${status}`;
       }
       // Añadir noticia
       m = raw.match(/(?:añade|agrega|nueva)\s+noticia[:\s]+(.+)/i);
@@ -2308,10 +2319,10 @@ Chándal|45€|Chándal completo|si"></textarea>
           title: text.slice(0, 60) + (text.length > 60 ? "…" : ""),
           text: text
         });
-        saveDataLocal();
+        const status = await saveAIChange();
         renderAll();
         logActivity("IA: noticia añadida");
-        return `✓ Noticia añadida. Revisa la pestaña Noticias y publica en GitHub si quieres que se vea en todos los dispositivos.`;
+        return `✓ Noticia añadida.\n${status}`;
       }
       // Listar jugadores
       if (/\b(jugadores|plantilla|equipo)\b/.test(t)) {

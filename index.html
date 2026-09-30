@@ -1475,17 +1475,15 @@ Chándal|45€|Chándal completo|si"></textarea>
       }
 
       try {
+        // Liberar primero las copias antiguas que podían contener logos/fotos.
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(GALLERY_BACKUP_KEY);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(lightweight));
-        return { ok: true, full: false };
+        return { ok: true, full: false, cleaned: true };
       } catch (e) {
-        try {
-          localStorage.removeItem(STORAGE_KEY);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(lightweight));
-          return { ok: true, full: false, cleaned: true };
-        } catch (fallbackError) {
-          console.warn("No hay espacio suficiente en localStorage para la copia ligera.", fallbackError);
-          return { ok: false, full: false, quota: true };
-        }
+        // Si incluso la copia ligera no cabe, el guardado remoto sigue siendo válido.
+        console.warn("No hay espacio suficiente en localStorage; se continuará sin copia local.", e);
+        return { ok: false, full: false, quota: true };
       }
     }
 

@@ -1463,23 +1463,27 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     function saveDataLocal() {
+      // La copia local nunca debe contener imágenes grandes. Primero intentamos
+      // guardar una versión ligera; si existe una versión antigua enorme, la
+      // eliminamos antes de escribir para liberar la cuota ocupada por la propia app.
+      const lightweight = JSON.parse(JSON.stringify(data));
+      if (Array.isArray(lightweight.sponsors)) {
+        lightweight.sponsors = lightweight.sponsors.map(s => ({ ...s, logo: "" }));
+      }
+      if (Array.isArray(lightweight.gallery)) {
+        lightweight.gallery = lightweight.gallery.map(g => ({ ...g, src: "" }));
+      }
+
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        return { ok: true, full: true };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(lightweight));
+        return { ok: true, full: false };
       } catch (e) {
-        // Los logos de patrocinadores pueden hacer que localStorage supere su cuota.
-        // No bloqueamos el guardado remoto: conservamos una copia local ligera sin
-        // imágenes embebidas y dejamos los logos completos para data.json/GitHub.
         try {
-          const lightweight = JSON.parse(JSON.stringify(data));
-          if (Array.isArray(lightweight.sponsors)) {
-            lightweight.sponsors = lightweight.sponsors.map(s => ({ ...s, logo: "" }));
-          }
+          localStorage.removeItem(STORAGE_KEY);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(lightweight));
-          console.warn("localStorage lleno; se guardó una copia ligera sin logos.", e);
-          return { ok: true, full: false, quota: true };
+          return { ok: true, full: false, cleaned: true };
         } catch (fallbackError) {
-          console.warn("No se pudo guardar ni la copia ligera en localStorage.", fallbackError);
+          console.warn("No hay espacio suficiente en localStorage para la copia ligera.", fallbackError);
           return { ok: false, full: false, quota: true };
         }
       }
@@ -2769,8 +2773,9 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     async function persistExtra(msg) {
       const localResult = saveDataLocal();
+      // La falta de espacio local NO debe impedir guardar en GitHub.
       if (!localResult.ok) {
-        alert("No se pudo guardar una copia local por falta de espacio.\nEl guardado en GitHub continuará si tienes configurado el token.");
+        console.warn("Sin espacio local; se continuará con el guardado remoto si está configurado.");
       }
       try {
         if (typeof renderSponsors === "function") renderSponsors();

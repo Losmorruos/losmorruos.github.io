@@ -3529,18 +3529,43 @@ Chándal|45€|Chándal completo|si"></textarea>
       reader.onload = () => {
         const img = new Image();
         img.onload = () => {
-          const max = 320;
+          // Optimización automática de logos para evitar superar la cuota del navegador
+          // y mantener data.json ligero. Se limita a 256px y se comprime progresivamente
+          // hasta quedar aproximadamente por debajo de 120 KB.
+          const max = 256;
           let w = img.width, h = img.height;
           if (w > max || h > max) {
             const r = Math.min(max / w, max / h);
-            w = Math.round(w * r); h = Math.round(h * r);
+            w = Math.max(1, Math.round(w * r));
+            h = Math.max(1, Math.round(h * r));
           }
           const canvas = document.createElement("canvas");
           canvas.width = w; canvas.height = h;
-          const ctx = canvas.getContext("2d");
+          const ctx = canvas.getContext("2d", { alpha: false });
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, w, h);
           ctx.drawImage(img, 0, 0, w, h);
-          let dataUrl = canvas.toDataURL("image/jpeg", 0.72);
-          if (!dataUrl || dataUrl.length < 30) dataUrl = canvas.toDataURL("image/png");
+
+          let quality = 0.72;
+          let dataUrl = "";
+          do {
+            dataUrl = canvas.toDataURL("image/jpeg", quality);
+            if (dataUrl.length <= 120000 || quality <= 0.40) break;
+            quality -= 0.08;
+          } while (quality >= 0.40);
+
+          // Último recurso: una versión todavía más pequeña.
+          if (!dataUrl || dataUrl.length > 160000) {
+            const smallCanvas = document.createElement("canvas");
+            const scale = Math.min(1, 180 / Math.max(w, h));
+            smallCanvas.width = Math.max(1, Math.round(w * scale));
+            smallCanvas.height = Math.max(1, Math.round(h * scale));
+            const smallCtx = smallCanvas.getContext("2d", { alpha: false });
+            smallCtx.fillStyle = "#ffffff";
+            smallCtx.fillRect(0, 0, smallCanvas.width, smallCanvas.height);
+            smallCtx.drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
+            dataUrl = smallCanvas.toDataURL("image/jpeg", 0.55);
+          }
           if (!data.sponsors[idx]) return;
           data.sponsors[idx].logo = dataUrl;
           renderAdminSponsors();

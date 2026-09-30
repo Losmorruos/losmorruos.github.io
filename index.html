@@ -1375,7 +1375,17 @@ Chándal|45€|Chándal completo|si"></textarea>
           }
 
           const t = await putRes.text();
-          return { ok: false, msg: "Error al publicar: " + putRes.status + " " + t };
+          let detail = "";
+          if (putRes.status === 401) {
+            detail = "El token de GitHub no es válido o ha caducado. Crea un token nuevo y guárdalo en Sincronización.";
+          } else if (putRes.status === 403) {
+            detail = "GitHub ha rechazado la escritura. En el token Fine-grained comprueba que el repositorio Losmorruos/losmorruos.github.io esté seleccionado y que Contents tenga permiso Read and write.";
+          } else if (putRes.status === 404) {
+            detail = "GitHub no encuentra el repositorio o el token no tiene acceso a él. Comprueba el acceso del token al repositorio.";
+          } else if (putRes.status === 422) {
+            detail = "GitHub no acepta los datos enviados. Puede existir un conflicto con el archivo data.json.";
+          }
+          return { ok: false, msg: "No se pudo publicar en GitHub (" + putRes.status + ").\n\n" + (detail || t) };
         }
 
         return { ok: false, msg: "Error al publicar: demasiados conflictos. Inténtalo de nuevo." };

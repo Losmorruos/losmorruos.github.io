@@ -1497,10 +1497,10 @@ Chándal|45€|Chándal completo|si"></textarea>
         return remoteResult;
       }
       return {
-        ok: true,
+        ok: false,
         msg: githubConfigured()
-          ? "Guardado en este dispositivo.\n\nPara que se vea en todos los teléfonos, pega tu token de GitHub en Admin → Sincronización."
-          : "Guardado solo en este dispositivo.\n\nConfigura usuario, repositorio y token de GitHub en Admin → Sincronización para publicar a todos."
+          ? "No se publicó en GitHub porque falta el token.\n\nVe a Admin → Sincronización y configura tu token de GitHub."
+          : "No se publicó en GitHub porque falta configurar la sincronización.\n\nVe a Admin → Sincronización y configura usuario, repositorio y token de GitHub."
       };
     }
 

@@ -1463,12 +1463,37 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     function saveDataLocal() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        return { ok: true, full: true };
+      } catch (e) {
+        // Los logos de patrocinadores pueden hacer que localStorage supere su cuota.
+        // No bloqueamos el guardado remoto: conservamos una copia local ligera sin
+        // imágenes embebidas y dejamos los logos completos para data.json/GitHub.
+        try {
+          const lightweight = JSON.parse(JSON.stringify(data));
+          if (Array.isArray(lightweight.sponsors)) {
+            lightweight.sponsors = lightweight.sponsors.map(s => ({ ...s, logo: "" }));
+          }
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(lightweight));
+          console.warn("localStorage lleno; se guardó una copia ligera sin logos.", e);
+          return { ok: true, full: false, quota: true };
+        } catch (fallbackError) {
+          console.warn("No se pudo guardar ni la copia ligera en localStorage.", fallbackError);
+          return { ok: false, full: false, quota: true };
+        }
+      }
     }
 
     async function saveData() {
-      saveDataLocal();
-      if (githubWriteConfigured()) return await pushRemote();
+      const localResult = saveDataLocal();
+      if (githubWriteConfigured()) {
+        const remoteResult = await pushRemote();
+        if (localResult && localResult.quota && remoteResult?.ok) {
+          remoteResult.msg = (remoteResult.msg || "Publicado en GitHub.") + "\n\nAviso: el almacenamiento local está lleno; los logos se conservarán en GitHub.";
+        }
+        return remoteResult;
+      }
       return {
         ok: true,
         msg: githubConfigured()
@@ -2743,11 +2768,9 @@ Chándal|45€|Chándal completo|si"></textarea>
       persistExtra("Socios actualizados");
     }
     async function persistExtra(msg) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) {
-        alert("No se pudo guardar en este dispositivo.\nPuede que el logo sea demasiado grande.\n" + (e.message || e));
-        return { ok: false };
+      const localResult = saveDataLocal();
+      if (!localResult.ok) {
+        alert("No se pudo guardar una copia local por falta de espacio.\nEl guardado en GitHub continuará si tienes configurado el token.");
       }
       try {
         if (typeof renderSponsors === "function") renderSponsors();

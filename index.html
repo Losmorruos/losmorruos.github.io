@@ -3022,12 +3022,19 @@ Chándal|45€|Chándal completo|si"></textarea>
           team: team.includes("B") ? "B" : "A"
         };
       }).filter(x => x.name) : [];
-      // persist via existing flow if available
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+
       renderPlayers();
-      if (typeof afterSave === "function") afterSave("Plantilla guardada ✓");
-      else if (typeof persistExtra === "function") persistExtra("Plantilla guardada ✓");
-      else alert("Plantilla guardada ✓");
+
+      // Usar el mismo flujo de guardado que el resto del panel:
+      // guarda en el dispositivo y, si hay GitHub configurado, publica data.json.
+      try {
+        const result = await saveData();
+        alert(result?.msg || "Plantilla guardada ✓");
+      } catch (e) {
+        console.error("Error guardando la plantilla:", e);
+        try { saveDataLocal(); } catch {}
+        alert("Plantilla guardada en este dispositivo, pero no se pudo publicar en GitHub.");
+      }
     }
     async function saveNews() {
       data.news = document.getElementById("a-news").value.trim().split("\n").filter(Boolean).map(line => {

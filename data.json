@@ -133,12 +133,12 @@
   "trainings": [],
   "gallery": [],
   "venue": {
-    "name": "Cancha Los Morruos · Morro Jable",
-    "address": "Morro Jable, Pájara, Fuerteventura",
+    "name": "Estación de Guaguas de Morro Jable",
+    "address": "Estación de Guaguas de Morro Jable, Morro Jable, Pájara, Fuerteventura",
     "lat": 28.048,
     "lng": -14.358,
-    "mapsUrl": "https://www.google.com/maps?q=Morro+Jable+Fuerteventura",
-    "howto": "Cancha municipal en la zona de Morro Jable. Confirmar sede antes del partido por si hay cambios."
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Estaci%C3%B3n+de+Guaguas+de+Morro+Jable",
+    "howto": "Cancha de Bola Canaria en la Estación de Guaguas de Morro Jable."
   },
   "socios": {
     "info": "Sé socio de Club Deportivo Los Morruos y apoya la bola canaria en Fuerteventura.",

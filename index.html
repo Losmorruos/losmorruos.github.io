@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-10-01-v35"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-10-01-v36"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -247,95 +247,160 @@ const firebaseConfig = {
         max-height: 130px;
       }
     }
-    .dossier-card {
-      background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-      border: 1px solid #F5C518; border-radius: 16px; padding: 20px;
-    }
+    
 
-    /* Banner fijo: patrocinador oficial + colaboradores rotando */
+    /* ── Barra publicitaria inferior (oficial + colaboradores) ── */
     #sponsor-footer {
       position: fixed;
       left: 0; right: 0; bottom: 0;
       z-index: 80;
-      background: linear-gradient(180deg, #12100a 0%, #0a0a0a 100%);
-      border-top: 1px solid #F5C518;
-      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      background:
+        linear-gradient(90deg, rgba(245,197,24,0.12) 0%, transparent 28%, transparent 72%, rgba(245,197,24,0.08) 100%),
+        linear-gradient(180deg, #16140c 0%, #0c0c0c 100%);
+      border-top: 1.5px solid #F5C518;
+      padding: 0;
       display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      box-shadow: 0 -6px 24px rgba(0,0,0,0.45);
-      min-height: 64px;
+      align-items: stretch;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.55), 0 -1px 0 rgba(245,197,24,0.25);
+      min-height: 72px;
+      overflow: hidden;
     }
     #sponsor-footer.show { display: flex; }
+    #sponsor-footer::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #F5C518, transparent);
+      opacity: 0.6;
+      pointer-events: none;
+    }
     #sponsor-footer .sf-official,
     #sponsor-footer .sf-rotator {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       min-width: 0;
       text-decoration: none;
       color: inherit;
+      padding: 10px 14px;
+      transition: background 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+    #sponsor-footer .sf-official:active,
+    #sponsor-footer .sf-rotator:active {
+      background: rgba(245,197,24,0.08);
     }
     #sponsor-footer .sf-official {
-      flex: 1.2;
-      border-right: 1px solid #2A2A2A;
-      padding-right: 10px;
+      flex: 1.35;
+      background: linear-gradient(135deg, rgba(245,197,24,0.1) 0%, transparent 70%);
+      border-right: 1px solid rgba(245,197,24,0.25);
+      position: relative;
+    }
+    #sponsor-footer .sf-official::after {
+      content: "★";
+      position: absolute;
+      top: 6px; right: 8px;
+      font-size: 10px;
+      color: #F5C518;
+      opacity: 0.7;
     }
     #sponsor-footer .sf-rotator {
       flex: 1;
-      justify-content: flex-end;
+      justify-content: flex-start;
       opacity: 1;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    #sponsor-footer .sf-rotator.is-fading { opacity: 0; }
-    #sponsor-footer a { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-    #sponsor-footer img {
-      pointer-events: none; /* el clic lo captura el <a> padre */
-      max-height: 40px;
-      max-width: 100px;
-      object-fit: contain;
+    #sponsor-footer .sf-rotator.is-fading {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    #sponsor-footer .sf-logo-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid rgba(245,197,24,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    }
+    #sponsor-footer .sf-official .sf-logo-wrap {
+      width: 56px;
+      height: 56px;
+      border-color: #F5C518;
+      box-shadow: 0 0 0 2px rgba(245,197,24,0.2), 0 2px 10px rgba(0,0,0,0.4);
+    }
+    #sponsor-footer img {
+      max-height: 42px;
+      max-width: 46px;
+      object-fit: contain;
+      pointer-events: none;
     }
     #sponsor-footer .sf-official img {
-      max-height: 48px;
-      max-width: 120px;
+      max-height: 46px;
+      max-width: 50px;
     }
     #sponsor-footer .sf-text {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 3px;
       min-width: 0;
+      flex: 1;
     }
     #sponsor-footer .sf-role {
       font-size: 9px;
       color: #F5C518;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      opacity: 0.95;
     }
     #sponsor-footer .sf-name {
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 600;
       color: #f5f5f5;
-      white-space: nowrap;
+      line-height: 1.2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 42vw;
     }
     #sponsor-footer .sf-official .sf-name {
-      font-size: 13px;
+      font-size: 13.5px;
       color: #F5C518;
-      max-width: 46vw;
+      font-weight: 700;
     }
+    #sponsor-footer .sf-cta {
+      font-size: 9px;
+      color: #888;
+      margin-top: 1px;
+    }
+    #sponsor-footer .sf-official .sf-cta { color: rgba(245,197,24,0.65); }
     body.has-sponsor-footer main {
-      padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+      padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
     }
     body.has-sponsor-footer #install-banner {
-      bottom: calc(72px + env(safe-area-inset-bottom));
+      bottom: calc(80px + env(safe-area-inset-bottom));
     }
-
-
+    @media (min-width: 600px) {
+      #sponsor-footer { min-height: 80px; }
+      #sponsor-footer .sf-official,
+      #sponsor-footer .sf-rotator { padding: 12px 20px; gap: 14px; }
+      #sponsor-footer .sf-logo-wrap { width: 60px; height: 60px; }
+      #sponsor-footer .sf-official .sf-logo-wrap { width: 64px; height: 64px; }
+      #sponsor-footer img { max-height: 50px; max-width: 54px; }
+      #sponsor-footer .sf-name { font-size: 14px; }
+      #sponsor-footer .sf-official .sf-name { font-size: 15px; }
+    }
+.dossier-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+      border: 1px solid #F5C518; border-radius: 16px; padding: 20px;
+    }
 
 
   </style>
@@ -3887,14 +3952,25 @@ Chándal|45€|Chándal completo|si"></textarea>
     })();
   </script>
 
-  <!-- Banner fijo: oficial + colaboradores rotando -->
-  <div id="sponsor-footer" aria-label="Patrocinadores">
-    <a class="sf-official" id="sf-official-link" href="#" target="_blank" rel="noopener">
-      <img id="sf-official-logo" src="" alt="" />
+  <!-- Barra publicitaria: oficial + colaboradores rotando -->
+  <div id="sponsor-footer" aria-label="Patrocinadores del club">
+    <a class="sf-official" id="sf-official-link" href="#" target="_blank" rel="noopener noreferrer">
+      <div class="sf-logo-wrap"><img id="sf-official-logo" src="" alt="" /></div>
       <div class="sf-text">
         <span class="sf-role" id="sf-official-role">Patrocinador oficial</span>
         <span class="sf-name" id="sf-official-name"></span>
+        <span class="sf-cta">Toca para visitar →</span>
       </div>
+    </a>
+    <a class="sf-rotator" id="sf-rotator-link" href="#" target="_blank" rel="noopener noreferrer">
+      <div class="sf-logo-wrap"><img id="sf-rotator-logo" src="" alt="" /></div>
+      <div class="sf-text">
+        <span class="sf-role" id="sf-rotator-role">Colaborador</span>
+        <span class="sf-name" id="sf-rotator-name"></span>
+        <span class="sf-cta">Toca para visitar →</span>
+      </div>
+    </a>
+  </div>
     </a>
     <a class="sf-rotator" id="sf-rotator-link" href="#" target="_blank" rel="noopener">
       <img id="sf-rotator-logo" src="" alt="" />

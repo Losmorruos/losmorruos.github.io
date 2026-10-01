@@ -314,7 +314,14 @@
       "available": true
     }
   ],
-  "sponsors": [],
+  "sponsors": [
+    {
+      "name": "Padilla Spar",
+      "role": "Patrocinador oficial",
+      "logo": "logo-padilla-spar.png",
+      "web": ""
+    }
+  ],
   "dossier": {
     "url": "dossier-patrocinio.pdf",
     "note": "Propuesta de patrocinio · Temporada 2026/2027"

@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-10-01-v37"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-10-01-v38"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -262,7 +262,7 @@ const firebaseConfig = {
       display: none;
       align-items: stretch;
       box-shadow: 0 -8px 32px rgba(0,0,0,0.55), 0 -1px 0 rgba(245,197,24,0.25);
-      min-height: 72px;
+      min-height: 78px;
       overflow: hidden;
     }
     #sponsor-footer.show { display: flex; }
@@ -293,15 +293,15 @@ const firebaseConfig = {
       background: rgba(245,197,24,0.08);
     }
     #sponsor-footer .sf-official {
-      flex: 1.45;
+      flex: 1.55;
       background: linear-gradient(135deg, rgba(245,197,24,0.14) 0%, rgba(245,197,24,0.03) 55%, transparent 100%);
       border-right: 1px solid rgba(245,197,24,0.3);
       position: relative;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       justify-content: center;
-      gap: 6px;
-      padding: 8px 12px 10px;
+      gap: 5px;
+      padding: 6px 10px 8px;
     }
     #sponsor-footer .sf-official::after { content: none; }
     #sponsor-footer .sf-rotator {
@@ -329,20 +329,23 @@ const firebaseConfig = {
     }
     #sponsor-footer .sf-official .sf-logo-wrap {
       width: 100%;
-      max-width: 160px;
-      height: 52px;
-      border-color: #F5C518;
+      max-width: 100%;
+      height: 58px;
+      border: 1px solid rgba(245,197,24,0.45);
       border-radius: 10px;
-      background: #fff;
-      box-shadow: 0 0 0 2px rgba(245,197,24,0.25), 0 2px 10px rgba(0,0,0,0.4);
-      padding: 4px 8px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+      padding: 2px 4px;
+      overflow: hidden;
     }
     #sponsor-footer .sf-official img {
-      max-height: 44px;
+      max-height: 54px;
       max-width: 100%;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 54px;
       object-fit: contain;
+      object-position: center;
+      transform: scale(1.15);
     }
     #sponsor-footer .sf-official .sf-text {
       align-items: center;
@@ -414,16 +417,21 @@ const firebaseConfig = {
       bottom: calc(80px + env(safe-area-inset-bottom));
     }
     @media (min-width: 600px) {
-      #sponsor-footer { min-height: 88px; }
+      #sponsor-footer { min-height: 92px; }
       #sponsor-footer .sf-rotator { padding: 12px 20px; gap: 14px; }
       #sponsor-footer .sf-official { padding: 10px 18px 12px; gap: 8px; }
       #sponsor-footer .sf-logo-wrap { width: 60px; height: 60px; }
       #sponsor-footer .sf-official .sf-logo-wrap {
-        max-width: 200px;
-        height: 58px;
-        padding: 6px 12px;
+        max-width: 100%;
+        height: 64px;
+        padding: 2px 6px;
       }
-      #sponsor-footer .sf-official img { max-height: 50px; }
+      #sponsor-footer .sf-official img {
+        max-height: 60px;
+        height: 60px;
+        width: 100%;
+        transform: scale(1.2);
+      }
       #sponsor-footer .sf-rotator img { max-height: 50px; max-width: 54px; }
       #sponsor-footer .sf-name { font-size: 14px; }
       #sponsor-footer .sf-official .sf-role { font-size: 11px; padding: 4px 12px; }

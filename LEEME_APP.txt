@@ -1,0 +1,15 @@
+# Club Deportivo Los Morruos — App PWA
+
+Versión preparada para subir al repositorio `Losmorruos/losmorruos.github.io`.
+
+## Logo
+Se ha utilizado el logo del club proporcionado, respetando su diseño original. Solo se han generado copias en tamaños estándar para el icono de la PWA.
+
+## Archivos principales
+- `index.html` — aplicación.
+- `manifest.json` — configuración de instalación como app.
+- `sw.js` — caché/actualización de la PWA.
+- `logo-64/128/192/512.*` — iconos del club.
+- `logo.png` y `logo.webp` — logo completo.
+
+No se incluye `data.json` para no sobrescribir los datos actuales del club. Mantén el `data.json` que ya tienes en el repositorio.

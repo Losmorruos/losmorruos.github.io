@@ -447,6 +447,7 @@ const firebaseConfig = {
   <!-- Firebase (compat) para registro de usuarios y actividad en tiempo real -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="rediseño-app.css?v=20261001" />
 </head>
 <body class="min-h-screen">
   <section aria-label="Información del Club Deportivo Los Morruos" class="seo-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
@@ -626,6 +627,26 @@ const firebaseConfig = {
   </header>
 
   <main class="px-4 pt-4 pb-10 max-w-lg mx-auto">
+
+    <div id="lm-hero">
+  <div id="lm-hero-inner">
+    <picture><source srcset="logo-192.webp" type="image/webp"><img id="lm-hero-logo" src="logo-192.png" alt="Club Deportivo Los Morruos" /></picture>
+    <div>
+      <div id="lm-hero-kicker">CLUB DEPORTIVO</div>
+      <div id="lm-hero-title">LOS MORRUOS</div>
+      <div id="lm-hero-sub"><span>FUERTEVENTURA</span></div>
+    </div>
+  </div>
+</div>
+<div id="home-sponsor-banner" aria-label="Patrocinador oficial">
+  <img id="home-sponsor-logo" src="logo-fg-automocion.png" alt="Patrocinador oficial" />
+</div>
+<div id="lm-quick-nav" aria-label="Accesos rápidos">
+  <button class="lm-quick" onclick="goTo('calendario')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18M8 13h2M14 13h2M8 17h2M14 17h2"/></svg><span>PARTIDOS</span></button>
+  <button class="lm-quick" onclick="goTo('clasificacion')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 21V10M16 21V3M12 21v-6"/></svg><span>CLASIFICACIÓN</span></button>
+  <button class="lm-quick" onclick="goTo('jugadores')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2"/><path d="M3 21v-2a5 5 0 0 1 10 0v2M14 21v-2a4 4 0 0 1 7 0v2"/></svg><span>PLANTILLA</span></button>
+  <button class="lm-quick" onclick="goTo('noticias')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg><span>NOTICIAS</span></button>
+</div>
 
     <section id="tab-home" class="tab-content active">
       <div id="home-next-matches" class="space-y-3 mb-5">
@@ -1228,6 +1249,14 @@ Chándal|45€|Chándal completo|si"></textarea>
     </section>
 
   </main>
+
+<nav id="lm-bottom-nav" aria-label="Navegación principal">
+  <button class="lm-bottom-item active" onclick="goTo('home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></button>
+  <button class="lm-bottom-item" onclick="goTo('calendario')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg><span>Partidos</span></button>
+  <button class="lm-bottom-item" onclick="goTo('redes')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M17.5 6.5h.01"/></svg><span>Galería</span></button>
+  <button class="lm-bottom-item" onclick="goTo('merch')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V6a4 4 0 0 1 8 0v1M5 8h14l1 13H4z"/></svg><span>Tienda</span></button>
+  <button class="lm-bottom-item" onclick="openDrawer()"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>Más</span></button>
+</nav>
   </div><!-- /.app-shell -->
 
   <script>
@@ -4009,5 +4038,6 @@ Chándal|45€|Chándal completo|si"></textarea>
       </div>
     </a>
   </div>
+  <script src="rediseño-app.js?v=20261001"></script>
 </body>
 </html>

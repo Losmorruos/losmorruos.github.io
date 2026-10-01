@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="logo-192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png" />
-  <meta name="app-build" content="2026-09-09-v31"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
+  <meta name="app-build" content="2026-10-01-v35"><title>Los Morruos | Club Deportivo de Bola Canaria en Fuerteventura</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Club Deportivo Los Morruos" />
   <meta property="og:title" content="Los Morruos | Club Deportivo de Bola Canaria" />
@@ -214,10 +214,129 @@ const firebaseConfig = {
     .sponsor-card .sp-role {
       font-size: 11px; color: #F5C518; text-transform: uppercase; letter-spacing: 0.04em;
     }
+    /* Patrocinador oficial / principal: más grande y destacado */
+    .sponsor-card.sponsor-featured {
+      grid-column: 1 / -1;
+      min-height: 200px;
+      padding: 24px 20px;
+      border: 1px solid #F5C518;
+      background: linear-gradient(160deg, #1a1808 0%, #141414 45%, #141414 100%);
+      box-shadow: 0 0 0 1px rgba(245,197,24,0.15), 0 8px 28px rgba(245,197,24,0.08);
+      gap: 14px;
+    }
+    .sponsor-card.sponsor-featured img {
+      max-height: 110px;
+      max-width: 85%;
+    }
+    .sponsor-card.sponsor-featured .sp-name {
+      font-size: 18px;
+      color: #F5C518;
+    }
+    .sponsor-card.sponsor-featured .sp-role {
+      font-size: 12px;
+      background: rgba(245,197,24,0.15);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    @media (min-width: 900px) {
+      .sponsor-card.sponsor-featured {
+        min-height: 220px;
+        padding: 28px 24px;
+      }
+      .sponsor-card.sponsor-featured img {
+        max-height: 130px;
+      }
+    }
     .dossier-card {
       background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
       border: 1px solid #F5C518; border-radius: 16px; padding: 20px;
     }
+
+    /* Banner fijo: patrocinador oficial + colaboradores rotando */
+    #sponsor-footer {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 80;
+      background: linear-gradient(180deg, #12100a 0%, #0a0a0a 100%);
+      border-top: 1px solid #F5C518;
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 -6px 24px rgba(0,0,0,0.45);
+      min-height: 64px;
+    }
+    #sponsor-footer.show { display: flex; }
+    #sponsor-footer .sf-official,
+    #sponsor-footer .sf-rotator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+    }
+    #sponsor-footer .sf-official {
+      flex: 1.2;
+      border-right: 1px solid #2A2A2A;
+      padding-right: 10px;
+    }
+    #sponsor-footer .sf-rotator {
+      flex: 1;
+      justify-content: flex-end;
+      opacity: 1;
+      transition: opacity 0.35s ease;
+    }
+    #sponsor-footer .sf-rotator.is-fading { opacity: 0; }
+    #sponsor-footer a { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    #sponsor-footer img {
+      pointer-events: none; /* el clic lo captura el <a> padre */
+      max-height: 40px;
+      max-width: 100px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    #sponsor-footer .sf-official img {
+      max-height: 48px;
+      max-width: 120px;
+    }
+    #sponsor-footer .sf-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+    #sponsor-footer .sf-role {
+      font-size: 9px;
+      color: #F5C518;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    #sponsor-footer .sf-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #f5f5f5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 42vw;
+    }
+    #sponsor-footer .sf-official .sf-name {
+      font-size: 13px;
+      color: #F5C518;
+      max-width: 46vw;
+    }
+    body.has-sponsor-footer main {
+      padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+    }
+    body.has-sponsor-footer #install-banner {
+      bottom: calc(72px + env(safe-area-inset-bottom));
+    }
+
+
+
 
   </style>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -3428,6 +3547,114 @@ Chándal|45€|Chándal completo|si"></textarea>
     });
 
     
+
+
+
+    let _collabRotateTimer = null;
+    let _collabRotateIdx = 0;
+    let _collabRotateList = [];
+
+    function _fillSponsorSlot(prefix, s) {
+      if (!s) return;
+      const logo = document.getElementById(prefix + "-logo");
+      const nameEl = document.getElementById(prefix + "-name");
+      const roleEl = document.getElementById(prefix + "-role");
+      const link = document.getElementById(prefix + "-link");
+      if (nameEl) nameEl.textContent = s.name || "";
+      if (roleEl) roleEl.textContent = s.role || "";
+      if (logo) {
+        if (s.logo) {
+          logo.src = s.logo;
+          logo.alt = s.name || "";
+          logo.style.display = "";
+        } else {
+          logo.removeAttribute("src");
+          logo.style.display = "none";
+        }
+      }
+      if (link) {
+        const url = (s.web || "").trim();
+        if (url) {
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.title = (s.name || "Patrocinador") + " — abrir web";
+          link.setAttribute("aria-label", (s.name || "Patrocinador") + " (abrir enlace)");
+          link.style.pointerEvents = "auto";
+          link.style.cursor = "pointer";
+          link.onclick = null;
+        } else {
+          link.href = "#";
+          link.removeAttribute("target");
+          link.title = s.name || "";
+          link.style.pointerEvents = "none";
+          link.style.cursor = "default";
+        }
+      }
+    }
+
+    function _showNextCollab() {
+      if (!_collabRotateList.length) return;
+      const rotator = document.getElementById("sf-rotator-link");
+      if (!rotator) return;
+      rotator.classList.add("is-fading");
+      setTimeout(() => {
+        _collabRotateIdx = (_collabRotateIdx + 1) % _collabRotateList.length;
+        _fillSponsorSlot("sf-rotator", _collabRotateList[_collabRotateIdx]);
+        rotator.classList.remove("is-fading");
+      }, 320);
+    }
+
+    function updateSponsorFooter() {
+      const bar = document.getElementById("sponsor-footer");
+      if (!bar) return;
+      if (_collabRotateTimer) {
+        clearInterval(_collabRotateTimer);
+        _collabRotateTimer = null;
+      }
+      const list = (data && Array.isArray(data.sponsors)) ? data.sponsors.filter(s => s && s.name) : [];
+      const official = list.find(s => {
+        const r = (s.role || "").toLowerCase();
+        return r.includes("oficial") || r.includes("principal");
+      });
+      const collabs = list.filter(s => {
+        const r = (s.role || "").toLowerCase();
+        return !r.includes("oficial") && !r.includes("principal");
+      });
+
+      if (!official && !collabs.length) {
+        bar.classList.remove("show");
+        document.body.classList.remove("has-sponsor-footer");
+        return;
+      }
+
+      // Oficial fijo a la izquierda
+      const offLink = document.getElementById("sf-official-link");
+      if (official) {
+        _fillSponsorSlot("sf-official", official);
+        if (offLink) offLink.style.display = "";
+      } else if (offLink) {
+        offLink.style.display = "none";
+      }
+
+      // Colaboradores rotando a la derecha
+      const rotLink = document.getElementById("sf-rotator-link");
+      _collabRotateList = collabs;
+      _collabRotateIdx = 0;
+      if (collabs.length) {
+        _fillSponsorSlot("sf-rotator", collabs[0]);
+        if (rotLink) rotLink.style.display = "";
+        if (collabs.length > 1) {
+          _collabRotateTimer = setInterval(_showNextCollab, 4000);
+        }
+      } else if (rotLink) {
+        rotLink.style.display = "none";
+      }
+
+      bar.classList.add("show");
+      document.body.classList.add("has-sponsor-footer");
+    }
+
     function renderSponsors() {
       const el = document.getElementById("sponsors-list");
       if (!el) return;
@@ -3440,13 +3667,16 @@ Chándal|45€|Chándal completo|si"></textarea>
         const sorted = [...list].sort((a, b) => (order[a.role] ?? 5) - (order[b.role] ?? 5));
         el.innerHTML = sorted.map(s => {
           const role = s.role || "Colaborador";
+          const roleLow = role.toLowerCase();
+          const featured = roleLow.includes("oficial") || roleLow.includes("principal");
+          const cardClass = featured ? "sponsor-card sponsor-featured" : "sponsor-card";
           const logo = s.logo
             ? `<img src="${s.logo}" alt="${s.name}" loading="lazy" onerror="this.style.display='none'" />`
             : `<div class="w-16 h-16 rounded-xl bg-gold/20 flex items-center justify-center text-2xl">🤝</div>`;
           const nameHtml = s.web
-            ? `<a href="${s.web}" target="_blank" rel="noopener" class="sp-name text-gold no-underline hover:underline">${s.name}</a>`
+            ? `<a href="${s.web}" target="_blank" rel="noopener" class="sp-name no-underline hover:underline">${s.name}</a>`
             : `<span class="sp-name">${s.name}</span>`;
-          return `<div class="sponsor-card"><span class="sp-role">${role}</span>${logo}${nameHtml}</div>`;
+          return `<div class="${cardClass}"><span class="sp-role">${role}</span>${logo}${nameHtml}</div>`;
         }).join("");
       }
       const dossier = (data && data.dossier) || {};
@@ -3459,6 +3689,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         const msg = "Hola, me interesa el dossier de patrocinio del Club Los Morruos.";
         contact.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
       }
+      try { updateSponsorFooter(); } catch (e) { console.warn(e); }
     }
     function isCollabRole(role) {
       const r = (role || "").toLowerCase();
@@ -3655,5 +3886,24 @@ Chándal|45€|Chándal completo|si"></textarea>
       window.addEventListener("pagehide", autoSaveLocal);
     })();
   </script>
+
+  <!-- Banner fijo: oficial + colaboradores rotando -->
+  <div id="sponsor-footer" aria-label="Patrocinadores">
+    <a class="sf-official" id="sf-official-link" href="#" target="_blank" rel="noopener">
+      <img id="sf-official-logo" src="" alt="" />
+      <div class="sf-text">
+        <span class="sf-role" id="sf-official-role">Patrocinador oficial</span>
+        <span class="sf-name" id="sf-official-name"></span>
+      </div>
+    </a>
+    <a class="sf-rotator" id="sf-rotator-link" href="#" target="_blank" rel="noopener">
+      <img id="sf-rotator-logo" src="" alt="" />
+      <div class="sf-text">
+        <span class="sf-role" id="sf-rotator-role">Colaborador</span>
+        <span class="sf-name" id="sf-rotator-name"></span>
+      </div>
+    </a>
+  </div>
+
 </body>
 </html>

@@ -3750,6 +3750,13 @@ Chándal|45€|Chándal completo|si"></textarea>
         const r = (s.role || "").toLowerCase();
         return r.includes("oficial") || r.includes("principal");
       });
+      // FG Automoción es el patrocinador oficial mostrado en la nueva interfaz.
+      // Forzamos aquí el recurso correcto para evitar que una copia antigua de
+      // data.json/localStorage vuelva a sustituirlo después de cargar la app.
+      if (official) {
+        official.logo = "./logo-fg-automocion-alargado.svg";
+        official.name = "FG Automoción";
+      }
       const collabs = list.filter(s => {
         const r = (s.role || "").toLowerCase();
         return !r.includes("oficial") && !r.includes("principal");

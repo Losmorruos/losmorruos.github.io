@@ -29,3 +29,6 @@ body.has-sponsor-footer main{padding-bottom:90px!important}
 .lm-bottom-item.active,.lm-bottom-item:active{color:var(--lm-gold)}
 @media (min-width:900px){#lm-hero,#home-sponsor-banner,#lm-quick-nav,#lm-bottom-nav{display:none!important}}
 @media (max-width:380px){#lm-hero-title{font-size:28px}#lm-hero-logo{width:68px;height:68px}#home-sponsor-banner{height:98px}#home-sponsor-logo{height:82px}.lm-quick{min-height:82px;font-size:9px}}
+
+/* El patrocinador se elimina de la nueva interfaz; se conserva el código antiguo sin mostrarlo. */
+#home-sponsor-banner,#sponsor-footer{display:none!important}

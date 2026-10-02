@@ -35,5 +35,5 @@ body.has-sponsor-footer main{padding-bottom:90px!important}
 
 /* Cabecera gráfica oficial de Los Morruos */
 #lm-hero{margin:0 -16px 14px!important;padding:0!important;border:0!important;border-radius:0 0 16px 16px!important;background:#080909!important;overflow:hidden!important}
-#lm-header-image{display:block;width:100%;height:auto;max-height:none;object-fit:contain;object-position:center}
-@media (min-width:900px){#lm-header-image{max-height:none}}
+#lm-header-image{display:block;width:100%;height:auto;max-height:330px;object-fit:cover;object-position:center}
+@media (min-width:900px){#lm-header-image{max-height:430px}}

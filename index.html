@@ -442,50 +442,18 @@ const firebaseConfig = {
     }
 
 
-  
-    /* CABECERA: conservar siempre la proporción completa de la imagen */
-    #lm-hero {
-      display: block !important;
-      width: 100% !important;
-      max-width: none !important;
-      height: auto !important;
-      min-height: 0 !important;
-      max-height: none !important;
-      margin: 0 0 12px !important;
-      padding: 0 !important;
-      overflow: visible !important;
-      line-height: 0 !important;
-      aspect-ratio: auto !important;
-    }
-    #lm-hero #lm-header-image {
-      display: block !important;
-      position: static !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
-      height: auto !important;
-      min-height: 0 !important;
-      max-height: none !important;
-      aspect-ratio: auto !important;
-      object-fit: contain !important;
-      object-position: center center !important;
-      transform: none !important;
-      margin: 0 auto !important;
-      padding: 0 !important;
-    }
-    @media (min-width: 900px) {
-      body.layout-desktop #lm-hero,
-      body.layout-desktop #lm-hero #lm-header-image {
-        height: auto !important;
-        max-height: none !important;
-      }
-    }
-</style>
+  </style>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <!-- Firebase (compat) para registro de usuarios y actividad en tiempo real -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
   <link rel="stylesheet" href="rediseño-app.css?v=20261002" />
+
+<style id="lm-header-image-fit">
+/* Cabecera completa: conservar la proporción y mostrar la imagen entera */
+#lm-hero { width: 100%; max-width: 100%; height: auto !important; overflow: visible !important; margin: 0 auto 1rem; }
+#lm-header-image { display: block !important; width: 100% !important; max-width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; object-position: center !important; }
+</style>
 </head>
 <body class="min-h-screen">
   <section aria-label="Información del Club Deportivo Los Morruos" class="seo-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
@@ -667,8 +635,8 @@ const firebaseConfig = {
   <main class="px-4 pt-4 pb-10 max-w-lg mx-auto">
 
     <div id="lm-hero" aria-label="Cabecera Los Morruos">
-      <img id="lm-header-image" src="./cabecera-los-morruos.jpg" alt="Los Morruos - Bola Canaria - Morro Jable" />
-    </div>
+  <img id="lm-header-image" src="./cabecera-los-morruos.jpg" alt="Los Morruos - Bola Canaria - Morro Jable" />
+</div>
 
 <div id="lm-quick-nav" aria-label="Accesos rápidos">
   <button class="lm-quick" onclick="goTo('calendario')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18M8 13h2M14 13h2M8 17h2M14 17h2"/></svg><span>PARTIDOS</span></button>

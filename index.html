@@ -443,32 +443,41 @@ const firebaseConfig = {
 
 
   
-    /* Cabecera Los Morruos: mostrar siempre la imagen completa */
+    /* CABECERA: conservar siempre la proporción completa de la imagen */
     #lm-hero {
-      width: 100%;
-      margin: 0 0 12px;
-      padding: 0;
-      overflow: visible;
-      line-height: 0;
-      text-align: center;
+      display: block !important;
+      width: 100% !important;
+      max-width: none !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      margin: 0 0 12px !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      line-height: 0 !important;
+      aspect-ratio: auto !important;
     }
-    #lm-header-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-width: 100%;
-      object-fit: contain;
-      object-position: center center;
-      margin: 0 auto;
+    #lm-hero #lm-header-image {
+      display: block !important;
+      position: static !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      aspect-ratio: auto !important;
+      object-fit: contain !important;
+      object-position: center center !important;
+      transform: none !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
     }
     @media (min-width: 900px) {
-      #lm-hero {
-        width: 100%;
-      }
-      #lm-header-image {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
+      body.layout-desktop #lm-hero,
+      body.layout-desktop #lm-hero #lm-header-image {
+        height: auto !important;
+        max-height: none !important;
       }
     }
 </style>

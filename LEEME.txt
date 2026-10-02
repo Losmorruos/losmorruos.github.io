@@ -1,15 +1,10 @@
-LOS MORRUOS - FIREBASE CONFIGURADO
+ACTUALIZAR LA CABECERA DE LOS MORRUOS
 
-Se ha integrado la configuración web de Firebase proporcionada para que la
-aplicación use el proyecto compartido "los-morruos" en lugar de depender de
-una configuración introducida manualmente en cada móvil.
+La página ya utiliza el archivo cabecera-los-morruos.jpg en index.html.
+Para poner la nueva imagen sin recortarla:
+1. En GitHub abre el repositorio Losmorruos/losmorruos.github.io.
+2. Abre el archivo cabecera-los-morruos.jpg y elige eliminar/reemplazarlo, o sube este archivo con exactamente ese nombre sobrescribiendo el anterior.
+3. Haz commit en la rama main.
+4. Espera a que GitHub Pages publique y recarga la web.
 
-IMPORTANTE:
-- La lista de usuarios solo será compartida si Firebase Authentication /
-  Firestore (o la base de datos que usa el código) tiene sus reglas y
-  colecciones configuradas correctamente.
-- La apiKey web de Firebase no es una contraseña privada; aun así, las reglas
-  de Firebase deben proteger correctamente los datos.
-- Después de subir los archivos, hay que recargar/borrar caché de la PWA.
-
-Se validaron los bloques JavaScript embebidos sin errores de sintaxis.
+La imagen conserva la proporción completa (sin recorte). No cambies index.html.

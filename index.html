@@ -459,18 +459,18 @@ const firebaseConfig = {
   background:#fff !important;
 }
 #lm-header-image {
-  display:block !important; width:100% !important; max-width:100% !important;
-  height:auto !important; min-height:0 !important; max-height:180px !important;
-  object-fit:contain !important; object-position:center !important; margin:0 auto !important;
-  border-radius:0 !important;
-}
-@media (max-width:600px) {
-  #lm-header-image { max-height:125px !important; width:100% !important; }
-}
-@media (min-width:601px) {
-  #lm-header-image { max-height:180px !important; }
-}
-/* Franja fija de patrocinador y colaboradores, sobre la navegación inferior */
+   display:block !important; width:100% !important; max-width:100% !important;
+   height:auto !important; min-height:0 !important; max-height:110px !important;
+   object-fit:contain !important; object-position:center !important; margin:0 auto !important;
+   border-radius:0 !important;
+ }
+ @media (max-width:600px) {
+   #lm-header-image { max-height:78px !important; width:100% !important; }
+ }
+ @media (min-width:601px) {
+   #lm-header-image { max-height:110px !important; }
+ }
+ /* Franja fija de patrocinador y colaboradores, sobre la navegación inferior */
 #sponsor-footer {
   display:flex !important; position:fixed !important; left:0 !important; right:0 !important;
   bottom:calc(64px + env(safe-area-inset-bottom, 0px)) !important; z-index:85 !important;

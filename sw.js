@@ -1,4 +1,4 @@
-const CACHE = "los-morruos-app-v40";
+const CACHE = "los-morruos-app-v42";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,7 +6,10 @@ const ASSETS = [
   "./logo-64.png",
   "./logo-128.png",
   "./logo-192.png",
-  "./logo-512.png"
+  "./logo-512.png",
+  "./rediseño-app.css?v=20261002",
+  "./rediseño-app.js?v=20261002",
+  "./logo-fg-automocion-alargado.svg"
 ];
 
 self.addEventListener("install", event => {

@@ -764,6 +764,7 @@ body.has-sponsor-footer main { padding-bottom:190px !important; }
           <tbody id="home-standings-b"></tbody>
         </table>
       </div>
+      <p class="text-[11px] text-gray-500 mb-1">2ª Categoría · Grupo G · La Lajita (provisional)</p><div class="card overflow-hidden mb-6"><table class="w-full text-sm"><thead class="bg-dark-border/40 text-gray-500 text-[11px]"><tr><th class="py-2 px-3 text-left">#</th><th class="py-2 px-3 text-left">Equipo</th><th class="py-2 px-3 text-center">Pts</th></tr></thead><tbody id="home-standings-l"></tbody></table></div>
       <div class="flex items-center justify-between mb-3">
         <h2 class="font-display text-lg text-gold">Últimas noticias</h2>
         <button onclick="goTo('noticias')" class="text-xs text-gray-400">Ver todas →</button>
@@ -825,6 +826,7 @@ body.has-sponsor-footer main { padding-bottom:190px !important; }
           </div>
         </div>
       </div>
+      <div class="mt-4"><p class="text-xs text-gold mb-2 font-medium">La Lajita · 2ª Categoría · Grupo G — clasificación inventada provisional, pendiente de datos reales</p><div class="card overflow-hidden"><div class="overflow-x-auto no-scrollbar"><table class="w-full text-sm min-w-[340px]"><thead class="bg-dark-border/50 text-gray-500 text-[11px]"><tr><th class="py-3 px-2 text-left">#</th><th class="py-3 px-2 text-left">Equipo</th><th class="py-3 px-2 text-center">PJ</th><th class="py-3 px-2 text-center">G</th><th class="py-3 px-2 text-center">E</th><th class="py-3 px-2 text-center">P</th><th class="py-3 px-2 text-center">Pts</th></tr></thead><tbody id="standings-body-l"></tbody></table></div></div></div>
     </section>
 
     <section id="tab-torneo" class="tab-content">
@@ -871,6 +873,7 @@ body.has-sponsor-footer main { padding-bottom:190px !important; }
 
     <section id="tab-calendario" class="tab-content">
       <h2 class="font-display text-xl text-gold mb-4">Calendario</h2>
+      <div class="grid grid-cols-3 gap-2 mb-4"><button onclick="filterCalendarTeam('Morro Jable A')" id="calendar-filter-a" class="admin-btn text-xs py-2">Morro Jable A</button><button onclick="filterCalendarTeam('Morro Jable B')" id="calendar-filter-b" class="admin-btn-secondary text-xs py-2">Morro Jable B</button><button onclick="filterCalendarTeam('La Lajita')" id="calendar-filter-l" class="admin-btn-secondary text-xs py-2">La Lajita</button></div><p id="calendar-team-label" class="text-xs text-gray-400 mb-3">Calendario de Morro Jable A</p>
       <div class="space-y-3" id="calendario-list"></div>
     </section>
 
@@ -1372,10 +1375,33 @@ Chándal|45€|Chándal completo|si"></textarea>
         { pos: 7, team: "C.D. Pájara B", pj: 10, g: 2, e: 0, p: 8, pts: 6 },
         { pos: 8, team: "C.D. Gran Tarajal B", pj: 10, g: 1, e: 0, p: 9, pts: 3 },
       ],
+      standingsL: [
+        { pos: 1, team: "La Lajita", pj: 8, g: 6, e: 0, p: 2, pts: 18 },
+        { pos: 2, team: "C.D. Pájara B", pj: 8, g: 5, e: 0, p: 3, pts: 15 },
+        { pos: 3, team: "C.D. Antigua B", pj: 8, g: 4, e: 1, p: 3, pts: 13 },
+        { pos: 4, team: "C.D. Tefía B", pj: 8, g: 4, e: 0, p: 4, pts: 12 },
+        { pos: 5, team: "C.D. Corralejo B", pj: 8, g: 3, e: 1, p: 4, pts: 10 },
+        { pos: 6, team: "C.D. La Oliva B", pj: 8, g: 3, e: 0, p: 5, pts: 9 },
+        { pos: 7, team: "C.D. Gran Tarajal B", pj: 8, g: 2, e: 0, p: 6, pts: 6 },
+        { pos: 8, team: "C.D. Betancuria B", pj: 8, g: 1, e: 0, p: 7, pts: 3 }
+      ],
       // compatibilidad con datos antiguos
       standings: [],
       matches: [
-        { date: "2026-09-06", time: "18:00", rival: "C.D. Tefía", home: true, result: null, jornada: 13 },
+        { team: "Morro Jable A", date: "2026-09-06", time: "18:00", rival: "C.D. Tefía", home: true, result: null, jornada: 13 },
+        { team: "Morro Jable A", date: "2026-09-20", time: "17:30", rival: "C.D. Antigua", home: false, result: null, jornada: 14 },
+        { team: "Morro Jable A", date: "2026-10-04", time: "18:00", rival: "C.D. Pájara", home: true, result: null, jornada: 15 },
+        { team: "Morro Jable A", date: "2026-08-24", time: "18:00", rival: "C.D. Corralejo", home: true, result: "13-9", jornada: 12 },
+        { team: "Morro Jable A", date: "2026-08-17", time: "17:00", rival: "C.D. Betancuria", home: false, result: "11-12", jornada: 11 },
+        { team: "Morro Jable A", date: "2026-08-10", time: "18:00", rival: "C.D. La Oliva", home: true, result: "13-7", jornada: 10 },
+        { team: "Morro Jable A", date: "2026-08-03", time: "17:30", rival: "C.D. Gran Tarajal", home: false, result: "13-5", jornada: 9 },
+        { team: "Morro Jable A", date: "2026-07-27", time: "17:30", rival: "C.D. Tefía", home: false, result: "10-13", jornada: 8 },
+        { team: "Morro Jable B", date: "2026-09-06", time: "17:00", rival: "C.D. Antigua", home: false, result: null, jornada: 13 },
+        { team: "Morro Jable B", date: "2026-09-20", time: "18:00", rival: "C.D. Puerto del Rosario B", home: true, result: null, jornada: 14 },
+        { team: "Morro Jable B", date: "2026-10-04", time: "17:00", rival: "C.D. Corralejo B", home: false, result: null, jornada: 15 },
+        { team: "La Lajita", date: "2026-09-06", time: "16:00", rival: "C.D. Pájara B", home: true, result: null, jornada: 1 },
+        { team: "La Lajita", date: "2026-09-13", time: "17:00", rival: "C.D. Antigua B", home: false, result: null, jornada: 2 },
+        { team: "La Lajita", date: "2026-09-27", time: "18:00", rival: "C.D. Tefía B", home: true, result: null, jornada: 3 },
         { date: "2026-09-20", time: "17:30", rival: "C.D. Antigua", home: false, result: null, jornada: 14 },
         { date: "2026-10-04", time: "18:00", rival: "C.D. Pájara", home: true, result: null, jornada: 15 },
         { date: "2026-08-24", time: "18:00", rival: "C.D. Corralejo", home: true, result: "13-9", jornada: 12 },
@@ -1994,6 +2020,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     function getStandingsB() {
       return (data.standingsB && data.standingsB.length) ? data.standingsB : [];
     }
+    function getStandingsL() { return (data.standingsL && data.standingsL.length) ? data.standingsL : DEFAULT.standingsL; }
     function showCategory(n) {
       document.getElementById("cat1-block").classList.toggle("hidden", n !== 1);
       document.getElementById("cat2-block").classList.toggle("hidden", n !== 2);
@@ -2022,10 +2049,21 @@ Chándal|45€|Chándal completo|si"></textarea>
     function renderStandings() {
       document.getElementById("standings-body-a").innerHTML = getStandingsA().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
       document.getElementById("standings-body-b").innerHTML = getStandingsB().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
+      const lb = document.getElementById("standings-body-l"); if (lb) lb.innerHTML = getStandingsL().map(rowStanding).join("");
+      const lh = document.getElementById("home-standings-l"); if (lh) lh.innerHTML = getStandingsL().map(s => '<tr class="border-t border-dark-border"><td class="py-2 px-3">' + s.pos + '</td><td class="py-2 px-3">' + s.team + '</td><td class="py-2 px-3 text-center">' + s.pts + '</td></tr>').join("");
     }
 
+    window._calendarTeam = window._calendarTeam || "Morro Jable A";
+    function filterCalendarTeam(team) {
+      window._calendarTeam = team;
+      const ids = { "Morro Jable A": "calendar-filter-a", "Morro Jable B": "calendar-filter-b", "La Lajita": "calendar-filter-l" };
+      Object.entries(ids).forEach(([name,id]) => { const el=document.getElementById(id); if(el) el.className = name===team ? "admin-btn text-xs py-2" : "admin-btn-secondary text-xs py-2"; });
+      const label=document.getElementById("calendar-team-label"); if(label) label.textContent="Calendario de "+team;
+      renderCalendario();
+    }
     function renderCalendario() {
-      const sorted = [...(data.matches || [])].sort((a, b) => a.date.localeCompare(b.date));
+      const team = window._calendarTeam || "Morro Jable A";
+      const sorted = [...(data.matches || [])].filter(m => (m.team || "Morro Jable A") === team).sort((a, b) => a.date.localeCompare(b.date));
       document.getElementById("calendario-list").innerHTML = sorted.map(m => {
         const isPast = !!m.result;
         const [g1, g2] = m.result ? m.result.split("-").map(Number) : [null, null];

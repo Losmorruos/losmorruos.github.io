@@ -434,5 +434,16 @@
     ],
     "contact": "+34650858521 / ClubdeportivolosMorruos@gmail.com"
   },
-  "trainingNotes": "Entrenamientos lunes y miércoles a las 18:30\nCancha de Morro Jable\nTraer ropa oscura y agua."
+  "trainingNotes": "Entrenamientos lunes y miércoles a las 18:30\nCancha de Morro Jable\nTraer ropa oscura y agua.",
+  "standingsL": [
+    {
+      "pos": 1,
+      "team": "La Lajita",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    }
+  ]
 }

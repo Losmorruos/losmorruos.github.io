@@ -884,6 +884,7 @@ body.has-sponsor-footer main { padding-bottom:190px !important; }
       <div class="flex gap-2 mb-4">
         <button onclick="showPlayersTeam('A')" id="players-tab-a" class="flex-1 admin-btn text-sm py-2">Morro Jable A</button>
         <button onclick="showPlayersTeam('B')" id="players-tab-b" class="flex-1 admin-btn-secondary text-sm py-2">Morro Jable B</button>
+        <button onclick="showPlayersTeam('L')" id="players-tab-l" class="flex-1 admin-btn-secondary text-sm py-2">La Lajita</button>
       </div>
       <h3 class="font-display text-gold text-base mb-3" id="players-team-title">Morro Jable A</h3>
       <div class="space-y-2" id="players-grid"></div>
@@ -2056,13 +2057,15 @@ Chándal|45€|Chándal completo|si"></textarea>
       const title = document.getElementById("players-team-title");
       const btnA = document.getElementById("players-tab-a");
       const btnB = document.getElementById("players-tab-b");
-      if (title) title.textContent = team === "B" ? "Morro Jable B" : "Morro Jable A";
-      if (btnA) { btnA.className = team === "A" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2"; }
-      if (btnB) { btnB.className = team === "B" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2"; }
+      const btnL = document.getElementById("players-tab-l");
+      const teamNames = { A: "Morro Jable A", B: "Morro Jable B", L: "La Lajita" };
+      if (title) title.textContent = teamNames[team] || teamNames.A;
+      if (btnA) btnA.className = team === "A" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2";
+      if (btnB) btnB.className = team === "B" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2";
+      if (btnL) btnL.className = team === "L" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2";
       const list = (data.players || []).filter(p => {
         const t = (p.team || p.equipo || "A").toString().toUpperCase();
-        if (team === "B") return t.includes("B");
-        return !t.includes("B"); // A by default
+        return t === team;
       });
       if (!list.length) {
         grid.innerHTML = typeof emptyState === "function" ? emptyState("No hay jugadores en esta plantilla.") : "<p class='text-gray-500 text-sm'>Sin jugadores</p>";

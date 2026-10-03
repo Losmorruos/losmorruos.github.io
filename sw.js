@@ -1,4 +1,4 @@
-const CACHE = "los-morruos-app-v44";
+const CACHE = "los-morruos-app-v45";
 const ASSETS = [
   "./",
   "./index.html",
@@ -16,6 +16,10 @@ const ASSETS = [
   "./logo-padilla-spar.webp",
   "./logo-ayose-diaz.png",
   "./logo-la-grada.png",
+  "./fg-automocion-recortado.jpg?v=20261004",
+  "./padilla-spar-recortado.jpg?v=20261004",
+  "./ayose-diaz-recortado.jpg?v=20261004",
+  "./la-grada-recortado.jpg?v=20261004",
   "./data.json"
 ];
 

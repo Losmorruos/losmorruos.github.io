@@ -444,6 +444,69 @@
       "e": 0,
       "p": 0,
       "pts": 0
+    },
+    {
+      "pos": 2,
+      "team": "C.D. Pájara B",
+      "pj": 8,
+      "g": 6,
+      "e": 0,
+      "p": 2,
+      "pts": 18
+    },
+    {
+      "pos": 3,
+      "team": "C.D. Antigua B",
+      "pj": 8,
+      "g": 5,
+      "e": 0,
+      "p": 3,
+      "pts": 15
+    },
+    {
+      "pos": 4,
+      "team": "C.D. Tefía B",
+      "pj": 8,
+      "g": 4,
+      "e": 1,
+      "p": 3,
+      "pts": 13
+    },
+    {
+      "pos": 5,
+      "team": "C.D. Corralejo B",
+      "pj": 8,
+      "g": 4,
+      "e": 0,
+      "p": 4,
+      "pts": 12
+    },
+    {
+      "pos": 6,
+      "team": "C.D. La Oliva B",
+      "pj": 8,
+      "g": 3,
+      "e": 0,
+      "p": 5,
+      "pts": 9
+    },
+    {
+      "pos": 7,
+      "team": "C.D. Gran Tarajal B",
+      "pj": 8,
+      "g": 2,
+      "e": 0,
+      "p": 6,
+      "pts": 6
+    },
+    {
+      "pos": 8,
+      "team": "C.D. Betancuria B",
+      "pj": 8,
+      "g": 1,
+      "e": 0,
+      "p": 7,
+      "pts": 3
     }
   ]
 }

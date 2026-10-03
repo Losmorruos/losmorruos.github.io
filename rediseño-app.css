@@ -114,3 +114,51 @@ button:active, .admin-btn:active, .share-btn:active { transform: scale(.98); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* Ajuste final de logos de patrocinador y colaboradores: usar los archivos recortados originales */
+#sponsor-footer .sf-featured-logo,
+#sponsor-footer .sf-static-logo {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  padding:0 !important;
+}
+#sponsor-footer .sf-featured-logo {
+  width:100% !important;
+  height:84px !important;
+  border-radius:10px !important;
+}
+#sponsor-footer .sf-featured-logo img {
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:none !important;
+  margin:0 !important;
+}
+#sponsor-footer .sf-static-logo {
+  min-width:0 !important;
+  height:64px !important;
+  border-radius:10px !important;
+}
+#sponsor-footer .sf-static-logo img {
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  padding:3px !important;
+  margin:0 !important;
+}
+@media (max-width:600px) {
+  #sponsor-footer .sf-featured-logo { height:84px !important; }
+  #sponsor-footer .sf-static-logo { height:64px !important; }
+}

@@ -26,6 +26,15 @@
       "place": "Cancha Municipal · Puerto del Rosario",
       "home": false,
       "comp": "Liga Insular"
+    },
+    {
+      "team": "La Lajita",
+      "rival": "C.D. Pájara B",
+      "date": "2026-09-06",
+      "time": "16:00",
+      "place": "Cancha Municipal · Puerto del Rosario",
+      "home": true,
+      "comp": "2ª Categoría · Grupo G"
     }
   ],
   "standingsA": [

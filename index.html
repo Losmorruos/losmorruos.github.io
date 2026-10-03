@@ -505,7 +505,57 @@ html body main #lm-hero img#lm-header-image {
   display:block !important; max-width:100% !important; width:100% !important;
   height:46px !important; object-fit:contain !important;
 }
-body.has-sponsor-footer main { padding-bottom:150px !important; }
+/* Panel de patrocinio integrado con el estilo oscuro y amarillo de la app */
+#sponsor-footer {
+  position:relative !important; left:auto !important; right:auto !important; bottom:auto !important;
+  z-index:2 !important; width:calc(100% - 32px) !important; max-width:960px !important;
+  min-height:0 !important; height:auto !important; margin:18px auto 24px !important;
+  padding:14px !important; display:none; flex-direction:column !important; gap:14px !important;
+  align-items:stretch !important; justify-content:flex-start !important; overflow:hidden !important;
+  background:linear-gradient(145deg,#171717 0%,#0c0c0c 100%) !important;
+  border:1px solid #353535 !important; border-top:2px solid #F5C518 !important;
+  border-radius:18px !important; box-shadow:0 10px 28px rgba(0,0,0,.32) !important;
+  box-sizing:border-box !important;
+}
+#sponsor-footer.show { display:flex !important; }
+#sponsor-footer::before { content:""; position:absolute; left:14px; top:0; width:72px; height:3px; background:#F5C518; border-radius:0 0 4px 4px; }
+#sponsor-footer .sf-section { min-width:0; }
+#sponsor-footer .sf-heading {
+  display:flex; align-items:center; gap:7px; margin:0 0 10px;
+  color:#F5C518; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700;
+  letter-spacing:.09em; text-transform:uppercase;
+}
+#sponsor-footer .sf-heading span:first-child { font-size:15px; }
+#sponsor-footer .sf-main-sponsor { padding-bottom:12px; border-bottom:1px solid rgba(245,197,24,.24); }
+#sponsor-footer .sf-featured-logo {
+  display:flex; align-items:center; justify-content:center; width:100%; min-height:74px;
+  padding:8px 12px; background:#fff; border:1px solid #414141; border-radius:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+#sponsor-footer .sf-featured-logo img {
+  display:block; width:100%; max-width:360px; height:68px; object-fit:contain; object-position:center;
+}
+#sponsor-footer .sf-collab-logos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+#sponsor-footer .sf-static-logo {
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  min-width:0 !important; height:62px !important; padding:6px !important;
+  background:#202020 !important; border:1px solid #383838 !important; border-radius:10px !important;
+  box-sizing:border-box !important;
+}
+#sponsor-footer .sf-static-logo img {
+  display:block !important; width:100% !important; max-width:100% !important;
+  height:48px !important; object-fit:contain !important; background:transparent !important;
+}
+body.has-sponsor-footer main { padding-bottom:24px !important; }
+@media (min-width:600px) {
+  #sponsor-footer { flex-direction:row !important; align-items:stretch !important; padding:18px !important; gap:18px !important; }
+  #sponsor-footer .sf-main-sponsor { flex:1.15; padding:0 18px 0 0; border-bottom:0; border-right:1px solid rgba(245,197,24,.24); }
+  #sponsor-footer .sf-collaborators { flex:1.85; }
+  #sponsor-footer .sf-featured-logo { height:calc(100% - 26px); }
+  #sponsor-footer .sf-collab-logos { height:calc(100% - 26px); align-items:stretch; }
+  #sponsor-footer .sf-static-logo { height:100% !important; min-height:74px !important; }
+}
+
 </style>
 </head>
 <body class="min-h-screen">
@@ -3793,18 +3843,20 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (!bar) return;
       if (_collabRotateTimer) { clearInterval(_collabRotateTimer); _collabRotateTimer = null; }
       bar.innerHTML = `
-        <a class="sf-static-logo" href="https://www.facebook.com/share/1CV8EghAmF/" target="_blank" rel="noopener noreferrer" aria-label="FG Automoción">
-          <img src="./logo-fg-automocion.png" alt="FG Automoción" />
-        </a>
-        <a class="sf-static-logo" href="https://www.sparfuerteventura.es/" target="_blank" rel="noopener noreferrer" aria-label="Padilla Supermercados">
-          <img src="./logo-padilla-spar.png" alt="Padilla Supermercados y SPAR" />
-        </a>
-        <a class="sf-static-logo" href="https://transportesayosediaz.wordpress.com/" target="_blank" rel="noopener noreferrer" aria-label="Ayose Díaz">
-          <img src="./logo-ayose-diaz.png" alt="Ayose Díaz" />
-        </a>
-        <a class="sf-static-logo" href="https://www.instagram.com/lagrada_cafe?stkn=MTJnNW4xdWlibmV4aQ==" target="_blank" rel="noopener noreferrer" aria-label="La Grada Café Brunch Lounge">
-          <img src="./logo-la-grada.png" alt="La Grada Café Brunch Lounge" />
-        </a>`;
+        <div class="sf-section sf-main-sponsor">
+          <div class="sf-heading"><span aria-hidden="true">★</span><span>PATROCINADOR OFICIAL</span></div>
+          <a class="sf-featured-logo" href="https://www.facebook.com/share/1CV8EghAmF/" target="_blank" rel="noopener noreferrer" aria-label="FG Automoción">
+            <img src="./logo-fg-automocion.png" alt="FG Automoción" />
+          </a>
+        </div>
+        <div class="sf-section sf-collaborators">
+          <div class="sf-heading"><span aria-hidden="true">✦</span><span>COLABORADORES</span></div>
+          <div class="sf-collab-logos">
+            <a class="sf-static-logo" href="https://www.sparfuerteventura.es/" target="_blank" rel="noopener noreferrer" aria-label="Padilla Supermercados y SPAR"><img src="./logo-padilla-spar.png" alt="Padilla Supermercados y SPAR" /></a>
+            <a class="sf-static-logo" href="https://transportesayosediaz.wordpress.com/" target="_blank" rel="noopener noreferrer" aria-label="Ayose Díaz"><img src="./logo-ayose-diaz.png" alt="Ayose Díaz" /></a>
+            <a class="sf-static-logo" href="https://www.instagram.com/lagrada_cafe?stkn=MTJnNW4xdWlibmV4aQ==" target="_blank" rel="noopener noreferrer" aria-label="La Grada Café Brunch Lounge"><img src="./logo-la-grada.png" alt="La Grada Café Brunch Lounge" /></a>
+          </div>
+        </div>`;
       bar.classList.add("show");
       document.body.classList.add("has-sponsor-footer");
     }

@@ -525,19 +525,19 @@ html body main #lm-hero img#lm-header-image {
 #sponsor-footer .sf-heading { display:flex; align-items:center; justify-content:center; gap:5px; margin:0 0 8px; color:#F5C518; font-family:'Oswald',sans-serif; font-size:10px; line-height:1.2; font-weight:700; letter-spacing:.055em; text-transform:uppercase; white-space:nowrap; }
 #sponsor-footer .sf-heading span:first-child { font-size:12px; }
 #sponsor-footer .sf-featured-logo { flex:1; min-width:0; min-height:54px; height:100%; display:flex; align-items:center; justify-content:center; padding:0; background:#fff; border:1px solid #3b3b3b; border-radius:9px; box-sizing:border-box; overflow:hidden; }
-#sponsor-footer .sf-featured-logo img { display:block; width:100% !important; min-width:0 !important; height:100% !important; min-height:54px; max-height:none !important; object-fit:contain !important; object-position:center; margin:0; padding:0; }
+#sponsor-footer .sf-featured-logo img { display:block; width:100% !important; min-width:0 !important; height:100% !important; min-height:54px; max-height:none !important; object-fit:cover !important; object-position:center; transform:scale(1.12); margin:0; padding:0; }
 #sponsor-footer .sf-collab-logos { flex:1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:center; gap:6px; }
-#sponsor-footer .sf-static-logo { display:flex !important; align-items:center !important; justify-content:center !important; min-width:0 !important; height:54px !important; padding:4px !important; background:#202020 !important; border:1px solid #393939 !important; border-radius:9px !important; box-sizing:border-box !important; overflow:hidden !important; }
-#sponsor-footer .sf-static-logo img { display:block !important; width:100% !important; height:44px !important; max-height:44px !important; object-fit:contain !important; object-position:center !important; background:transparent !important; }
+#sponsor-footer .sf-static-logo { display:flex !important; align-items:stretch !important; justify-content:stretch !important; min-width:0 !important; height:54px !important; padding:0 !important; background:#202020 !important; border:1px solid #393939 !important; border-radius:9px !important; box-sizing:border-box !important; overflow:hidden !important; }
+#sponsor-footer .sf-static-logo img { display:block !important; width:100% !important; height:100% !important; max-height:none !important; object-fit:cover !important; object-position:center !important; background:transparent !important; margin:0 !important; padding:0 !important; }
 body.has-sponsor-footer main { padding-bottom:190px !important; }
 @media (min-width:600px) {
   #sponsor-footer { min-height:100px !important; padding:6px 20px !important; gap:16px !important; }
   #sponsor-footer .sf-main-sponsor { flex-basis:34%; padding-right:16px; }
   #sponsor-footer .sf-heading { font-size:12px; margin-bottom:9px; }
   #sponsor-footer .sf-featured-logo { min-height:64px; }
-  #sponsor-footer .sf-featured-logo img { height:100% !important; min-height:92px; max-height:none !important; object-fit:contain !important; object-position:center; }
+  #sponsor-footer .sf-featured-logo img { height:100% !important; min-height:92px; max-height:none !important; object-fit:cover !important; object-position:center; transform:scale(1.12); }
   #sponsor-footer .sf-static-logo { height:64px !important; }
-  #sponsor-footer .sf-static-logo img { height:52px !important; max-height:52px !important; }
+  #sponsor-footer .sf-static-logo img { height:100% !important; max-height:none !important; }
 }
 
 

@@ -764,7 +764,7 @@ body.has-sponsor-footer main { padding-bottom:190px !important; }
           <tbody id="home-standings-b"></tbody>
         </table>
       </div>
-      <p class="text-[11px] text-gray-500 mb-1">2ª Categoría · Grupo G · La Lajita (provisional)</p><div class="card overflow-hidden mb-6"><table class="w-full text-sm"><thead class="bg-dark-border/40 text-gray-500 text-[11px]"><tr><th class="py-2 px-3 text-left">#</th><th class="py-2 px-3 text-left">Equipo</th><th class="py-2 px-3 text-center">Pts</th></tr></thead><tbody id="home-standings-l"></tbody></table></div>
+      <p class="text-[11px] text-gray-500 mb-1">2ª Categoría · Grupo G · La Lajita (provisional)</p><div class="card overflow-hidden mb-6 cursor-pointer" onclick="goTo('clasificacion'); showCategory(2)" role="button" tabindex="0" aria-label="Ver clasificación completa de La Lajita"><table class="w-full text-sm"><thead class="bg-dark-border/40 text-gray-500 text-[11px]"><tr><th class="py-2 px-3 text-left">#</th><th class="py-2 px-3 text-left">Equipo</th><th class="py-2 px-3 text-center">Pts</th></tr></thead><tbody id="home-standings-l"></tbody></table><p class="px-3 pb-3 text-xs text-gray-500">Toca para ver la clasificación completa →</p></div>
       <div class="flex items-center justify-between mb-3">
         <h2 class="font-display text-lg text-gold">Últimas noticias</h2>
         <button onclick="goTo('noticias')" class="text-xs text-gray-400">Ver todas →</button>
@@ -1994,6 +1994,8 @@ Chándal|45€|Chándal completo|si"></textarea>
         </tr>`;
       document.getElementById("home-standings-a").innerHTML = getStandingsA().slice(0, 3).map(s => rowHome(s)).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
       document.getElementById("home-standings-b").innerHTML = getStandingsB().slice(0, 3).map(s => rowHome(s)).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
+      const homeL = document.getElementById("home-standings-l");
+      if (homeL) homeL.innerHTML = getStandingsL().slice(0, 3).map(s => rowHome(s)).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
 
       const newsItems = (data.news || []).slice(0, 2);
       const newsEl = document.getElementById("home-news");
@@ -2016,7 +2018,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     function isClubTeam(name) {
       if (!name) return false;
       const n = name.toLowerCase();
-      return n.includes("morro jable") || n.includes("morruos") || n.includes("los morruos");
+      return n.includes("morro jable") || n.includes("morruos") || n.includes("los morruos") || n.includes("la lajita");
     }
     function getStandingsA() {
       if (data.standingsA && data.standingsA.length) return data.standingsA;

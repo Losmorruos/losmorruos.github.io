@@ -970,6 +970,7 @@ body.has-sponsor-footer main { padding-bottom:190px !important; }
       <div class="flex gap-2 mb-4">
         <button onclick="showStatsTeam('A')" id="stats-tab-a" class="flex-1 admin-btn text-sm py-2">Morro Jable A</button>
         <button onclick="showStatsTeam('B')" id="stats-tab-b" class="flex-1 admin-btn-secondary text-sm py-2">Morro Jable B</button>
+        <button onclick="showStatsTeam('L')" id="stats-tab-l" class="flex-1 admin-btn-secondary text-sm py-2">La Lajita</button>
       </div>
       <h3 class="font-display text-gold text-base mb-2" id="stats-team-title">Morro Jable A · 1ª Categoría</h3>
       <div id="stats-grid" class="grid grid-cols-2 gap-3 mb-5"></div>
@@ -2860,15 +2861,17 @@ Chándal|45€|Chándal completo|si"></textarea>
       const title = document.getElementById("stats-team-title");
       const btnA = document.getElementById("stats-tab-a");
       const btnB = document.getElementById("stats-tab-b");
-      if (title) title.textContent = team === "B" ? "Morro Jable B · 2ª Categoría" : "Morro Jable A · 1ª Categoría";
+      const btnL = document.getElementById("stats-tab-l");
+      if (title) title.textContent = team === "L" ? "La Lajita · 2ª Categoría · Grupo G" : team === "B" ? "Morro Jable B · 2ª Categoría" : "Morro Jable A · 1ª Categoría";
       if (btnA) btnA.className = team === "A" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2";
       if (btnB) btnB.className = team === "B" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2";
+      if (btnL) btnL.className = team === "L" ? "flex-1 admin-btn text-sm py-2" : "flex-1 admin-btn-secondary text-sm py-2";
 
       const matches = (data.matches || []).filter(m => {
         const t = (m.team || m.equipo || "A").toString();
+        if (team === "L") return t.toLowerCase().includes("lajita") || t === "L";
         if (team === "B") return t.includes("B");
-        // A: explicit A or empty/unknown
-        return t.includes("A") || (!t.includes("B") && !t);
+        return (t.includes("A") || (!t.includes("B") && !t)) && !t.toLowerCase().includes("lajita");
       });
       let played = 0, wins = 0, draws = 0, losses = 0, gf = 0, gc = 0;
       matches.forEach(m => {
@@ -2884,8 +2887,9 @@ Chándal|45€|Chándal completo|si"></textarea>
       });
       const players = (data.players || []).filter(p => {
         const t = (p.team || p.equipo || "A").toString().toUpperCase();
+        if (team === "L") return t.includes("L") || t.toLowerCase().includes("lajita");
         if (team === "B") return t.includes("B");
-        return !t.includes("B");
+        return !t.includes("B") && !t.toLowerCase().includes("lajita");
       }).length;
       grid.innerHTML = `
         <div class="stat-card"><div class="val">${played}</div><div class="lbl">Partidos</div></div>
@@ -2897,8 +2901,8 @@ Chándal|45€|Chándal completo|si"></textarea>
         <div class="stat-card"><div class="val">${players}</div><div class="lbl">Jugadores</div></div>
         <div class="stat-card"><div class="val">${played ? Math.round((wins/played)*100) : 0}%</div><div class="lbl">% Victorias</div></div>`;
       if (sum) sum.textContent = played
-        ? `Morro Jable ${team}: ${wins}V · ${draws}E · ${losses}D en ${played} partidos (${gf}-${gc}).`
-        : `Aún no hay resultados registrados para Morro Jable ${team}.`;
+        ? `${team === "L" ? "La Lajita" : "Morro Jable " + team}: ${wins}V · ${draws}E · ${losses}D en ${played} partidos (${gf}-${gc}).`
+        : `Aún no hay resultados registrados para ${team === "L" ? "La Lajita" : "Morro Jable " + team}; las estadísticas están a 0 hasta introducir resultados reales.`;
     }
     function showStatsTeam(t) {
       window._statsTeam = t;

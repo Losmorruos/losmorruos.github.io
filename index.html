@@ -452,24 +452,24 @@ const firebaseConfig = {
 <style id="lm-header-image-fit">
 /* Patrocinador oficial en la cabecera, a todo el ancho y sin recortes */
 #lm-hero {
-  display:block !important; width:100vw !important; max-width:100vw !important;
-  height:clamp(150px, 24vw, 280px) !important;
-  overflow:hidden !important; margin:0 calc(50% - 50vw) 1rem !important;
+  display:block !important; width:100% !important; max-width:100% !important;
+  height:clamp(70px, 12vw, 115px) !important;
+  overflow:hidden !important; margin:0 0 1rem !important;
   padding:0 !important; border-radius:0 !important; box-sizing:border-box !important;
   background:#0a0a0a !important;
 }
 #lm-header-image {
-   display:block !important; width:100% !important; max-width:none !important;
+   display:block !important; width:100% !important; max-width:100% !important;
    height:100% !important; min-height:100% !important; max-height:none !important;
    object-fit:cover !important; object-position:center !important; margin:0 !important;
    border-radius:0 !important;
  }
  @media (max-width:600px) {
-   #lm-hero { height:150px !important; }
+   #lm-hero { height:70px !important; }
    #lm-header-image { width:100% !important; height:100% !important; }
  }
  @media (min-width:601px) {
-   #lm-hero { height:clamp(220px, 28vw, 360px) !important; }
+   #lm-hero { height:clamp(90px, 10vw, 125px) !important; }
  }
  /* Franja fija de patrocinador y colaboradores, sobre la navegación inferior */
 #sponsor-footer {

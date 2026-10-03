@@ -2059,7 +2059,7 @@ Chándal|45€|Chándal completo|si"></textarea>
       document.getElementById("standings-body-a").innerHTML = getStandingsA().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
       document.getElementById("standings-body-b").innerHTML = getStandingsB().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
       const lb = document.getElementById("standings-body-l"); if (lb) lb.innerHTML = getStandingsL().map(rowStanding).join("");
-      const lh = document.getElementById("home-standings-l"); if (lh) lh.innerHTML = getStandingsL().map(s => '<tr class="border-t border-dark-border"><td class="py-2 px-3">' + s.pos + '</td><td class="py-2 px-3">' + s.team + '</td><td class="py-2 px-3 text-center">' + s.pts + '</td></tr>').join("");
+      const lh = document.getElementById("home-standings-l"); if (lh) lh.innerHTML = getStandingsL().slice(0, 3).map(s => { const club = isClubTeam(s.team); return '<tr class="border-t border-dark-border ' + (club ? 'bg-gold/10' : '') + '"><td class="py-2.5 px-3 ' + (club ? 'font-bold text-gold' : 'text-gray-400') + '">' + s.pos + '</td><td class="py-2.5 px-3 ' + (club ? 'font-semibold text-gold' : '') + '">' + s.team + '</td><td class="py-2.5 px-3 text-center font-semibold ' + (club ? 'text-gold' : '') + '">' + s.pts + '</td></tr>'; }).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
     }
 
     window._calendarTeam = window._calendarTeam || "Morro Jable A";

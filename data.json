@@ -258,7 +258,7 @@
     },
     {
       "name": "Guanarteme Gonzáles Estupiñán",
-      "team": "A"
+      "team": "L"
     },
     {
       "name": "Jonathan Diz Padin",
@@ -266,11 +266,11 @@
     },
     {
       "name": "Juan Ramon Fernández Acosta",
-      "team": "A"
+      "team": "L"
     },
     {
       "name": "Oscar Araya Gopar",
-      "team": "A"
+      "team": "L"
     },
     {
       "name": "Jonás Medina Santana",
@@ -291,6 +291,22 @@
     {
       "name": "Leonid Llera González",
       "team": "B"
+    },
+    {
+      "name": "Santiago Bentancor Moreno",
+      "team": "L"
+    },
+    {
+      "name": "Salvador Moreno García",
+      "team": "L"
+    },
+    {
+      "name": "Unay Araya Rodríguez",
+      "team": "L"
+    },
+    {
+      "name": "Jose Miguel Soto Martínez",
+      "team": "A"
     }
   ],
   "merch": [

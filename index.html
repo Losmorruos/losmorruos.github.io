@@ -453,23 +453,23 @@ const firebaseConfig = {
 /* Patrocinador oficial en la cabecera, a todo el ancho y sin recortes */
 #lm-hero {
   display:block !important; width:100% !important; max-width:100% !important;
-  height:clamp(70px, 12vw, 115px) !important;
+  height:auto !important;
   overflow:hidden !important; margin:0 0 1rem !important;
   padding:0 !important; border-radius:0 !important; box-sizing:border-box !important;
   background:#0a0a0a !important;
 }
 #lm-header-image {
    display:block !important; width:100% !important; max-width:100% !important;
-   height:100% !important; min-height:100% !important; max-height:none !important;
-   object-fit:cover !important; object-position:center !important; margin:0 !important;
+   height:auto !important; min-height:0 !important; max-height:none !important;
+   object-fit:contain !important; object-position:center !important; margin:0 !important;
    border-radius:0 !important;
  }
  @media (max-width:600px) {
-   #lm-hero { height:70px !important; }
-   #lm-header-image { width:100% !important; height:100% !important; }
+   #lm-hero { height:auto !important; }
+   #lm-header-image { width:100% !important; height:auto !important; }
  }
  @media (min-width:601px) {
-   #lm-hero { height:clamp(90px, 10vw, 125px) !important; }
+   #lm-hero { height:auto !important; }
  }
  /* Franja fija de patrocinador y colaboradores, sobre la navegación inferior */
 #sponsor-footer {
@@ -672,7 +672,7 @@ body.has-sponsor-footer main { padding-bottom:150px !important; }
   <main class="px-4 pt-4 pb-10 max-w-lg mx-auto">
 
     <div id="lm-hero" aria-label="Cabecera del Club Deportivo Los Morruos">
-  <img id="lm-header-image" src="./cabecera-los-morruos.jpg?v=20261003" alt="Los Morruos — Bola Canaria, Morro Jable" />
+  <img id="lm-header-image" src="./cabecera-los-morruos.png?v=20261003" alt="Los Morruos — Bola Canaria, Morro Jable" />
 </div>
 
 <div id="lm-quick-nav" aria-label="Accesos rápidos">

@@ -1,4 +1,4 @@
-const CACHE = "los-morruos-app-v43";
+const CACHE = "los-morruos-app-v44";
 const ASSETS = [
   "./",
   "./index.html",
@@ -11,6 +11,11 @@ const ASSETS = [
   "./rediseño-app.css?v=20261002",
   "./rediseño-app.js?v=20261002",
   "./logo-fg-automocion-alargado.svg",
+  "./logo-fg-automocion.png",
+  "./logo-padilla-spar.png",
+  "./logo-padilla-spar.webp",
+  "./logo-ayose-diaz.png",
+  "./logo-la-grada.png",
   "./data.json"
 ];
 

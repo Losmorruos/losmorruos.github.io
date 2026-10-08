@@ -207,8 +207,13 @@ const firebaseConfig = {
       padding: 16px; text-align: center; display: flex; flex-direction: column;
       align-items: center; gap: 10px; min-height: 140px; justify-content: center;
     }
+    .sponsor-card .sp-logo-link {
+      width: 100%; height: 96px; display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+    }
     .sponsor-card img {
-      max-height: 64px; max-width: 100%; object-fit: contain;
+      width: auto; height: 96px; max-height: 96px; max-width: 100%; object-fit: contain;
+      object-position: center; display: block;
     }
     .sponsor-card .sp-name { font-weight: 600; font-size: 14px; color: #f5f5f5; }
     .sponsor-card .sp-role {
@@ -3914,9 +3919,12 @@ Chándal|45€|Chándal completo|si"></textarea>
           const roleLow = role.toLowerCase();
           const featured = roleLow.includes("oficial") || roleLow.includes("principal");
           const cardClass = featured ? "sponsor-card sponsor-featured" : "sponsor-card";
-          const logo = s.logo
+          const imageHtml = s.logo
             ? `<img src="${s.logo}" alt="${s.name}" loading="lazy" onerror="this.style.display='none'" />`
             : `<div class="w-16 h-16 rounded-xl bg-gold/20 flex items-center justify-center text-2xl">🤝</div>`;
+          const logo = s.logo && s.web
+            ? `<a href="${s.web}" target="_blank" rel="noopener" aria-label="Visitar ${s.name}" class="sp-logo-link">${imageHtml}</a>`
+            : imageHtml;
           const nameHtml = s.web
             ? `<a href="${s.web}" target="_blank" rel="noopener" class="sp-name no-underline hover:underline">${s.name}</a>`
             : `<span class="sp-name">${s.name}</span>`;

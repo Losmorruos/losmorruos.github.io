@@ -40,152 +40,171 @@
   "standingsA": [
     {
       "pos": 1,
-      "team": "C.D. Corralejo",
-      "pj": 12,
-      "g": 9,
+      "team": "Pollo Magues",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 3,
-      "pts": 27
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 2,
       "team": "Morro Jable A",
-      "pj": 12,
-      "g": 8,
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 4,
-      "pts": 24
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 3,
-      "team": "C.D. Tefía",
-      "pj": 12,
-      "g": 7,
+      "team": "Tamasite",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 5,
-      "pts": 21
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 4,
-      "team": "C.D. Betancuria",
-      "pj": 12,
-      "g": 6,
-      "e": 1,
-      "p": 5,
-      "pts": 19
+      "team": "T. Chamajo",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 5,
-      "team": "C.D. La Oliva",
-      "pj": 12,
-      "g": 5,
+      "team": "Lajares",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 7,
-      "pts": 15
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 6,
-      "team": "C.D. Antigua",
-      "pj": 12,
-      "g": 4,
-      "e": 1,
-      "p": 7,
-      "pts": 13
-    },
-    {
-      "pos": 7,
-      "team": "C.D. Pájara",
-      "pj": 12,
-      "g": 3,
+      "team": "La Placeta",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 9,
-      "pts": 9
-    },
-    {
-      "pos": 8,
-      "team": "C.D. Gran Tarajal",
-      "pj": 12,
-      "g": 2,
-      "e": 0,
-      "p": 10,
-      "pts": 6
+      "p": 0,
+      "pts": 0
     }
   ],
   "standingsB": [
     {
       "pos": 1,
-      "team": "C.D. Puerto del Rosario B",
-      "pj": 10,
-      "g": 8,
+      "team": "Las Marismas",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 2,
-      "pts": 24
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 2,
-      "team": "Morro Jable B",
-      "pj": 10,
-      "g": 7,
+      "team": "Cualquier cosa",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 3,
-      "pts": 21
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 3,
-      "team": "C.D. Corralejo B",
-      "pj": 10,
-      "g": 6,
-      "e": 1,
-      "p": 3,
-      "pts": 19
+      "team": "Morro Jable B",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 4,
-      "team": "C.D. Tefía B",
-      "pj": 10,
-      "g": 5,
+      "team": "El Cuchillete",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 5,
-      "pts": 15
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 5,
-      "team": "C.D. Antigua B",
-      "pj": 10,
-      "g": 4,
+      "team": "El Tablero",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 6,
-      "pts": 12
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 6,
-      "team": "C.D. La Oliva B",
-      "pj": 10,
-      "g": 3,
-      "e": 1,
-      "p": 6,
-      "pts": 10
-    },
-    {
-      "pos": 7,
-      "team": "C.D. Pájara B",
-      "pj": 10,
-      "g": 2,
+      "team": "Atlético Pájara A",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 8,
-      "pts": 6
-    },
-    {
-      "pos": 8,
-      "team": "C.D. Gran Tarajal B",
-      "pj": 10,
-      "g": 1,
-      "e": 0,
-      "p": 9,
-      "pts": 3
+      "p": 0,
+      "pts": 0
     }
   ],
-  "standings": [],
+  "standings": [
+    {
+      "pos": 1,
+      "team": "Pollo Magues",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    },
+    {
+      "pos": 2,
+      "team": "Morro Jable A",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    },
+    {
+      "pos": 3,
+      "team": "Tamasite",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    },
+    {
+      "pos": 4,
+      "team": "T. Chamajo",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    },
+    {
+      "pos": 5,
+      "team": "Lajares",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    },
+    {
+      "pos": 6,
+      "team": "La Placeta",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    }
+  ],
   "matches": [
     {
       "date": "2026-09-06",
@@ -444,7 +463,7 @@
   "standingsL": [
     {
       "pos": 1,
-      "team": "La Lajita",
+      "team": "Atlético Pájara B",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -453,66 +472,48 @@
     },
     {
       "pos": 2,
-      "team": "C.D. Pájara B",
-      "pj": 8,
-      "g": 6,
+      "team": "Menta y chocolate",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 2,
-      "pts": 18
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 3,
-      "team": "C.D. Antigua B",
-      "pj": 8,
-      "g": 5,
+      "team": "La Burrera",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 3,
-      "pts": 15
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 4,
-      "team": "C.D. Tefía B",
-      "pj": 8,
-      "g": 4,
-      "e": 1,
-      "p": 3,
-      "pts": 13
+      "team": "La Lajita",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 5,
-      "team": "C.D. Corralejo B",
-      "pj": 8,
-      "g": 4,
+      "team": "Tequital",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 4,
-      "pts": 12
+      "p": 0,
+      "pts": 0
     },
     {
       "pos": 6,
-      "team": "C.D. La Oliva B",
-      "pj": 8,
-      "g": 3,
+      "team": "Tarajalejo",
+      "pj": 0,
+      "g": 0,
       "e": 0,
-      "p": 5,
-      "pts": 9
-    },
-    {
-      "pos": 7,
-      "team": "C.D. Gran Tarajal B",
-      "pj": 8,
-      "g": 2,
-      "e": 0,
-      "p": 6,
-      "pts": 6
-    },
-    {
-      "pos": 8,
-      "team": "C.D. Betancuria B",
-      "pj": 8,
-      "g": 1,
-      "e": 0,
-      "p": 7,
-      "pts": 3
+      "p": 0,
+      "pts": 0
     }
   ]
 }

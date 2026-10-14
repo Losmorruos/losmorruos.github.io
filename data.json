@@ -23,15 +23,6 @@
       "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "team": "La Lajita",
-      "rival": "C.D. Pájara B",
-      "date": "2026-09-06",
-      "time": "16:00",
-      "place": "Cancha Municipal · Puerto del Rosario",
-      "home": true,
-      "comp": "2ª Categoría · Grupo G"
-    },
-    {
       "team": "Morro Jable B",
       "date": "2026-11-12",
       "time": "20:00",
@@ -41,6 +32,17 @@
       "jornada": 1,
       "place": "Estación Guaguas · Morro Jable",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-11-12",
+      "time": "20:00",
+      "rival": "Tequital",
+      "home": false,
+      "result": null,
+      "jornada": 1,
+      "place": "Centro Cultural · Tequital",
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     }
   ],
   "standingsA": [
@@ -431,6 +433,116 @@
       "jornada": 10,
       "place": "Estación Guaguas · Morro Jable",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-11-12",
+      "time": "20:00",
+      "rival": "Tequital",
+      "home": false,
+      "jornada": 1,
+      "place": "Centro Cultural · Tequital",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-11-21",
+      "time": "19:00",
+      "rival": "Atlético Pájara B",
+      "home": true,
+      "jornada": 2,
+      "place": "Pendiente de confirmar",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-11-27",
+      "time": "19:00",
+      "rival": "Menta y Chocolate",
+      "home": true,
+      "jornada": 3,
+      "place": "Pendiente de confirmar",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-12-03",
+      "time": "20:00",
+      "rival": "La Burrera",
+      "home": false,
+      "jornada": 4,
+      "place": "Campo Lucha · Las Playitas",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-12-12",
+      "time": "19:00",
+      "rival": "Tarajalejo",
+      "home": true,
+      "jornada": 5,
+      "place": "Pendiente de confirmar",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2026-12-19",
+      "time": "19:00",
+      "rival": "Tequital",
+      "home": true,
+      "jornada": 6,
+      "place": "Pendiente de confirmar",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2027-01-14",
+      "time": "20:00",
+      "rival": "Atlético Pájara B",
+      "home": false,
+      "jornada": 7,
+      "place": "Merendero · Pájara",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2027-01-22",
+      "time": "20:30",
+      "rival": "Menta y Chocolate",
+      "home": false,
+      "jornada": 8,
+      "place": "Muelle · Gran Tarajal",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2027-01-30",
+      "time": "19:00",
+      "rival": "La Burrera",
+      "home": true,
+      "jornada": 9,
+      "place": "Pendiente de confirmar",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "La Lajita",
+      "date": "2027-02-04",
+      "time": "20:30",
+      "rival": "Tarajalejo",
+      "home": false,
+      "jornada": 10,
+      "place": "Cancha · Tarajalejo",
+      "result": null,
+      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     }
   ],
   "players": [
@@ -634,7 +746,7 @@
     },
     {
       "pos": 2,
-      "team": "Menta y chocolate",
+      "team": "Menta y Chocolate",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -643,7 +755,7 @@
     },
     {
       "pos": 3,
-      "team": "La Burrera",
+      "team": "Tarajalejo",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -652,15 +764,6 @@
     },
     {
       "pos": 4,
-      "team": "La Lajita",
-      "pj": 0,
-      "g": 0,
-      "e": 0,
-      "p": 0,
-      "pts": 0
-    },
-    {
-      "pos": 5,
       "team": "Tequital",
       "pj": 0,
       "g": 0,
@@ -669,8 +772,17 @@
       "pts": 0
     },
     {
+      "pos": 5,
+      "team": "La Lajita",
+      "pj": 0,
+      "g": 0,
+      "e": 0,
+      "p": 0,
+      "pts": 0
+    },
+    {
       "pos": 6,
-      "team": "Tarajalejo",
+      "team": "La Burrera",
       "pj": 0,
       "g": 0,
       "e": 0,

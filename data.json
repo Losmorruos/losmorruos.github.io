@@ -1,22 +1,26 @@
 {
   "nextMatch": {
     "team": "Morro Jable A",
-    "rival": "Ejemplo 1",
-    "date": "2026-09-06",
-    "time": "18:00",
-    "place": "Estación de Guaguas de Morro Jable",
-    "home": true,
-    "comp": "Liga Insular"
+    "date": "2026-11-13",
+    "time": "20:00",
+    "rival": "Pollo Máguez",
+    "home": false,
+    "result": null,
+    "jornada": 1,
+    "place": "Campo Lucha · Las Playitas",
+    "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
   },
   "nextMatches": [
     {
       "team": "Morro Jable A",
-      "rival": "Ejemplo 1",
-      "date": "2026-09-06",
-      "time": "18:00",
-      "place": "Estación de Guaguas de Morro Jable",
-      "home": true,
-      "comp": "Liga Insular"
+      "date": "2026-11-13",
+      "time": "20:00",
+      "rival": "Pollo Máguez",
+      "home": false,
+      "result": null,
+      "jornada": 1,
+      "place": "Campo Lucha · Las Playitas",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
       "team": "Morro Jable B",
@@ -40,7 +44,7 @@
   "standingsA": [
     {
       "pos": 1,
-      "team": "Pollo Magues",
+      "team": "Pollo Máguez",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -152,7 +156,7 @@
   "standings": [
     {
       "pos": 1,
-      "team": "Pollo Magues",
+      "team": "Pollo Máguez",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -207,68 +211,114 @@
   ],
   "matches": [
     {
-      "date": "2026-09-06",
-      "time": "18:00",
-      "rival": "C.D. Tefía",
-      "home": true,
-      "result": null,
-      "jornada": 13
-    },
-    {
-      "date": "2026-09-20",
-      "time": "17:30",
-      "rival": "C.D. Antigua",
+      "team": "Morro Jable A",
+      "date": "2026-11-13",
+      "time": "20:00",
+      "rival": "Pollo Máguez",
       "home": false,
       "result": null,
-      "jornada": 14
+      "jornada": 1,
+      "place": "Campo Lucha · Las Playitas",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "date": "2026-10-04",
-      "time": "18:00",
-      "rival": "C.D. Pájara",
+      "team": "Morro Jable A",
+      "date": "2026-11-20",
+      "time": "20:00",
+      "rival": "Lajares",
       "home": true,
       "result": null,
-      "jornada": 15
+      "jornada": 2,
+      "place": "Estación guaguas · Morro Jable",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "date": "2026-08-24",
+      "team": "Morro Jable A",
+      "date": "2026-11-28",
       "time": "18:00",
-      "rival": "C.D. Corralejo",
+      "rival": "T. Chamajo",
+      "home": false,
+      "result": null,
+      "jornada": 3,
+      "place": "Centro Cultural · Tindaya",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
+    },
+    {
+      "team": "Morro Jable A",
+      "date": "2026-12-04",
+      "time": "20:00",
+      "rival": "Tamasite",
+      "home": false,
+      "result": null,
+      "jornada": 4,
+      "place": "Entrada hotel · Las Playitas",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
+    },
+    {
+      "team": "Morro Jable A",
+      "date": "2026-12-11",
+      "time": "20:00",
+      "rival": "La Placeta",
       "home": true,
-      "result": "13-9",
-      "jornada": 12
+      "result": null,
+      "jornada": 5,
+      "place": "Estación guaguas · Morro Jable",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "date": "2026-08-17",
-      "time": "17:00",
-      "rival": "C.D. Betancuria",
-      "home": false,
-      "result": "11-12",
-      "jornada": 11
-    },
-    {
-      "date": "2026-08-10",
-      "time": "18:00",
-      "rival": "C.D. La Oliva",
+      "team": "Morro Jable A",
+      "date": "2026-12-18",
+      "time": "20:00",
+      "rival": "Pollo Máguez",
       "home": true,
-      "result": "13-7",
-      "jornada": 10
+      "result": null,
+      "jornada": 6,
+      "place": "Estación guaguas · Morro Jable",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "date": "2026-08-03",
-      "time": "17:30",
-      "rival": "C.D. Gran Tarajal",
+      "team": "Morro Jable A",
+      "date": "2027-01-15",
+      "time": "20:00",
+      "rival": "Lajares",
       "home": false,
-      "result": "13-5",
-      "jornada": 9
+      "result": null,
+      "jornada": 7,
+      "place": "Canchas · Lajares",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "date": "2026-07-27",
-      "time": "18:00",
-      "rival": "C.D. Tefía",
+      "team": "Morro Jable A",
+      "date": "2027-01-22",
+      "time": "20:00",
+      "rival": "T. Chamajo",
+      "home": true,
+      "result": null,
+      "jornada": 8,
+      "place": "Estación guaguas · Morro Jable",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
+    },
+    {
+      "team": "Morro Jable A",
+      "date": "2027-01-29",
+      "time": "20:00",
+      "rival": "Tamasite",
+      "home": true,
+      "result": null,
+      "jornada": 9,
+      "place": "Estación guaguas · Morro Jable",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
+    },
+    {
+      "team": "Morro Jable A",
+      "date": "2027-02-04",
+      "time": "20:00",
+      "rival": "La Placeta",
       "home": false,
-      "result": "10-13",
-      "jornada": 8
+      "result": null,
+      "jornada": 10,
+      "place": "Canchas Santa Rita · Los Estancos",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     }
   ],
   "players": [

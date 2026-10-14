@@ -78,20 +78,18 @@ self.addEventListener("fetch", event => {
 
   // HTML y recursos estáticos: responder desde caché cuando sea posible y
   // refrescar en segundo plano para que las siguientes aperturas sean rápidas.
+  const refresh = fetch(event.request, { cache: "no-store" }).then(response => {
+    if (response.ok) {
+      const copy = response.clone();
+      caches.open(CACHE).then(cache => cache.put(event.request, copy)).catch(() => {});
+    }
+    return response;
+  });
+  event.waitUntil(refresh.then(() => {}).catch(() => {}));
+
   event.respondWith((async () => {
     const cached = await caches.match(event.request, { ignoreSearch: true });
-    const refresh = fetch(event.request, { cache: "no-store" }).then(response => {
-      if (response.ok) {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(event.request, copy)).catch(() => {});
-      }
-      return response;
-    });
-
-    if (cached) {
-      event.waitUntil(refresh.catch(() => {}));
-      return cached;
-    }
+    if (cached) return cached;
 
     try {
       return await refresh;

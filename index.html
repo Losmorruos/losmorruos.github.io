@@ -10,6 +10,10 @@
   <meta name="description" content="Club Deportivo Los Morruos de bola canaria en Fuerteventura. Noticias, partidos, resultados, clasificación, plantilla, entrenamientos, galería, merchandising y aplicación oficial." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://losmorruos.github.io/" />
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="manifest" href="manifest.json" />
   <link rel="preload" as="image" href="logo-64.webp" type="image/webp" />
   <link rel="icon" href="logo-192.png" sizes="192x192" />
@@ -1908,12 +1912,44 @@ Chándal|45€|Chándal completo|si"></textarea>
         return null;
       }
     }
+    async function refreshDataInBackground() {
+      // La interfaz ya está visible con la copia local; actualizar datos sin
+      // bloquear el primer render. Si la sesión es de administración, no pisar
+      // cambios que se estén editando.
+      try {
+        let remote = await fetchLocalDataJson();
+        if (!remote) remote = await fetchRemote();
+        if (!remote || adminOk) return;
+        data = mergeRemoteData(remote);
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+        renderAll();
+      } catch (e) {
+        console.warn("Actualización en segundo plano no disponible", e);
+      }
+    }
+
     async function loadData() {
       loadRemoteCfg();
       loadOneSignalCfg();
-      // 1) data.json del mismo origen (GitHub Pages) — más fiable en móvil
-      // 2) raw.githubusercontent del repo de sync
-      // 3) localStorage / DEFAULT
+
+      // Primero usar la copia del dispositivo para mostrar la app sin esperar
+      // a GitHub Pages. Después actualizar los datos en segundo plano.
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const cached = JSON.parse(raw);
+          if (cached && typeof cached === "object") {
+            data = mergeRemoteData(cached);
+            data.nextMatches = normalizeNextMatches(data);
+            refreshDataInBackground();
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("La copia local no se pudo leer; se consultará la versión publicada.", e);
+      }
+
+      // Primera visita o sin copia local: descargar los datos publicados.
       let remote = await fetchLocalDataJson();
       if (!remote) remote = await fetchRemote();
       if (remote) {
@@ -1921,19 +1957,9 @@ Chándal|45€|Chándal completo|si"></textarea>
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
         return;
       }
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          data = mergeRemoteData(parsed);
-        } else {
-          data = JSON.parse(JSON.stringify(DEFAULT));
-          data.nextMatches = normalizeNextMatches(data);
-        }
-      } catch {
-        data = JSON.parse(JSON.stringify(DEFAULT));
-        data.nextMatches = normalizeNextMatches(data);
-      }
+
+      data = JSON.parse(JSON.stringify(DEFAULT));
+      data.nextMatches = normalizeNextMatches(data);
       if (!data.nextMatch && data.nextMatches && data.nextMatches[0]) data.nextMatch = data.nextMatches[0];
     }
 

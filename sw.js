@@ -1,4 +1,4 @@
-const CACHE = "los-morruos-app-v49";
+const CACHE = "los-morruos-app-v50";
 const ASSETS = [
   "./",
   "./index.html",
@@ -56,15 +56,47 @@ self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  event.respondWith(
-    fetch(event.request, { cache: "no-store" })
-      .then(response => {
+  const isData = url.pathname.endsWith("/data.json");
+  const isNavigation = event.request.mode === "navigate";
+
+  // Los datos siempre se intentan actualizar desde la publicación; si falla
+  // la conexión, se usa la última copia guardada.
+  if (isData) {
+    event.respondWith(
+      fetch(event.request, { cache: "no-store" })
+        .then(response => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE).then(cache => cache.put("./data.json", copy)).catch(() => {});
+          }
+          return response;
+        })
+        .catch(async () => (await caches.match("./data.json")) || Response.error())
+    );
+    return;
+  }
+
+  // HTML y recursos estáticos: responder desde caché cuando sea posible y
+  // refrescar en segundo plano para que las siguientes aperturas sean rápidas.
+  event.respondWith((async () => {
+    const cached = await caches.match(event.request, { ignoreSearch: true });
+    const refresh = fetch(event.request, { cache: "no-store" }).then(response => {
+      if (response.ok) {
         const copy = response.clone();
         caches.open(CACHE).then(cache => cache.put(event.request, copy)).catch(() => {});
-        return response;
-      })
-      .catch(() =>
-        caches.match(event.request).then(r => r || caches.match("./index.html"))
-      )
-  );
+      }
+      return response;
+    });
+
+    if (cached) {
+      event.waitUntil(refresh.catch(() => {}));
+      return cached;
+    }
+
+    try {
+      return await refresh;
+    } catch (_) {
+      return (await caches.match("./index.html")) || Response.error();
+    }
+  })());
 });

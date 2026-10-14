@@ -23,15 +23,6 @@
       "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     },
     {
-      "team": "Morro Jable B",
-      "rival": "Ejemplo  2",
-      "date": "2026-09-06",
-      "time": "17:00",
-      "place": "Cancha Municipal · Puerto del Rosario",
-      "home": false,
-      "comp": "Liga Insular"
-    },
-    {
       "team": "La Lajita",
       "rival": "C.D. Pájara B",
       "date": "2026-09-06",
@@ -39,6 +30,17 @@
       "place": "Cancha Municipal · Puerto del Rosario",
       "home": true,
       "comp": "2ª Categoría · Grupo G"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-11-12",
+      "time": "20:00",
+      "rival": "El Cuchillete",
+      "home": true,
+      "result": null,
+      "jornada": 1,
+      "place": "Estación Guaguas · Morro Jable",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     }
   ],
   "standingsA": [
@@ -100,7 +102,7 @@
   "standingsB": [
     {
       "pos": 1,
-      "team": "Las Marismas",
+      "team": "La Marisma",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -109,7 +111,7 @@
     },
     {
       "pos": 2,
-      "team": "Cualquier cosa",
+      "team": "Cualquier Cosa",
       "pj": 0,
       "g": 0,
       "e": 0,
@@ -319,6 +321,116 @@
       "jornada": 10,
       "place": "Canchas Santa Rita · Los Estancos",
       "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-11-12",
+      "time": "20:00",
+      "rival": "El Cuchillete",
+      "home": true,
+      "result": null,
+      "jornada": 1,
+      "place": "Estación Guaguas · Morro Jable",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-11-19",
+      "time": "20:00",
+      "rival": "Atlético Pájara A",
+      "home": false,
+      "result": null,
+      "jornada": 2,
+      "place": "Merendero · Pájara",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-11-26",
+      "time": "20:00",
+      "rival": "El Tablero",
+      "home": true,
+      "result": null,
+      "jornada": 3,
+      "place": "Estación Guaguas · Morro Jable",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-12-03",
+      "time": "20:00",
+      "rival": "Cualquier Cosa",
+      "home": true,
+      "result": null,
+      "jornada": 4,
+      "place": "Estación Guaguas · Morro Jable",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-12-10",
+      "time": "20:30",
+      "rival": "La Marisma",
+      "home": false,
+      "result": null,
+      "jornada": 5,
+      "place": "Campo Lucha · Las Playitas",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2026-12-17",
+      "time": "20:30",
+      "rival": "El Cuchillete",
+      "home": false,
+      "result": null,
+      "jornada": 6,
+      "place": "Centro Cultural · Juan Gopar",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2027-01-14",
+      "time": "20:00",
+      "rival": "Atlético Pájara A",
+      "home": true,
+      "result": null,
+      "jornada": 7,
+      "place": "Estación Guaguas · Morro Jable",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2027-01-21",
+      "time": "20:00",
+      "rival": "El Tablero",
+      "home": false,
+      "result": null,
+      "jornada": 8,
+      "place": "Muelle · Gran Tarajal",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2027-01-29",
+      "time": "20:00",
+      "rival": "Cualquier Cosa",
+      "home": false,
+      "result": null,
+      "jornada": 9,
+      "place": "Centro Cultural · Tequital",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
+    {
+      "team": "Morro Jable B",
+      "date": "2027-02-04",
+      "time": "20:00",
+      "rival": "La Marisma",
+      "home": true,
+      "result": null,
+      "jornada": 10,
+      "place": "Estación Guaguas · Morro Jable",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     }
   ],
   "players": [

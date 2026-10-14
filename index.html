@@ -1902,7 +1902,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     async function fetchLocalDataJson() {
       try {
-        const res = await fetch("./data.json?t=" + Date.now(), { cache: "no-store" });
+        const res = await fetch("./data.json", { cache: "no-store" });
         if (!res.ok) return null;
         const record = await res.json();
         if (!record || typeof record !== "object") return null;

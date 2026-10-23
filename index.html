@@ -529,13 +529,13 @@ html body main #lm-hero img#lm-header-image {
 #sponsor-footer.show { display:flex !important; }
 #sponsor-footer::before { content:""; position:absolute; left:0; bottom:0; width:76px; height:3px; background:#F5C518; transform:skewX(-35deg); }
 #sponsor-footer .sf-section { display:flex; flex-direction:column; min-width:0; }
-#sponsor-footer .sf-main-sponsor { flex:0 0 30%; padding-right:6px; border-right:1px solid rgba(245,197,24,.45); justify-content:center; }
-#sponsor-footer .sf-collaborators { flex:1 1 70%; min-width:0; }
+#sponsor-footer .sf-main-sponsor { flex:0 0 40%; padding-right:6px; border-right:1px solid rgba(245,197,24,.45); justify-content:center; }
+#sponsor-footer .sf-collaborators { flex:1 1 60%; min-width:0; }
 #sponsor-footer .sf-heading { display:flex; align-items:center; justify-content:center; gap:5px; margin:0 0 3px; color:#F5C518; font-family:'Oswald',sans-serif; font-size:9px; line-height:1.1; font-weight:700; letter-spacing:.055em; text-transform:uppercase; white-space:nowrap; }
 #sponsor-footer .sf-heading span:first-child { font-size:10px; }
-#sponsor-footer .sf-featured-logo { flex:0 1 auto; width:100%; min-width:0; min-height:54px; height:54px; display:flex; align-items:center; justify-content:center; padding:5px; background:#fff; border:1px solid #3b3b3b; border-radius:9px; box-sizing:border-box; overflow:hidden; }
+#sponsor-footer .sf-sponsor-logos { flex:1; min-height:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch; gap:4px; }\n #sponsor-footer .sf-featured-logo { flex:1; width:100%; min-width:0; min-height:0; height:100%; display:flex; align-items:center; justify-content:center; padding:3px; background:#fff; border:1px solid #3b3b3b; border-radius:7px; box-sizing:border-box; overflow:hidden; }
 #sponsor-footer .sf-featured-logo img { display:block; width:100% !important; min-width:0 !important; height:100% !important; min-height:0 !important; max-height:100% !important; object-fit:contain !important; object-position:center; transform:none !important; margin:0; padding:0; }
-#sponsor-footer .sf-collab-logos { flex:1; min-height:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(24px,1fr)); align-items:stretch; gap:3px; }
+#sponsor-footer .sf-collab-logos { flex:1; min-height:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(24px,1fr)); align-items:stretch; gap:3px; }
 #sponsor-footer .sf-static-logo { display:flex !important; align-items:center !important; justify-content:center !important; min-width:0 !important; width:100% !important; height:100% !important; min-height:24px !important; padding:2px !important; background:#202020 !important; border:1px solid #393939 !important; border-radius:7px !important; box-sizing:border-box !important; overflow:hidden !important; }
 #sponsor-footer .sf-static-logo img { display:block !important; flex:1 1 100% !important; width:100% !important; min-width:0 !important; height:100% !important; min-height:0 !important; max-width:100% !important; max-height:100% !important; object-fit:contain !important; object-position:center !important; background:transparent !important; margin:0 !important; padding:0 !important; transform:none !important; }
 body.has-sponsor-footer main { padding-bottom:185px !important; }
@@ -543,7 +543,7 @@ body.has-sponsor-footer main { padding-bottom:185px !important; }
   #sponsor-footer { min-height:108px !important; height:108px !important; padding:6px 16px !important; gap:12px !important; }
   #sponsor-footer .sf-main-sponsor { flex-basis:34%; padding-right:16px; }
   #sponsor-footer .sf-heading { font-size:10px; margin-bottom:5px; }
-  #sponsor-footer .sf-featured-logo { min-height:64px; height:64px; }
+  #sponsor-footer .sf-featured-logo { min-height:0; height:100%; }
   #sponsor-footer .sf-featured-logo img { height:100% !important; min-height:0 !important; max-height:100% !important; object-fit:contain !important; object-position:center; transform:none !important; }
   #sponsor-footer .sf-static-logo { height:100% !important; min-height:28px !important; }
   #sponsor-footer .sf-static-logo img { width:100% !important; height:100% !important; max-width:100% !important; max-height:100% !important; object-fit:contain !important; transform:none !important; }
@@ -4002,16 +4002,20 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (_collabRotateTimer) { clearInterval(_collabRotateTimer); _collabRotateTimer = null; }
       bar.innerHTML = `
         <div class="sf-section sf-main-sponsor">
-          <div class="sf-heading"><span aria-hidden="true">★</span><span>PATROCINADOR OFICIAL</span></div>
-          <a class="sf-featured-logo" href="https://www.facebook.com/share/1CV8EghAmF/" target="_blank" rel="noopener noreferrer" aria-label="FG Automoción">
-            <img src="./fg-automocion-recortado.jpg?v=20261004" alt="FG Automoción" />
-          </a>
+          <div class="sf-heading"><span aria-hidden="true">★</span><span>PATROCINADORES</span></div>
+          <div class="sf-sponsor-logos">
+            <a class="sf-featured-logo" href="https://www.facebook.com/share/1CV8EghAmF/" target="_blank" rel="noopener noreferrer" aria-label="FG Automoción">
+              <img src="./fg-automocion-recortado.jpg?v=20261004" alt="FG Automoción" />
+            </a>
+            <a class="sf-featured-logo" href="https://transportesayosediaz.wordpress.com/" target="_blank" rel="noopener noreferrer" aria-label="Ayose Díaz">
+              <img src="./ayose-diaz-recortado.jpg?v=20261004" alt="Ayose Díaz" />
+            </a>
+          </div>
         </div>
         <div class="sf-section sf-collaborators">
           <div class="sf-heading"><span aria-hidden="true">✦</span><span>COLABORADORES</span></div>
           <div class="sf-collab-logos">
             <a class="sf-static-logo" href="https://www.sparfuerteventura.es/" target="_blank" rel="noopener noreferrer" aria-label="Padilla Supermercados y SPAR"><img src="./padilla-spar-recortado.jpg?v=20261004" alt="Padilla Supermercados y SPAR" /></a>
-            <a class="sf-static-logo" href="https://transportesayosediaz.wordpress.com/" target="_blank" rel="noopener noreferrer" aria-label="Ayose Díaz"><img src="./ayose-diaz-recortado.jpg?v=20261004" alt="Ayose Díaz" /></a>
             <a class="sf-static-logo" href="https://www.instagram.com/lagrada_cafe?stkn=MTJnNW4xdWlibmV4aQ==" target="_blank" rel="noopener noreferrer" aria-label="La Grada Café Brunch Lounge"><img src="./la-grada-recortado.jpg?v=20261004" alt="La Grada Café Brunch Lounge" /></a>
             <a class="sf-static-logo" href="https://africarsrent.com/es" target="_blank" rel="noopener noreferrer" aria-label="Africars Rent"><img src="./africars-rent.jpg?v=20261008b" alt="Africars Rent" /></a>
             <a class="sf-static-logo" href="https://www.facebook.com/share/1eKXyPiG9C/" target="_blank" rel="noopener noreferrer" aria-label="E700 Food"><img src="./eru-food.jpg?v=20261023" alt="E700 Food" /></a>

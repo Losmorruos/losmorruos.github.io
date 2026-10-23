@@ -458,7 +458,7 @@
     },
     {
       "team": "La Lajita",
-      "date": "2026-11-27",
+      "date": "2026-11-28",
       "time": "19:00",
       "rival": "Menta y Chocolate",
       "home": true,
@@ -526,7 +526,7 @@
       "team": "La Lajita",
       "date": "2027-01-30",
       "time": "19:00",
-      "rival": "La Burrera",
+      "rival": "Tarajalejo",
       "home": true,
       "jornada": 9,
       "place": "Pendiente de confirmar",
@@ -712,7 +712,7 @@
       "time": "10:12"
     }
   ],
-  "_syncStamp": "mupz1s47z3pj",
+  "_syncStamp": "2026-10-23T00:00:00.000Z",
   "trainings": [],
   "gallery": [],
   "venue": {

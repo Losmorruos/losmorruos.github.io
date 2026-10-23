@@ -579,7 +579,7 @@
       "team": "B"
     },
     {
-      "name": "Jose Roberto Perdomo López",
+      "name": "Roberto Perdomo López",
       "team": "B"
     },
     {
@@ -613,6 +613,14 @@
     {
       "name": "Jose Vicente Diz Fajardo",
       "team": "A"
+    },
+    {
+      "name": "Pedro Soberbio Cervera",
+      "team": "L"
+    },
+    {
+      "name": "Roberto Mata Gómez",
+      "team": "B"
     }
   ],
   "merch": [
@@ -718,7 +726,7 @@
       "time": "10:12"
     }
   ],
-  "_syncStamp": "2026-10-23T00:00:00.000Z",
+  "_syncStamp": "2026-10-23T17:48:20.428Z",
   "trainings": [],
   "gallery": [],
   "venue": {

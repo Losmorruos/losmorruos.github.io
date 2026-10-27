@@ -328,7 +328,7 @@
       "team": "Morro Jable B",
       "date": "2026-11-12",
       "time": "20:00",
-      "rival": "El Cuchillete",
+      "rival": "Atlético Pájara A",
       "home": true,
       "result": null,
       "jornada": 1,
@@ -338,12 +338,12 @@
     {
       "team": "Morro Jable B",
       "date": "2026-11-19",
-      "time": "20:00",
-      "rival": "Atlético Pájara A",
+      "time": "20:30",
+      "rival": "El Cuchillete",
       "home": false,
       "result": null,
       "jornada": 2,
-      "place": "Merendero · Pájara",
+      "place": "Centro Cultural · Juan Gopar",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     },
     {

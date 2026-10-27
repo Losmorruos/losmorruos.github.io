@@ -361,7 +361,7 @@
       "team": "Morro Jable B",
       "date": "2026-12-03",
       "time": "20:00",
-      "rival": "Cualquier Cosa",
+      "rival": "El Tablero",
       "home": true,
       "result": null,
       "jornada": 4,
@@ -415,7 +415,7 @@
     {
       "team": "Morro Jable B",
       "date": "2027-01-28",
-      "time": "20:30",
+      "time": "20:00",
       "rival": "El Tablero",
       "home": false,
       "result": null,

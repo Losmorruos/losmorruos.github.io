@@ -2100,15 +2100,29 @@ Chándal|45€|Chándal completo|si"></textarea>
                 <span class="text-xs bg-gold/20 text-gold px-2 py-0.5 rounded-full">${n.comp || "Liga"}</span>
               </div>
               <div class="flex items-center justify-between gap-2">
+                ${n.home ? `
                 <div class="text-center flex-1">
                   <p class="font-display text-lg font-bold text-gold leading-tight">${our}</p>
-                  <p class="text-[11px] text-gray-500 mt-0.5">${n.home ? "Local" : "Visitante"}</p>
+                  <p class="text-[11px] text-gray-500 mt-0.5">Local</p>
                 </div>
-                <div class="px-3 py-1.5 bg-gold text-dark font-bold rounded-xl text-sm shadow-lg shadow-gold/20">VS</div>
+                ` : `
                 <div class="text-center flex-1">
                   <p class="font-display text-lg font-bold leading-tight">${n.rival || "—"}</p>
-                  <p class="text-[11px] text-gray-500 mt-0.5">${n.home ? "Visitante" : "Local"}</p>
+                  <p class="text-[11px] text-gray-500 mt-0.5">Local</p>
                 </div>
+                `}
+                <div class="px-3 py-1.5 bg-gold text-dark font-bold rounded-xl text-sm shadow-lg shadow-gold/20">VS</div>
+                ${n.home ? `
+                <div class="text-center flex-1">
+                  <p class="font-display text-lg font-bold leading-tight">${n.rival || "—"}</p>
+                  <p class="text-[11px] text-gray-500 mt-0.5">Visitante</p>
+                </div>
+                ` : `
+                <div class="text-center flex-1">
+                  <p class="font-display text-lg font-bold text-gold leading-tight">${our}</p>
+                  <p class="text-[11px] text-gray-500 mt-0.5">Visitante</p>
+                </div>
+                `}
               </div>
               <div class="mt-4 text-center">
                 <p class="text-sm font-medium">${n.date ? formatDateLong(n.date) : "—"} · ${n.time || ""}</p>

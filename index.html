@@ -2082,6 +2082,24 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (list[0] && list[0].team) return list[0].team;
       return "Morro Jable";
     }
+    function shareHomeMatch(team) {
+      const match = getNextMatches().find(n => (n.team || "Morro Jable") === team);
+      if (!match) {
+        alert("No se han podido cargar los datos de este partido.");
+        return;
+      }
+      const homeTeam = match.home ? (match.team || "Morro Jable") : (match.rival || "—");
+      const awayTeam = match.home ? (match.rival || "—") : (match.team || "Morro Jable");
+      const details = [
+        "Próximo partido · " + (match.comp || "Liga"),
+        homeTeam + " vs " + awayTeam,
+        "Fecha: " + (match.date ? formatDateLong(match.date) : "Por confirmar"),
+        "Hora: " + (match.time || "Por confirmar"),
+        "Lugar: " + (match.place || "Por confirmar")
+      ].join("\\n");
+      shareText("Club Deportivo Los Morruos", details);
+    }
+
     function renderHome() {
       const box = document.getElementById("home-next-matches");
       const list = getNextMatches();
@@ -2128,6 +2146,7 @@ Chándal|45€|Chándal completo|si"></textarea>
                 <p class="text-sm font-medium">${n.date ? formatDateLong(n.date) : "—"} · ${n.time || ""}</p>
                 <p class="text-xs text-gray-500 mt-0.5">${n.place || ""}</p>
               </div>
+              <button type="button" class="share-btn mt-3 w-full justify-center" onclick="shareHomeMatch('${String(our).replace(/'/g, "\\'")}')">Compartir partido</button>
             </div>
           </div>`;
         }).join("");

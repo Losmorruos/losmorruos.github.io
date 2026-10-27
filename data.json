@@ -348,13 +348,13 @@
     },
     {
       "team": "Morro Jable B",
-      "date": "2026-11-26",
+      "date": "2026-11-27",
       "time": "20:00",
-      "rival": "El Tablero",
-      "home": true,
+      "rival": "Cualquier Cosa",
+      "home": false,
       "result": null,
       "jornada": 3,
-      "place": "Estación Guaguas · Morro Jable",
+      "place": "Centro Cultural · Tequital",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     },
     {
@@ -381,20 +381,20 @@
     },
     {
       "team": "Morro Jable B",
-      "date": "2026-12-17",
-      "time": "20:30",
-      "rival": "El Cuchillete",
+      "date": "2027-01-13",
+      "time": "20:00",
+      "rival": "Atlético Pájara A",
       "home": false,
       "result": null,
       "jornada": 6,
-      "place": "Centro Cultural · Juan Gopar",
+      "place": "Merendero · Pájara",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     },
     {
       "team": "Morro Jable B",
       "date": "2027-01-14",
       "time": "20:00",
-      "rival": "Atlético Pájara A",
+      "rival": "El Cuchillete",
       "home": true,
       "result": null,
       "jornada": 7,
@@ -405,22 +405,22 @@
       "team": "Morro Jable B",
       "date": "2027-01-21",
       "time": "20:00",
-      "rival": "El Tablero",
-      "home": false,
+      "rival": "Cualquier Cosa",
+      "home": true,
       "result": null,
       "jornada": 8,
-      "place": "Muelle · Gran Tarajal",
+      "place": "Estación Guaguas · Morro Jable",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     },
     {
       "team": "Morro Jable B",
-      "date": "2027-01-29",
-      "time": "20:00",
-      "rival": "Cualquier Cosa",
+      "date": "2027-01-28",
+      "time": "20:30",
+      "rival": "El Tablero",
       "home": false,
       "result": null,
       "jornada": 9,
-      "place": "Centro Cultural · Tequital",
+      "place": "Muelle · Gran Tarajal",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     },
     {
@@ -726,7 +726,7 @@
       "time": "10:12"
     }
   ],
-  "_syncStamp": "2026-10-23T17:48:20.428Z",
+  "_syncStamp": "2026-10-27T00:32:05.456Z",
   "trainings": [],
   "gallery": [],
   "venue": {

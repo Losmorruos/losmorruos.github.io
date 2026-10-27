@@ -452,7 +452,7 @@
       "rival": "Atlético Pájara B",
       "home": true,
       "jornada": 2,
-      "place": "Pendiente de confirmar",
+      "place": "Cancha Fútbol · La Lajita",
       "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
@@ -463,7 +463,7 @@
       "rival": "Menta y Chocolate",
       "home": true,
       "jornada": 3,
-      "place": "Pendiente de confirmar",
+      "place": "Cancha Fútbol · La Lajita",
       "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
@@ -482,10 +482,10 @@
       "team": "La Lajita",
       "date": "2026-12-12",
       "time": "19:00",
-      "rival": "Tarajalejo",
+      "rival": "La Burrera",
       "home": true,
       "jornada": 5,
-      "place": "Pendiente de confirmar",
+      "place": "Cancha Fútbol · La Lajita",
       "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
@@ -496,7 +496,7 @@
       "rival": "Tequital",
       "home": true,
       "jornada": 6,
-      "place": "Pendiente de confirmar",
+      "place": "Cancha Fútbol · La Lajita",
       "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
@@ -529,7 +529,7 @@
       "rival": "Tarajalejo",
       "home": true,
       "jornada": 9,
-      "place": "Pendiente de confirmar",
+      "place": "Cancha Fútbol · La Lajita",
       "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
@@ -537,10 +537,10 @@
       "team": "La Lajita",
       "date": "2027-02-04",
       "time": "20:30",
-      "rival": "Tarajalejo",
+      "rival": "La Burrera",
       "home": false,
       "jornada": 10,
-      "place": "Cancha · Tarajalejo",
+      "place": "Campo Lucha · Las Playitas",
       "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     }

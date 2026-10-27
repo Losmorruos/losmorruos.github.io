@@ -26,7 +26,7 @@
       "team": "Morro Jable B",
       "date": "2026-11-12",
       "time": "20:00",
-      "rival": "El Cuchillete",
+      "rival": "Atlético Pájara A",
       "home": true,
       "result": null,
       "jornada": 1,
@@ -39,9 +39,9 @@
       "time": "20:00",
       "rival": "Tequital",
       "home": false,
-      "result": null,
       "jornada": 1,
       "place": "Centro Cultural · Tequital",
+      "result": null,
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     }
   ],

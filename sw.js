@@ -1,4 +1,4 @@
-const CACHE = "los-morruos-app-v51";
+const CACHE = "los-morruos-app-v52";
 const ASSETS = [
   "./",
   "./index.html",

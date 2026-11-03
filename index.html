@@ -1562,10 +1562,6 @@ Chándal|45€|Chándal completo|si"></textarea>
         { date: "2026-08-18", title: "Publicado el calendario de septiembre", text: "Ya está disponible el calendario de partidos del mes de septiembre." },
         { date: "2026-08-10", title: "Inicio de la pretemporada", text: "El equipo ha comenzado los entrenamientos con la vista puesta en la nueva temporada." },
       ],
-      torneos: [
-        { title: "Torneo Social Los Morruos", date: "11 Octubre 2026", desc: "Jornada de puertas abiertas y partida amistosa." },
-        { title: "Tiro de Precisión Insular", date: "Pendiente de fechas", desc: "Participación del club en la prueba de tiro de precisión." },
-      ],
       club: {
         about: "Club Deportivo Los Morruos es un club de bola canaria de Fuerteventura con tres equipos: Morro Jable A (1ª Categoría), Morro Jable B (2ª Categoría) y La Lajita (2ª Categoría, Grupo G). Nuestros colores son el negro y el dorado, y nuestro símbolo es la cabra majorera.",
         contact: "Añade teléfono, email o dirección desde Administración.",
@@ -1905,7 +1901,6 @@ Chándal|45€|Chándal completo|si"></textarea>
         matches: pickList(remote.matches, base.matches),
         players: pickList(remote.players, base.players),
         news: pickList(remote.news, base.news),
-        torneos: pickList(remote.torneos, base.torneos),
         merch: normalizarMerchandising(pickList(remote.merch || remote.merchandise, base.merch)),
         club: { ...base.club, ...(remote.club || {}) },
         chat: pickList(remote.chat, base.chat),

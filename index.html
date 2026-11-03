@@ -2307,9 +2307,21 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     function renderNews() {
-      document.getElementById("noticias-list").innerHTML = (data.news || []).map(n => `
-        <article class="card overflow-hidden"><div class="h-28 bg-gradient-to-br from-gold/25 to-dark-card flex items-center justify-center text-4xl">📰</div>
-          <div class="p-4"><p class="text-[11px] text-gold uppercase tracking-wide mb-1">${formatDate(n.date)}</p><h3 class="font-display text-lg leading-tight">${n.title}</h3><p class="text-sm text    function renderTorneos() {
+      const list = document.getElementById("noticias-list");
+      if (!list) return;
+      const items = Array.isArray(data.news) ? data.news : [];
+      list.innerHTML = items.map(n => `
+        <article class="card overflow-hidden">
+          <div class="h-24 bg-gradient-to-br from-gold/25 to-dark-card flex items-center justify-center text-4xl">📰</div>
+          <div class="p-4">
+            <p class="text-[11px] text-gold uppercase tracking-wide mb-1">${n.date || ""}</p>
+            ${n.title ? `<h3 class="font-display text-lg leading-tight">${n.title}</h3>` : ""}
+            ${n.text ? `<p class="text-sm text-gray-300 mt-2">${n.text}</p>` : ""}
+          </div>
+        </article>`).join("") || '<p class="text-sm text-gray-500">No hay noticias publicadas.</p>';
+    }
+
+    function renderTorneos() {
       const grupos = [
         { titulo: "Torneos de Fuerteventura", filas: [
           ["10/01/2026","TORNEO DE REYES 2026","C.B. LA VENTOSILLA DE TINDAYA","MASCULINO Y FEMENINO","TINDAYA","FEDERADO · INSULAR · ABIERTO"],

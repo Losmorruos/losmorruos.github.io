@@ -2393,33 +2393,70 @@ Chándal|45€|Chándal completo|si"></textarea>
         ]}
       ];
       const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
-      document.getElementById("torneo-list").innerHTML = grupos.map((grupo, i) => `
-        <section class="space-y-3">
-          <h3 class="font-display text-lg text-gold border-b border-dark-border pb-2">${escapeHTML(grupo.titulo)} <span class="text-xs text-gray-500 font-sans">(${grupo.filas.length})</span></h3>
-          ${grupo.filas.map(f => {
-            const regional = grupo.titulo === "Campeonatos regionales";
-            const local = grupo.titulo === "Torneos de Fuerteventura";
-            const date = regional ? f[2] : f[0];
-            const name = regional ? f[0] : f[1];
-            const club = local ? f[2] : "";
-            const category = regional ? f[1] : (local ? f[3] : f[2]);
-            const location = regional ? f[3] : (local ? f[4] : f[3]);
-            const status = local ? f[5] : "";
-            return `
-            <article class="card p-3">
-              <p class="text-[11px] text-gold mb-1">${escapeHTML(date)}</p>
-              <h4 class="font-semibold text-sm leading-snug">${escapeHTML(name)}</h4>
-              ${club ? `<p class="text-xs text-gray-400 mt-1">${escapeHTML(club)}</p>` : ""}
-              <div class="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-[11px] text-gray-300">
-                <span>🎯 ${escapeHTML(category)}</span><span>📍 ${escapeHTML(location)}</span>
-              </div>
-              ${status ? `<p class="text-[10px] text-gray-500 mt-2">${escapeHTML(status)}</p>` : ""}
-            </article>`;
-          }).join("")}
-        </section>`).join("") + `
-        <p class="text-[11px] text-gray-500 leading-relaxed pt-2">Las invitaciones corresponden a los clubes; la Federación no organiza, solo colabora. En las fechas señaladas para otros campeonatos y eventos no se pueden organizar torneos. El 17 y 18 de octubre, y el 31 de octubre y 1 de noviembre, tampoco se pueden realizar torneos.</p>`;
-    }
+      const lista = document.getElementById("torneo-list");
+      const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
+      const categorias = [
+        { titulo: "Torneos de Fuerteventura", descripcion: "Competiciones celebradas en nuestra isla", icono: "🏝️", indices: [0] },
+        { titulo: "Torneos interinsulares fuera de la isla", descripcion: "Torneos abiertos y encuentros en otras islas", icono: "🚢", indices: [1] },
+        { titulo: "Otros campeonatos y eventos", descripcion: "Campeonatos oficiales, regionales y otros eventos", icono: "🏆", indices: [2, 3] }
+      ];
 
+      window.abrirCategoriaTorneo = function(indice) {
+        const categoria = categorias[indice];
+        if (!categoria) return;
+        const gruposCategoria = categoria.indices.map(i => grupos[i]);
+        const renderGrupo = grupo => `
+          <section class="space-y-3">
+            <h3 class="font-display text-lg text-gold border-b border-dark-border pb-2">${escapeHTML(grupo.titulo)} <span class="text-xs text-gray-500 font-sans">(${grupo.filas.length})</span></h3>
+            ${grupo.filas.map(f => {
+              const regional = grupo.titulo === "Campeonatos regionales";
+              const local = grupo.titulo === "Torneos de Fuerteventura";
+              const date = regional ? f[2] : f[0];
+              const name = regional ? f[0] : f[1];
+              const club = local ? f[2] : "";
+              const category = regional ? f[1] : (local ? f[3] : f[2]);
+              const location = regional ? f[3] : (local ? f[4] : f[3]);
+              const status = local ? f[5] : "";
+              return `
+              <article class="card p-3">
+                <p class="text-[11px] text-gold mb-1">${escapeHTML(date)}</p>
+                <h4 class="font-semibold text-sm leading-snug">${escapeHTML(name)}</h4>
+                ${club ? `<p class="text-xs text-gray-400 mt-1">${escapeHTML(club)}</p>` : ""}
+                <div class="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-[11px] text-gray-300">
+                  <span>🎯 ${escapeHTML(category)}</span><span>📍 ${escapeHTML(location)}</span>
+                </div>
+                ${status ? `<p class="text-[10px] text-gray-500 mt-2">${escapeHTML(status)}</p>` : ""}
+              </article>`;
+            }).join("")}
+          </section>`;
+        lista.innerHTML = `
+          <button type="button" onclick="renderTorneos()" class="inline-flex items-center gap-2 text-sm text-gold mb-4">
+            <span aria-hidden="true">←</span> Volver a Torneos
+          </button>
+          <h3 class="font-display text-lg text-gold mb-1">${escapeHTML(categoria.titulo)}</h3>
+          <p class="text-xs text-gray-500 mb-4">${escapeHTML(categoria.descripcion)}</p>
+          <div class="space-y-5">${gruposCategoria.map(renderGrupo).join("")}</div>
+          ${indice === 2 ? '<p class="text-[11px] text-gray-500 leading-relaxed pt-2">Las invitaciones corresponden a los clubes; la Federación no organiza, solo colabora. En las fechas señaladas para otros campeonatos y eventos no se pueden organizar torneos. El 17 y 18 de octubre, y el 31 de octubre y 1 de noviembre, tampoco se pueden realizar torneos.</p>' : ""}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      lista.innerHTML = `
+        <div class="space-y-3">
+          ${categorias.map((categoria, indice) => {
+            const total = categoria.indices.reduce((suma, i) => suma + grupos[i].filas.length, 0);
+            return `
+              <button type="button" onclick="abrirCategoriaTorneo(${indice})" class="card w-full p-4 flex items-center gap-4 text-left hover:border-gold/50 transition-colors">
+                <span class="w-12 h-12 rounded-2xl bg-gold/15 flex items-center justify-center text-2xl shrink-0">${categoria.icono}</span>
+                <span class="flex-1 min-w-0">
+                  <span class="block font-display text-base text-gold">${escapeHTML(categoria.titulo)}</span>
+                  <span class="block text-xs text-gray-400 mt-1">${escapeHTML(categoria.descripcion)}</span>
+                  <span class="block text-[11px] text-gray-500 mt-2">${total} eventos</span>
+                </span>
+                <span class="text-gold text-xl" aria-hidden="true">›</span>
+              </button>`;
+          }).join("")}
+        </div>`;
+    }
     function renderClub() {
       document.getElementById("club-about").textContent = data.club?.about || "";
       document.getElementById("club-contact").textContent = data.club?.contact || "";

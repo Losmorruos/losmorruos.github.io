@@ -2394,7 +2394,6 @@ Chándal|45€|Chándal completo|si"></textarea>
       ];
       const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
       const lista = document.getElementById("torneo-list");
-      const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
       const categorias = [
         { titulo: "Torneos de Fuerteventura", descripcion: "Competiciones celebradas en nuestra isla", icono: "🏝️", indices: [0] },
         { titulo: "Torneos interinsulares fuera de la isla", descripcion: "Torneos abiertos y encuentros en otras islas", icono: "🚢", indices: [1] },

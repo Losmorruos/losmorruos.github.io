@@ -2389,20 +2389,28 @@ Chándal|45€|Chándal completo|si"></textarea>
       document.getElementById("torneo-list").innerHTML = grupos.map((grupo, i) => `
         <section class="space-y-3">
           <h3 class="font-display text-lg text-gold border-b border-dark-border pb-2">${escapeHTML(grupo.titulo)} <span class="text-xs text-gray-500 font-sans">(${grupo.filas.length})</span></h3>
-          ${grupo.filas.map(f => `
+          ${grupo.filas.map(f => {
+            const regional = grupo.titulo === "Campeonatos regionales";
+            const local = grupo.titulo === "Torneos de Fuerteventura";
+            const date = regional ? f[2] : f[0];
+            const name = regional ? f[0] : f[1];
+            const club = local ? f[2] : "";
+            const category = regional ? f[1] : (local ? f[3] : f[2]);
+            const location = regional ? f[3] : (local ? f[4] : f[3]);
+            const status = local ? f[5] : "";
+            return `
             <article class="card p-3">
-              <p class="text-[11px] text-gold mb-1">${escapeHTML(f[0])}</p>
-              <h4 class="font-semibold text-sm leading-snug">${escapeHTML(f[1])}</h4>
-              <p class="text-xs text-gray-400 mt-1">${escapeHTML(f[2])}</p>
+              <p class="text-[11px] text-gold mb-1">${escapeHTML(date)}</p>
+              <h4 class="font-semibold text-sm leading-snug">${escapeHTML(name)}</h4>
+              ${club ? `<p class="text-xs text-gray-400 mt-1">${escapeHTML(club)}</p>` : ""}
               <div class="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-[11px] text-gray-300">
-                <span>🎯 ${escapeHTML(f[3])}</span><span>📍 ${escapeHTML(f[4])}</span>
+                <span>🎯 ${escapeHTML(category)}</span><span>📍 ${escapeHTML(location)}</span>
               </div>
-              ${f[5] ? `<p class="text-[10px] text-gray-500 mt-2">${escapeHTML(f[5])}</p>` : ""}
-            </article>`).join("")}
+              ${status ? `<p class="text-[10px] text-gray-500 mt-2">${escapeHTML(status)}</p>` : ""}
+            </article>`;
+          }).join("")}
         </section>`).join("") + `
         <p class="text-[11px] text-gray-500 leading-relaxed pt-2">Las invitaciones corresponden a los clubes; la Federación no organiza, solo colabora. En las fechas señaladas para otros campeonatos y eventos no se pueden organizar torneos. El 17 y 18 de octubre, y el 31 de octubre y 1 de noviembre, tampoco se pueden realizar torneos.</p>`;
-    }
-/div></div><p class="text-sm text-gray-300">${t.desc}</p></div>`).join("") || '<p class="text-sm text-gray-500">Sin torneos</p>';
     }
 
     function renderClub() {

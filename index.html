@@ -865,8 +865,9 @@ body.has-sponsor-footer main { padding-bottom:185px !important; }
     </section>
 
     <section id="tab-torneo" class="tab-content">
-      <h2 class="font-display text-xl text-gold mb-4">Torneo</h2>
-      <div id="torneo-list" class="space-y-3"></div>
+      <h2 class="font-display text-xl text-gold mb-1">Torneos 2026</h2>
+      <p class="text-xs text-gray-500 mb-4">Calendario oficial · Federación Insular de Fuerteventura · Actualizado 03/11/2026</p>
+      <div id="torneo-list" class="space-y-5"></div>
     </section>
 
     <section id="tab-ligas" class="tab-content">
@@ -2308,13 +2309,100 @@ Chándal|45€|Chándal completo|si"></textarea>
     function renderNews() {
       document.getElementById("noticias-list").innerHTML = (data.news || []).map(n => `
         <article class="card overflow-hidden"><div class="h-28 bg-gradient-to-br from-gold/25 to-dark-card flex items-center justify-center text-4xl">📰</div>
-          <div class="p-4"><p class="text-[11px] text-gold uppercase tracking-wide mb-1">${formatDate(n.date)}</p><h3 class="font-display text-lg leading-tight">${n.title}</h3><p class="text-sm text-gray-400 mt-2 leading-relaxed">${n.text}</p></div></article>`).join("") || '<p class="text-sm text-gray-500">Sin noticias</p>';
+          <div class="p-4"><p class="text-[11px] text-gold uppercase tracking-wide mb-1">${formatDate(n.date)}</p><h3 class="font-display text-lg leading-tight">${n.title}</h3><p class="text-sm text    function renderTorneos() {
+      const grupos = [
+        { titulo: "Torneos de Fuerteventura", filas: [
+          ["10/01/2026","TORNEO DE REYES 2026","C.B. LA VENTOSILLA DE TINDAYA","MASCULINO Y FEMENINO","TINDAYA","FEDERADO · INSULAR · ABIERTO"],
+          ["11/01/2026","TORNEO DE REYES 2026","C.B. LA VENTOSILLA DE TINDAYA","INFANTIL","TINDAYA","NO FEDERADO"],
+          ["25/01/2026","TORNEO INFANTIL","C.B. BOLSAMA","INFANTIL","EL MATORRAL","NO FEDERADO"],
+          ["30-31/01/2026","II TORNEO 24H FIESTAS LA CANDELARIA","C.B. SANTA RITA","MIXTO","LA OLIVA","NO FEDERADO · ABIERTO"],
+          ["14/02/2026","TORNEO DE LA AMISTAD Y EL AMOR","C.D. EL CHARCO ATLÉTICO DE HERBANIA","DUPLETAS MIXTAS","TAMOGAN (PUERTO DEL ROSARIO)","ABIERTO"],
+          ["08/03/2026","III TORNEO DIA DE LA MUJER","C.D. NINGUARIA","FEMENINO","MAJADA MARCIAL (PUERTO DEL ROSARIO)","FEDERADO · INSULAR · ABIERTO"],
+          ["11/04/2026","TORNEO FIESTAS SAN VICENTE","C.B. LOS CHIPONES","MASCULINO Y FEMENINO","VILLAVERDE","FEDERADO · REGIONAL · ABIERTO"],
+          ["25/04/2026","TORNEO AMIGOS DE LA BOLA CANARIA","C.B. LA VENTOSILLA DE TINDAYA","MASCULINO Y FEMENINO","TINDAYA","FEDERADO · REGIONAL · ABIERTO"],
+          ["10/05/2026","TORNEO DE LA FAMILIA","C.D. HERBANIA","MIXTO","TAMOGAN (PUERTO DEL ROSARIO)","NO FEDERADO · ABIERTO"],
+          ["16/05/2026","XX MEMORIAL CÉSAR ARROYO","C.B. SANTA RITA","MASCULINO, FEMENINO Y JUVENIL","LOS ESTANCOS","NO FEDERADO · ABIERTO"],
+          ["30/05/2026","III TORNEO DIA DE CANARIAS","C.D. NINGUARIA","INFANTIL Y JUVENIL","MAJADA MARCIAL (PUERTO DEL ROSARIO)","FEDERADO · INSULAR · ABIERTO"],
+          ["06/06/2026","IV MEMORIAL MARI CARMEN CARBALLO ESTÉVEZ","C.B. ESPINO","FEMENINO","LAJARES","NO FEDERADO · INSULAR · INVITACIÓN"],
+          ["APLAZADO","TORNEO NEW MAJO","C.D. NEW MAJO","MASCULINO Y FEMENINO","BUENAVISTA","FEDERADO · INSULAR · ABIERTO"],
+          ["16, 17, 18 y 19/06/2026","TORNEO SAN JUAN EL MATORRAL","C.D. BOLSAMA","MASCULINO Y FEMENINO","EL MATORRAL","FEDERADO · INSULAR · ABIERTO"],
+          ["20/06/2026","III TORNEO SAN JUAN VALLEBRÓN","C.B. SANTA RITA","MASCULINO Y FEMENINO","VALLEBRÓN","NO FEDERADO · ABIERTO"],
+          ["21/06/2026","I TORNEO INFANTIL SAN JUAN EL MATORRAL","C.D. BOLSAMA","INFANTIL","EL MATORRAL","NO FEDERADO"],
+          ["27/06/2026","XXV TORNEO SAN PEDRO","C.B. PUIPANA","MASCULINO Y FEMENINO","LAS PLAYITAS","FEDERADO · REGIONAL · ABIERTO"],
+          ["04/07/2026","TORNEO FIESTAS DEL CARMEN DE CORRALEJO","C.D. TOSCONES","MASCULINO Y FEMENINO","CORRALEJO","NO FEDERADO · ABIERTO"],
+          ["11/07/2026","III TORNEO CASILLAS DEL ÁNGEL","C.D. TERACHI","MASCULINO Y FEMENINO","CASILLAS DEL ÁNGEL","FEDERADO · INSULAR · ABIERTO"],
+          ["12/07/2026","I TORNEO INFANTIL CASILLAS DEL ÁNGEL","C.D. TERACHI","INFANTIL","CASILLAS DEL ÁNGEL","NO FEDERADO"],
+          ["18/07/2026","IV TORNEO PARQUE HOLANDÉS","C.D. BOLANDÉS","MASCULINO Y FEMENINO","PARQUE HOLANDÉS","FEDERADO · INSULAR · ABIERTO"],
+          ["01/08/2026","V TORNEO LOS CACHARROS","C.D. LOS CACHARROS","MASCULINO Y FEMENINO","CALETA DE FUSTE","FEDERADO · REGIONAL · ABIERTO"],
+          ["04 y 05/08/2026","SAN MARCOS 2026","C.B. LA PEDRERA","MASCULINO Y FEMENINO","TISCAMANITA","FEDERADO · INSULAR · ABIERTO"],
+          ["08/08/2026","TORNEO DE TINDAYA","C.B. LA VENTOSILLA DE TINDAYA","MASCULINO Y FEMENINO","TINDAYA","FEDERADO · REGIONAL · ABIERTO"],
+          ["15/08/2026","TORNEO PLAYAS DE EL COTILLO","C.D. PLAYAS DEL COTILLO","MIXTO","EL COTILLO","NO FEDERADO · ABIERTO"],
+          ["05/09/2026","TORNEO CAIMA SAN ROQUE – LA ESTRELLA QUE NOS UNE","C.D. CAIMA","MASCULINA Y FEMENINO","VILLAVERDE","FEDERADO · REGIONAL · ABIERTO"],
+          ["09-10-2026","I TORNEO DE BOLA CANARIA TROTADUNAS","C.D. TROTADUNAS","FEMENINO","PUERTO DEL ROSARIO","FEDERADO · INSULAR · INVITACIÓN"],
+          ["10-10-2026","I TORNEO DE BOLA CANARIA TROTADUNAS","C.D. TROTADUNAS","MASCULINO","PUERTO DEL ROSARIO","FEDERADO · INSULAR · INVITACIÓN"],
+          ["12/09/2026","TORNEO FIESTAS SAN ROQUE","C.B. LOS CHIPONES","MASCULINO Y FEMENINO","VILLAVERDE","FEDERADO · REGIONAL · ABIERTO"],
+          ["12/09/2026","TORNEO LAS MERCEDES","C.B. LOS RABONES","FEMENINO","EL TIME","NO FEDERADO · ABIERTO"],
+          ["19/09/2026","TORNEO LAS MERCEDES","C.B. LOS RABONES","MASCULINO","EL TIME","NO FEDERADO · ABIERTO"],
+          ["28/09 AL 04/10","TORNEO FIESTAS PUERTO DEL ROSARIO","C.D. HERBANIA","MASCULINO Y FEMENINO","TAMOGAN (PUERTO DEL ROSARIO)","FEDERADO · REGIONAL · ABIERTO"],
+          ["26/10 AL 28/10","TORNEO FIESTAS TEQUITAL","C.B. TEQUITAL","MASCULINO","TEQUITAL","FEDERADO · INSULAR · INVITACIÓN"],
+          ["01, 02, 03 Y 07/12/2026","TORNEO DE BOLA CANARIA LAS PARCELAS","AAVV LAS PARCELAS","MIXTO","LAS PARCELAS","NO FEDERADO · ABIERTO"],
+          ["05/12/2026","III TORNEO LA PEDRERA","C.B. LA PEDRERA","MASCULINO Y FEMENINO","TISCAMANITA (CAMPO FÚTBOL)","FEDERADO · INSULAR · ABIERTO"],
+          ["06/12/2026","I TORNEO INTERINSULAR","FEDERACIÓN FTV, GC y C.B. LA PEDRERA","INFANTIL Y JUVENIL","TISCAMANITA (CAMPO FÚTBOL)","FEDERADO · REGIONAL · ABIERTO"],
+          ["12/12/2026","TORNEO NAVIDEÑO","C.D. VOLCÁN DE GAYRIA","MASCULINO Y FEMENINO","TISCAMANITA (CAMPO TIRO)","FEDERADO · REGIONAL · ABIERTO"]
+        ]},
+        { titulo: "Torneos abiertos fuera de la isla", filas: [
+          ["29 y 30/05/2026","TORNEO INSTITUCIONAL DÍA DE CANARIAS","MASCULINO Y FEMENINO","TINAJO (LANZAROTE)"],
+          ["11/07/2026","TORNEO DE BOLA CANARIA CIUDAD DE TACORONTE","MASCULINO Y FEMENINO","TACORONTE (TENERIFE)"],
+          ["26 y 27/07/2026","III TORNEO VILLA DE BREÑA ALTA","MASCULINO Y FEMENINO","CANCHAS FEDERACIÓN (LA PALMA)"],
+          ["14 y 15/08/2026","OPEN DE BOLA CANARIA SAN GINÉS 2026","MASCULINO Y FEMENINO","CANCHAS DE LA FEDERACIÓN (LANZAROTE)"],
+          ["26/09/2026","TORNEO DE BOLA DEL CABILDO DE LA PALMA","MASCULINO Y FEMENINO","AEROCLUB (BREÑA BAJA, LA PALMA)"],
+          ["09-10/10/2026","IV MEMORIAL VÍCTOR PARRILA","MIXTO","GUATIZA (LANZAROTE)"],
+          ["24/10/2026","TORNEO FEDERADO BOLA CANARIA HOLA EL PASO (LOS PLATANITOS)","MASCULINO Y FEMENINO","FERIA DE GANADO (EL PASO, LA PALMA)"],
+          ["13 Y 14/11/2026","TORNEO INTERINSULAR NO FEDERADO AMIGOS DEL CHIVO","MASCULINO Y FEMENINO","INST. EL CORRAL DEL CHIVO (TENERIFE)"]
+        ]},
+        { titulo: "Otros campeonatos y eventos", filas: [
+          ["06 AL 10/04/2026","TIRO PRECISIÓN","MASCULINA, FEMENINA Y JUVENIL","EL MATORRAL (BOLSAMA)"],
+          ["18 Y 19/04/2026","COPA INSULAR","MASC Y FEM","FEAGA (POZO NEGRO)"],
+          ["03/05/2026","COPA JUVENIL E INFANTIL","JUVENIL","TISCAMANITA (LA PEDRERA)"],
+          ["09/05/2026","DUPLETAS","MASC Y FEM","LOS ESTANCOS (SANTA RITA)"],
+          ["16/07/2026","DUPLETAS","JUVENILES","PARQUE HOLANDES (BOLANDES)"],
+          ["23/05/2026","TORNEO DE CANARIAS AMIGOS DE FUERTEVENTURA","MIXTO","EL COTILLO (LA OLIVA)"],
+          ["12/06/2026","FASE FINAL LIGA INSULAR FEMENINA Y SEGUNDA","CATEGORÍA FEMENINA Y 2ª MASCULINA","PDTE EQUIPOS CLASIFICADOS"],
+          ["13/06/2026","LAS RAASCAS Y LOS RAASCAOS","FEMENINA Y MASCULINA","PDTE EQUIPOS CLASIFICADOS"],
+          ["APLAZADO","CURSO DE ÁRBITROS","INSULARES Y AUTONÓMICO","PDTE"],
+          ["19/09/2026","PARTIDA INSTITUCIONAL DE LA PEÑA 2026","LOS DOS PRIMEROS DE LOS GRUPOS DEL DESCENSO EN CATEGORIA MASCULINA Y LAS DOS PRIMERAS DE LAS RASCAAS","LA PEÑA (LA VEGA RIO PALMA)"],
+          ["21/11/2026","SUPERCOPA","CAMPEON DE LIGA VS CAMPEON COPA","LAJARES"]
+        ]},
+        { titulo: "Campeonatos regionales", filas: [
+          ["CTO DE CANARIAS EN EDAD ESCOLAR","INFANTIL","24 Y 26 ABRIL2026","GRAN CANARIA"],
+          ["CTO CANARIAS DE TIRO","JUVENIL / SENIOR FEM Y MAS","12 Y 13 SEPTIEMBRE 2026","TENERIFE"],
+          ["CTO DE CANARIAS DE SELECCIONES","JUVENIL / SENIOR FEM Y MASC","19 Y 20 SEPTIEMBRE 2026","GRAN CANARIA"],
+          ["CTO CANARIAS DUPLETAS","JUVENIL / SENIOR FEMENINA Y MASCULINA","03 Y 04 OCTUBRE 2026","LANZAROTE"],
+          ["CAMPEONATO DE CANARIAS","SENIOR 2ª MASC Y JUVENIL","17 Y 18 OCTUBRE 2026","TENERIFE"],
+          ["LIGA AUTONÓMICA CLUBES","JUVENIL","17 Y 18 OCTUBRE 2026","FUERTEVENTURA"],
+          ["COPA PRESIDENTE","JUVENIL / SENIOR FEMENINA Y MASCULINA","31 OCTUBRE Y 01 DE NOVIEMBRE 2026","FUERTEVENTURA"],
+          ["LIGA AUTONÓMICA CLUBES","SENIOR FEMENINA","07 Y 08 NOVIEMBRE 2026","LA PALMA"],
+          ["LIGA AUTONÓMICA CLUBES","SENIOR 1ª MASCULINA","28 Y 29 NOVIEMBRE 2026","LA PALMA"]
+        ]}
+      ];
+      const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
+      document.getElementById("torneo-list").innerHTML = grupos.map((grupo, i) => `
+        <section class="space-y-3">
+          <h3 class="font-display text-lg text-gold border-b border-dark-border pb-2">${escapeHTML(grupo.titulo)} <span class="text-xs text-gray-500 font-sans">(${grupo.filas.length})</span></h3>
+          ${grupo.filas.map(f => `
+            <article class="card p-3">
+              <p class="text-[11px] text-gold mb-1">${escapeHTML(f[0])}</p>
+              <h4 class="font-semibold text-sm leading-snug">${escapeHTML(f[1])}</h4>
+              <p class="text-xs text-gray-400 mt-1">${escapeHTML(f[2])}</p>
+              <div class="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-[11px] text-gray-300">
+                <span>🎯 ${escapeHTML(f[3])}</span><span>📍 ${escapeHTML(f[4])}</span>
+              </div>
+              ${f[5] ? `<p class="text-[10px] text-gray-500 mt-2">${escapeHTML(f[5])}</p>` : ""}
+            </article>`).join("")}
+        </section>`).join("") + `
+        <p class="text-[11px] text-gray-500 leading-relaxed pt-2">Las invitaciones corresponden a los clubes; la Federación no organiza, solo colabora. En las fechas señaladas para otros campeonatos y eventos no se pueden organizar torneos. El 17 y 18 de octubre, y el 31 de octubre y 1 de noviembre, tampoco se pueden realizar torneos.</p>`;
     }
-
-    function renderTorneos() {
-      document.getElementById("torneo-list").innerHTML = (data.torneos || []).map(t => `
-        <div class="card p-4"><div class="flex items-center gap-3 mb-2"><div class="w-11 h-11 rounded-xl bg-gold/20 flex items-center justify-center text-xl">🏆</div>
-          <div><h3 class="font-display text-lg">${t.title}</h3><p class="text-xs text-gray-400">${t.date}</p></div></div><p class="text-sm text-gray-300">${t.desc}</p></div>`).join("") || '<p class="text-sm text-gray-500">Sin torneos</p>';
+/div></div><p class="text-sm text-gray-300">${t.desc}</p></div>`).join("") || '<p class="text-sm text-gray-500">Sin torneos</p>';
     }
 
     function renderClub() {

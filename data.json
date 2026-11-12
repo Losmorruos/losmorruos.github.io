@@ -2,7 +2,7 @@
   "nextMatch": {
     "team": "Morro Jable A",
     "date": "2026-11-13",
-    "time": "20:00",
+    "time": "19:00",
     "rival": "Pollo Máguez",
     "home": false,
     "result": null,
@@ -14,7 +14,7 @@
     {
       "team": "Morro Jable A",
       "date": "2026-11-13",
-      "time": "20:00",
+      "time": "19:00",
       "rival": "Pollo Máguez",
       "home": false,
       "result": null,
@@ -24,25 +24,14 @@
     },
     {
       "team": "Morro Jable B",
-      "date": "2026-11-12",
-      "time": "20:00",
+      "date": "2026-11-17",
+      "time": "17:30",
       "rival": "Atlético Pájara A",
       "home": true,
       "result": null,
       "jornada": 1,
       "place": "Estación Guaguas · Morro Jable",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
-    },
-    {
-      "team": "La Lajita",
-      "date": "2026-11-12",
-      "time": "20:00",
-      "rival": "Tequital",
-      "home": false,
-      "jornada": 1,
-      "place": "Centro Cultural · Tequital",
-      "result": null,
-      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     }
   ],
   "standingsA": [
@@ -217,7 +206,7 @@
     {
       "team": "Morro Jable A",
       "date": "2026-11-13",
-      "time": "20:00",
+      "time": "19:00",
       "rival": "Pollo Máguez",
       "home": false,
       "result": null,
@@ -326,8 +315,8 @@
     },
     {
       "team": "Morro Jable B",
-      "date": "2026-11-12",
-      "time": "20:00",
+      "date": "2026-11-17",
+      "time": "17:30",
       "rival": "Atlético Pájara A",
       "home": true,
       "result": null,
@@ -442,7 +431,7 @@
       "home": false,
       "jornada": 1,
       "place": "Centro Cultural · Tequital",
-      "result": null,
+      "result": "12/4 · 12/3",
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
     {
@@ -776,10 +765,10 @@
     {
       "pos": 5,
       "team": "La Lajita",
-      "pj": 0,
+      "pj": 1,
       "g": 0,
       "e": 0,
-      "p": 0,
+      "p": 1,
       "pts": 0
     },
     {

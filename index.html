@@ -2150,11 +2150,16 @@ Chándal|45€|Chándal completo|si"></textarea>
 
       const past = (data.matches || []).filter(m => m.result).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 3);
       document.getElementById("home-results").innerHTML = past.map(m => {
-        const [g1, g2] = m.result.split("-").map(Number);
-        const won = (m.home && g1 > g2) || (!m.home && g2 > g1);
-        const lost = (m.home && g1 < g2) || (!m.home && g2 < g1);
+        const raw = String(m.result || "");
+        const sets = raw.split("·").map(part => part.trim().split("/").map(Number)).filter(pair => pair.length === 2 && pair.every(Number.isFinite));
+        const [g1, g2] = raw.split("-").map(Number);
+        const homeSets = sets.filter(([a,b]) => a > b).length;
+        const awaySets = sets.filter(([a,b]) => b > a).length;
+        const won = sets.length ? (m.home ? homeSets > awaySets : awaySets > homeSets) : ((m.home && g1 > g2) || (!m.home && g2 > g1));
+        const lost = sets.length ? (m.home ? homeSets < awaySets : awaySets < homeSets) : ((m.home && g1 < g2) || (!m.home && g2 < g1));
         const us = ourTeamName(m);
-        return `<div class="card p-3 flex items-center justify-between"><div><p class="font-medium text-sm">${us} <span class="text-gold font-bold">${m.home ? g1 : g2}</span> - ${m.home ? g2 : g1} ${m.rival}</p><p class="text-[11px] text-gray-500">${formatDate(m.date)}</p></div><span class="text-[11px] px-2 py-1 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span></div>`;
+        const score = sets.length ? raw : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
+        return `<div class="card p-3 flex items-center justify-between"><div><p class="font-medium text-sm">${us} <span class="text-gold font-bold">${score}</span> ${m.rival}</p><p class="text-[11px] text-gray-500">${formatDate(m.date)}</p></div><span class="text-[11px] px-2 py-1 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span></div>`;
       }).join("") || '<p class="text-sm text-gray-500">Sin resultados</p>';
 
       const rowHome = (s) => `
@@ -2245,12 +2250,17 @@ Chándal|45€|Chándal completo|si"></textarea>
       const sorted = [...(data.matches || [])].filter(m => (m.team || "Morro Jable A") === team).sort((a, b) => a.date.localeCompare(b.date));
       document.getElementById("calendario-list").innerHTML = sorted.map(m => {
         const isPast = !!m.result;
-        const [g1, g2] = m.result ? m.result.split("-").map(Number) : [null, null];
-        const won = isPast && ((m.home && g1 > g2) || (!m.home && g2 > g1));
-        const lost = isPast && ((m.home && g1 < g2) || (!m.home && g2 < g1));
+        const raw = String(m.result || "");
+        const sets = raw.split("·").map(part => part.trim().split("/").map(Number)).filter(pair => pair.length === 2 && pair.every(Number.isFinite));
+        const [g1, g2] = raw.split("-").map(Number);
+        const homeSets = sets.filter(([a,b]) => a > b).length;
+        const awaySets = sets.filter(([a,b]) => b > a).length;
+        const won = isPast && (sets.length ? (m.home ? homeSets > awaySets : awaySets > homeSets) : ((m.home && g1 > g2) || (!m.home && g2 > g1)));
+        const lost = isPast && (sets.length ? (m.home ? homeSets < awaySets : awaySets < homeSets) : ((m.home && g1 < g2) || (!m.home && g2 < g1)));
         const us = ourTeamName(m);
+        const score = sets.length ? raw : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
         return `<div class="card p-3"><div class="flex justify-between mb-1"><span class="text-[11px] text-gray-500">${m.team ? m.team + " · " : ""}Jornada ${m.jornada || "—"}</span><span class="text-[11px] ${isPast ? 'text-gray-500' : 'text-gold'}">${formatDate(m.date)} · ${m.time || ""}</span></div>
-          <div class="flex items-center justify-between"><p class="font-medium text-sm">${m.home ? '<span class="text-gold">' + us + '</span>' : m.rival}${isPast ? ` <span class="text-gold">${m.home ? g1 : g2}</span>` : ''}<span class="text-gray-500 mx-1">vs</span>${m.home ? m.rival : '<span class="text-gold">' + us + '</span>'}${isPast ? ` <span class="text-gold">${m.home ? g2 : g1}</span>` : ''}</p>
+          <div class="flex items-center justify-between"><p class="font-medium text-sm">${m.home ? '<span class="text-gold">' + us + '</span>' : m.rival}${isPast ? ` <span class="text-gold">${score}</span>` : ''}<span class="text-gray-500 mx-1">vs</span>${m.home ? m.rival : '<span class="text-gold">' + us + '</span>'}</p>
           ${isPast ? `<span class="text-[11px] px-2 py-0.5 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span>` : '<span class="text-[11px] text-gold">Pendiente</span>'}</div>${m.place ? `<p class="text-[11px] text-gray-400 mt-2">📍 ${m.place}</p>` : ''}</div>`;
       }).join("") || '<p class="text-sm text-gray-500">Sin partidos</p>';
     }
@@ -2258,11 +2268,16 @@ Chándal|45€|Chándal completo|si"></textarea>
     function renderResultados() {
       const past = (data.matches || []).filter(m => m.result).sort((a, b) => b.date.localeCompare(a.date));
       document.getElementById("resultados-list").innerHTML = past.map(m => {
-        const [g1, g2] = m.result.split("-").map(Number);
-        const won = (m.home && g1 > g2) || (!m.home && g2 > g1);
-        const lost = (m.home && g1 < g2) || (!m.home && g2 < g1);
+        const raw = String(m.result || "");
+        const sets = raw.split("·").map(part => part.trim().split("/").map(Number)).filter(pair => pair.length === 2 && pair.every(Number.isFinite));
+        const [g1, g2] = raw.split("-").map(Number);
+        const homeSets = sets.filter(([a,b]) => a > b).length;
+        const awaySets = sets.filter(([a,b]) => b > a).length;
+        const won = sets.length ? (m.home ? homeSets > awaySets : awaySets > homeSets) : ((m.home && g1 > g2) || (!m.home && g2 > g1));
+        const lost = sets.length ? (m.home ? homeSets < awaySets : awaySets < homeSets) : ((m.home && g1 < g2) || (!m.home && g2 < g1));
         const us = ourTeamName(m);
-        return `<div class="card p-3 flex items-center justify-between"><div><p class="font-medium text-sm">${m.home ? us : m.rival} <span class="text-gold font-bold">${m.home ? g1 : g2}</span> - <span class="text-gold font-bold">${m.home ? g2 : g1}</span> ${m.home ? m.rival : us}</p><p class="text-[11px] text-gray-500">${formatDate(m.date)} · Jornada ${m.jornada || "—"}</p></div>
+        const score = sets.length ? raw : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
+        return `<div class="card p-3 flex items-center justify-between"><div><p class="font-medium text-sm">${m.home ? us : m.rival} <span class="text-gold font-bold">${score}</span> ${m.home ? m.rival : us}</p><p class="text-[11px] text-gray-500">${formatDate(m.date)} · Jornada ${m.jornada || "—"}</p></div>
           <span class="text-[11px] px-2 py-1 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span></div>`;
       }).join("") || '<p class="text-sm text-gray-500">Sin resultados</p>';
     }

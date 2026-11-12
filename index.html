@@ -2158,7 +2158,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         const won = sets.length ? (m.home ? homeSets > awaySets : awaySets > homeSets) : ((m.home && g1 > g2) || (!m.home && g2 > g1));
         const lost = sets.length ? (m.home ? homeSets < awaySets : awaySets < homeSets) : ((m.home && g1 < g2) || (!m.home && g2 < g1));
         const us = ourTeamName(m);
-        const score = sets.length ? raw : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
+        const score = sets.length ? sets.map(([homeScore, awayScore]) => m.home ? `${homeScore}/${awayScore}` : `${awayScore}/${homeScore}`).join(" · ") : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
         return `<div class="card p-3 flex items-center justify-between"><div><p class="font-medium text-sm">${us} <span class="text-gold font-bold">${score}</span> ${m.rival}</p><p class="text-[11px] text-gray-500">${formatDate(m.date)}</p></div><span class="text-[11px] px-2 py-1 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span></div>`;
       }).join("") || '<p class="text-sm text-gray-500">Sin resultados</p>';
 
@@ -2258,7 +2258,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         const won = isPast && (sets.length ? (m.home ? homeSets > awaySets : awaySets > homeSets) : ((m.home && g1 > g2) || (!m.home && g2 > g1)));
         const lost = isPast && (sets.length ? (m.home ? homeSets < awaySets : awaySets < homeSets) : ((m.home && g1 < g2) || (!m.home && g2 < g1)));
         const us = ourTeamName(m);
-        const score = sets.length ? raw : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
+        const score = sets.length ? sets.map(([homeScore, awayScore]) => m.home ? `${homeScore}/${awayScore}` : `${awayScore}/${homeScore}`).join(" · ") : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
         return `<div class="card p-3"><div class="flex justify-between mb-1"><span class="text-[11px] text-gray-500">${m.team ? m.team + " · " : ""}Jornada ${m.jornada || "—"}</span><span class="text-[11px] ${isPast ? 'text-gray-500' : 'text-gold'}">${formatDate(m.date)} · ${m.time || ""}</span></div>
           <div class="flex items-center justify-between"><p class="font-medium text-sm">${m.home ? '<span class="text-gold">' + us + '</span>' : m.rival}${isPast ? ` <span class="text-gold">${score}</span>` : ''}<span class="text-gray-500 mx-1">vs</span>${m.home ? m.rival : '<span class="text-gold">' + us + '</span>'}</p>
           ${isPast ? `<span class="text-[11px] px-2 py-0.5 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span>` : '<span class="text-[11px] text-gold">Pendiente</span>'}</div>${m.place ? `<p class="text-[11px] text-gray-400 mt-2">📍 ${m.place}</p>` : ''}</div>`;
@@ -2276,7 +2276,7 @@ Chándal|45€|Chándal completo|si"></textarea>
         const won = sets.length ? (m.home ? homeSets > awaySets : awaySets > homeSets) : ((m.home && g1 > g2) || (!m.home && g2 > g1));
         const lost = sets.length ? (m.home ? homeSets < awaySets : awaySets < homeSets) : ((m.home && g1 < g2) || (!m.home && g2 < g1));
         const us = ourTeamName(m);
-        const score = sets.length ? raw : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
+        const score = sets.length ? sets.map(([homeScore, awayScore]) => m.home ? `${homeScore}/${awayScore}` : `${awayScore}/${homeScore}`).join(" · ") : `${m.home ? g1 : g2} - ${m.home ? g2 : g1}`;
         return `<div class="card p-3 flex items-center justify-between"><div><p class="font-medium text-sm">${m.home ? us : m.rival} <span class="text-gold font-bold">${score}</span> ${m.home ? m.rival : us}</p><p class="text-[11px] text-gray-500">${formatDate(m.date)} · Jornada ${m.jornada || "—"}</p></div>
           <span class="text-[11px] px-2 py-1 rounded-full font-bold ${won ? 'badge-win' : lost ? 'badge-loss' : 'badge-draw'}">${won ? 'V' : lost ? 'D' : 'E'}</span></div>`;
       }).join("") || '<p class="text-sm text-gray-500">Sin resultados</p>';

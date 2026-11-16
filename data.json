@@ -1,27 +1,16 @@
 {
   "nextMatch": {
-    "team": "Morro Jable A",
-    "date": "2026-11-13",
-    "time": "19:00",
-    "rival": "Pollo Máguez",
-    "home": false,
-    "result": "12/1 · 12/7",
+    "team": "Morro Jable B",
+    "date": "2026-11-17",
+    "time": "19:30",
+    "rival": "Atlético Pájara A",
+    "home": true,
+    "result": null,
     "jornada": 1,
-    "place": "Campo Lucha · Las Playitas",
-    "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
+    "place": "Estación Guaguas · Morro Jable",
+    "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
   },
   "nextMatches": [
-    {
-      "team": "Morro Jable A",
-      "date": "2026-11-13",
-      "time": "19:00",
-      "rival": "Pollo Máguez",
-      "home": false,
-      "result": "12/1 · 12/7",
-      "jornada": 1,
-      "place": "Campo Lucha · Las Playitas",
-      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
-    },
     {
       "team": "Morro Jable B",
       "date": "2026-11-17",

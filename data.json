@@ -1,27 +1,16 @@
 {
   "nextMatch": {
-    "team": "Morro Jable B",
-    "date": "2026-11-17",
-    "time": "19:30",
-    "rival": "Atlético Pájara A",
+    "team": "Morro Jable A",
+    "date": "2026-11-20",
+    "time": "20:00",
+    "rival": "Lajares",
     "home": true,
     "result": null,
-    "jornada": 1,
-    "place": "Estación Guaguas · Morro Jable",
-    "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    "jornada": 2,
+    "place": "Estación guaguas · Morro Jable",
+    "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
   },
   "nextMatches": [
-    {
-      "team": "Morro Jable B",
-      "date": "2026-11-17",
-      "time": "19:30",
-      "rival": "Atlético Pájara A",
-      "home": true,
-      "result": null,
-      "jornada": 1,
-      "place": "Estación Guaguas · Morro Jable",
-      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
-    },
     {
       "team": "Morro Jable A",
       "date": "2026-11-20",
@@ -32,17 +21,6 @@
       "jornada": 2,
       "place": "Estación guaguas · Morro Jable",
       "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
-    },
-    {
-      "team": "La Lajita",
-      "date": "2026-11-21",
-      "time": "19:00",
-      "rival": "Atlético Pájara B",
-      "home": true,
-      "result": null,
-      "jornada": 2,
-      "place": "Cancha Fútbol · La Lajita",
-      "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     }
   ],
   "standingsA": [
@@ -330,7 +308,7 @@
       "time": "19:30",
       "rival": "Atlético Pájara A",
       "home": true,
-      "result": null,
+      "result": "12/6 · 12/1",
       "jornada": 1,
       "place": "Estación Guaguas · Morro Jable",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
@@ -453,7 +431,7 @@
       "home": true,
       "jornada": 2,
       "place": "Cancha Fútbol · La Lajita",
-      "result": null,
+      "result": "0/12 · 8/12",
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
     {

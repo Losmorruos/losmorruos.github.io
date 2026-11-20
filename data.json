@@ -428,10 +428,10 @@
       "date": "2026-11-21",
       "time": "19:00",
       "rival": "Atlético Pájara B",
-      "home": true,
+      "home": false,
       "jornada": 2,
       "place": "Cancha Fútbol · La Lajita",
-      "result": "0/12 · 8/12",
+      "result": "12/0 · 12/8",
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
     },
     {

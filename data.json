@@ -771,57 +771,81 @@
   "standingsL": [
     {
       "pos": 1,
-      "team": "Atlético Pájara B",
-      "pj": 0,
-      "g": 0,
-      "e": 0,
+      "team": "Tequital",
+      "pj": 2,
+      "g": 1,
+      "e": 1,
       "p": 0,
-      "pts": 0
+      "pts": 3,
+      "tf": 45,
+      "tc": 25,
+      "dif": 20,
+      "total": 70
     },
     {
       "pos": 2,
       "team": "Menta y Chocolate",
-      "pj": 0,
-      "g": 0,
+      "pj": 1,
+      "g": 1,
       "e": 0,
       "p": 0,
-      "pts": 0
+      "pts": 2,
+      "tf": 24,
+      "tc": 10,
+      "dif": 14,
+      "total": 34
     },
     {
       "pos": 3,
-      "team": "Tarajalejo",
-      "pj": 0,
-      "g": 0,
+      "team": "La Burrera",
+      "pj": 1,
+      "g": 1,
       "e": 0,
       "p": 0,
-      "pts": 0
+      "pts": 2,
+      "tf": 24,
+      "tc": 15,
+      "dif": 9,
+      "total": 39
     },
     {
       "pos": 4,
-      "team": "Tequital",
-      "pj": 0,
-      "g": 0,
+      "team": "La Lajita",
+      "pj": 2,
+      "g": 1,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 1,
+      "pts": 2,
+      "tf": 31,
+      "tc": 32,
+      "dif": -1,
+      "total": 63
     },
     {
       "pos": 5,
-      "team": "La Lajita",
-      "pj": 1,
+      "team": "Tarajalejo",
+      "pj": 2,
       "g": 0,
-      "e": 0,
+      "e": 1,
       "p": 1,
-      "pts": 0
+      "pts": 1,
+      "tf": 33,
+      "tc": 45,
+      "dif": -12,
+      "total": 78
     },
     {
       "pos": 6,
-      "team": "La Burrera",
-      "pj": 0,
+      "team": "Atlético Pájara B",
+      "pj": 2,
       "g": 0,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 2,
+      "pts": 0,
+      "tf": 18,
+      "tc": 48,
+      "dif": -30,
+      "total": 66
     }
   ]
 }

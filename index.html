@@ -844,7 +844,7 @@ body.has-sponsor-footer main { padding-bottom:185px !important; }
         <p class="text-xs text-gold mb-2 font-medium">Morro Jable B · 2ª Categoría</p>
         <div class="card overflow-hidden">
           <div class="overflow-x-auto no-scrollbar">
-            <table class="w-full text-sm min-w-[340px]">
+            <table class="w-full text-sm min-w-[560px]">
               <thead class="bg-dark-border/50 text-gray-500 text-[11px]">
                 <tr>
                   <th class="py-3 px-2 text-left">#</th>
@@ -853,7 +853,7 @@ body.has-sponsor-footer main { padding-bottom:185px !important; }
                   <th class="py-3 px-2 text-center">G</th>
                   <th class="py-3 px-2 text-center">E</th>
                   <th class="py-3 px-2 text-center">P</th>
-                  <th class="py-3 px-2 text-center">Pts</th>
+                  <th class="py-3 px-2 text-center">Pts</th><th class="py-3 px-2 text-center">TF</th><th class="py-3 px-2 text-center">TC</th><th class="py-3 px-2 text-center">Dif.</th>
                 </tr>
               </thead>
               <tbody id="standings-body-b"></tbody>
@@ -2230,9 +2230,24 @@ Chándal|45€|Chándal completo|si"></textarea>
           <td class="py-2.5 px-2 text-center font-bold ${club ? 'text-gold' : ''}">${s.pts}</td>
         </tr>`;
     }
+    function rowStandingB(s) {
+      const club = isClubTeam(s.team);
+      return `<tr class="border-t border-dark-border ${club ? 'bg-gold/10' : ''}">
+          <td class="py-2.5 px-2 font-bold ${club ? 'text-gold' : 'text-gray-400'}">${s.pos}</td>
+          <td class="py-2.5 px-2 ${club ? 'font-semibold text-gold' : ''}">${s.team}</td>
+          <td class="py-2.5 px-2 text-center text-gray-400">${s.pj}</td>
+          <td class="py-2.5 px-2 text-center">${s.g}</td>
+          <td class="py-2.5 px-2 text-center">${s.e}</td>
+          <td class="py-2.5 px-2 text-center">${s.p}</td>
+          <td class="py-2.5 px-2 text-center font-bold ${club ? 'text-gold' : ''}">${s.pts}</td>
+          <td class="py-2.5 px-2 text-center">${s.tf ?? 0}</td>
+          <td class="py-2.5 px-2 text-center">${s.tc ?? 0}</td>
+          <td class="py-2.5 px-2 text-center font-semibold">${(s.dif ?? ((s.tf ?? 0) - (s.tc ?? 0))) > 0 ? '+' : ''}${s.dif ?? ((s.tf ?? 0) - (s.tc ?? 0))}</td>
+        </tr>`;
+    }
     function renderStandings() {
       document.getElementById("standings-body-a").innerHTML = getStandingsA().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
-      document.getElementById("standings-body-b").innerHTML = getStandingsB().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
+      document.getElementById("standings-body-b").innerHTML = getStandingsB().map(rowStandingB).join("") || '<tr><td colspan="10" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
       const lb = document.getElementById("standings-body-l"); if (lb) lb.innerHTML = getStandingsL().map(rowStanding).join("");
       const lh = document.getElementById("home-standings-l"); if (lh) lh.innerHTML = getStandingsL().slice(0, 3).map(s => { const club = isClubTeam(s.team); return '<tr class="border-t border-dark-border ' + (club ? 'bg-gold/10' : '') + '"><td class="py-2.5 px-3 ' + (club ? 'font-bold text-gold' : 'text-gray-400') + '">' + s.pos + '</td><td class="py-2.5 px-3 ' + (club ? 'font-semibold text-gold' : '') + '">' + s.team + '</td><td class="py-2.5 px-3 text-center font-semibold ' + (club ? 'text-gold' : '') + '">' + s.pts + '</td></tr>'; }).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
     }

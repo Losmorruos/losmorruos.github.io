@@ -2305,6 +2305,10 @@ Chándal|45€|Chándal completo|si"></textarea>
       if (!root) return;
       const groups = Array.isArray(data.groupResults) ? data.groupResults : [];
       const scoreCard = (m) => {
+        if (!m.score) return `<div class="rounded-xl border border-dark-border bg-dark-card/40 px-3 py-3">
+          <p class="text-sm font-medium">${m.home} <span class="text-gray-500">vs</span> ${m.away}</p>
+          <p class="text-[11px] text-gray-500 mt-1">Jornada ${m.jornada} · Resultado pendiente</p>
+        </div>`;
         const sets = String(m.score || "").split("·").map(part => part.trim().split("/").map(Number)).filter(pair => pair.length === 2 && pair.every(Number.isFinite));
         const homeSets = sets.filter(([a,b]) => a > b).length;
         const awaySets = sets.filter(([a,b]) => b > a).length;

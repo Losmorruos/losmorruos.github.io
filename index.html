@@ -863,7 +863,7 @@ body.has-sponsor-footer main { padding-bottom:185px !important; }
             </table>
           </div>
         </div>
-      <div class="mt-4 mb-6"><p class="text-xs text-gold mb-2 font-medium">La Lajita · 2ª Categoría · Grupo G (provisional)</p><div class="card overflow-hidden"><div class="overflow-x-auto no-scrollbar"><table class="w-full text-sm min-w-[340px]"><thead class="bg-dark-border/50 text-gray-500 text-[11px]"><tr><th class="py-3 px-2 text-left">#</th><th class="py-3 px-2 text-left">Equipo</th><th class="py-3 px-2 text-center">PJ</th><th class="py-3 px-2 text-center">G</th><th class="py-3 px-2 text-center">E</th><th class="py-3 px-2 text-center">P</th><th class="py-3 px-2 text-center">Pts</th></tr></thead><tbody id="standings-body-l"></tbody></table></div></div><p class="mt-2 text-[11px] text-gray-500">Estadísticas de La Lajita a 0 hasta recibir los datos reales.</p></div>
+      <div class="mt-4 mb-6"><p class="text-xs text-gold mb-2 font-medium">La Lajita · 2ª Categoría · Grupo Cuarto (D)</p><div class="card overflow-hidden"><div class="overflow-x-auto no-scrollbar"><table class="w-full text-sm min-w-[620px]"><thead class="bg-dark-border/50 text-gray-500 text-[11px]"><tr><th class="py-3 px-2 text-left">#</th><th class="py-3 px-2 text-left">Equipo</th><th class="py-3 px-2 text-center">PJ</th><th class="py-3 px-2 text-center">G</th><th class="py-3 px-2 text-center">E</th><th class="py-3 px-2 text-center">P</th><th class="py-3 px-2 text-center">Pts</th><th class="py-3 px-2 text-center">TF</th><th class="py-3 px-2 text-center">TC</th><th class="py-3 px-2 text-center">Dif.</th><th class="py-3 px-2 text-center">Total</th></tr></thead><tbody id="standings-body-l"></tbody></table></div></div><p class="mt-2 text-[11px] text-gray-500">TF: tantos a favor · TC: tantos en contra · Dif.: diferencia · Total: suma de tantos a favor y en contra.</p></div>
       </div>
     </section>
 
@@ -2233,6 +2233,23 @@ Chándal|45€|Chándal completo|si"></textarea>
           <td class="py-2.5 px-2 text-center font-bold ${club ? 'text-gold' : ''}">${s.pts}</td>
         </tr>`;
     }
+    function rowStandingL(s) {
+      const club = isClubTeam(s.team);
+      const dif = s.dif ?? ((s.tf ?? 0) - (s.tc ?? 0));
+      return `<tr class="border-t border-dark-border ${club ? 'bg-gold/10' : ''}">
+          <td class="py-2.5 px-2 font-bold ${club ? 'text-gold' : 'text-gray-400'}">${s.pos}</td>
+          <td class="py-2.5 px-2 ${club ? 'font-semibold text-gold' : ''}">${s.team}</td>
+          <td class="py-2.5 px-2 text-center text-gray-400">${s.pj}</td>
+          <td class="py-2.5 px-2 text-center">${s.g}</td>
+          <td class="py-2.5 px-2 text-center">${s.e}</td>
+          <td class="py-2.5 px-2 text-center">${s.p}</td>
+          <td class="py-2.5 px-2 text-center font-bold ${club ? 'text-gold' : ''}">${s.pts}</td>
+          <td class="py-2.5 px-2 text-center">${s.tf ?? 0}</td>
+          <td class="py-2.5 px-2 text-center">${s.tc ?? 0}</td>
+          <td class="py-2.5 px-2 text-center font-semibold">${dif > 0 ? '+' : ''}${dif}</td>
+          <td class="py-2.5 px-2 text-center">${s.total ?? ((s.tf ?? 0) + (s.tc ?? 0))}</td>
+        </tr>`;
+    }
     function rowStandingB(s) {
       const club = isClubTeam(s.team);
       return `<tr class="border-t border-dark-border ${club ? 'bg-gold/10' : ''}">
@@ -2251,7 +2268,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     function renderStandings() {
       document.getElementById("standings-body-a").innerHTML = getStandingsA().map(rowStanding).join("") || '<tr><td colspan="7" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
       document.getElementById("standings-body-b").innerHTML = getStandingsB().map(rowStandingB).join("") || '<tr><td colspan="10" class="py-4 px-3 text-gray-500 text-sm">Sin clasificación</td></tr>';
-      const lb = document.getElementById("standings-body-l"); if (lb) lb.innerHTML = getStandingsL().map(rowStanding).join("");
+      const lb = document.getElementById("standings-body-l"); if (lb) lb.innerHTML = getStandingsL().map(rowStandingL).join("");
       const lh = document.getElementById("home-standings-l"); if (lh) lh.innerHTML = getStandingsL().slice(0, 3).map(s => { const club = isClubTeam(s.team); return '<tr class="border-t border-dark-border ' + (club ? 'bg-gold/10' : '') + '"><td class="py-2.5 px-3 ' + (club ? 'font-bold text-gold' : 'text-gray-400') + '">' + s.pos + '</td><td class="py-2.5 px-3 ' + (club ? 'font-semibold text-gold' : '') + '">' + s.team + '</td><td class="py-2.5 px-3 text-center font-semibold ' + (club ? 'text-gold' : '') + '">' + s.pts + '</td></tr>'; }).join("") || '<tr><td colspan="3" class="py-3 px-3 text-gray-500 text-sm">Sin datos</td></tr>';
     }
 

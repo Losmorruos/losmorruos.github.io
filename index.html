@@ -2223,6 +2223,7 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     function rowStanding(s) {
       const club = isClubTeam(s.team);
+      const dif = s.dif ?? ((s.tf ?? 0) - (s.tc ?? 0));
       return `<tr class="border-t border-dark-border ${club ? 'bg-gold/10' : ''}">
           <td class="py-2.5 px-2 font-bold ${club ? 'text-gold' : 'text-gray-400'}">${s.pos}</td>
           <td class="py-2.5 px-2 ${club ? 'font-semibold text-gold' : ''}">${s.team}</td>
@@ -2231,6 +2232,9 @@ Chándal|45€|Chándal completo|si"></textarea>
           <td class="py-2.5 px-2 text-center">${s.e}</td>
           <td class="py-2.5 px-2 text-center">${s.p}</td>
           <td class="py-2.5 px-2 text-center font-bold ${club ? 'text-gold' : ''}">${s.pts}</td>
+          <td class="py-2.5 px-2 text-center">${s.tf ?? 0}</td>
+          <td class="py-2.5 px-2 text-center">${s.tc ?? 0}</td>
+          <td class="py-2.5 px-2 text-center font-semibold">${dif > 0 ? '+' : ''}${dif}</td>
         </tr>`;
     }
     function rowStandingL(s) {

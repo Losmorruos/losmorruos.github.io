@@ -847,5 +847,142 @@
       "dif": -30,
       "total": 66
     }
+  ],
+  "groupResults": [
+    {
+      "title": "1ª Categoría Masculina · Grupo Segundo (B) · Morro Jable A",
+      "rounds": [
+        {
+          "jornada": 1,
+          "matches": [
+            {
+              "home": "Pollo Máguez",
+              "away": "Morro Jable A",
+              "score": "12/1 · 12/7"
+            },
+            {
+              "home": "Tamasite",
+              "away": "Chamajo Tindaya",
+              "score": "6/12 · 12/0"
+            },
+            {
+              "home": "Lajares",
+              "away": "La Placeta",
+              "score": "6/12 · 7/12"
+            }
+          ]
+        },
+        {
+          "jornada": 2,
+          "matches": [
+            {
+              "home": "La Placeta",
+              "away": "Tamasite",
+              "score": "3/12 · 4/12"
+            },
+            {
+              "home": "Chamajo Tindaya",
+              "away": "Pollo Máguez",
+              "score": "2/12 · 3/12"
+            },
+            {
+              "home": "Morro Jable A",
+              "away": "Lajares",
+              "score": "12/11 · 12/3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "2ª Categoría Masculina · Grupo Quinto (E) · Morro Jable B",
+      "rounds": [
+        {
+          "jornada": 1,
+          "matches": [
+            {
+              "home": "Cualquier Cosa",
+              "away": "La Marisma",
+              "score": "12/4 · 12/3"
+            },
+            {
+              "home": "El Tablero",
+              "away": "El Cuchillete",
+              "score": "12/0 · 12/6"
+            },
+            {
+              "home": "Morro Jable B",
+              "away": "Atlético Pájara A",
+              "score": "12/6 · 12/1"
+            }
+          ]
+        },
+        {
+          "jornada": 2,
+          "matches": [
+            {
+              "home": "Pájara A",
+              "away": "Cualquier Cosa",
+              "score": "4/12 · 10/13"
+            },
+            {
+              "home": "El Cuchillete",
+              "away": "Morro Jable B",
+              "score": "12/1 · 0/12"
+            },
+            {
+              "home": "La Marisma",
+              "away": "El Tablero",
+              "score": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "2ª Categoría Masculina · Grupo de La Lajita",
+      "rounds": [
+        {
+          "jornada": 1,
+          "matches": [
+            {
+              "home": "La Burrera",
+              "away": "Tarajalejo",
+              "score": "12/10 · 12/5"
+            },
+            {
+              "home": "Pájara B",
+              "away": "Menta y Chocolate",
+              "score": "8/12 · 2/12"
+            },
+            {
+              "home": "Tequital",
+              "away": "La Lajita",
+              "score": "12/4 · 12/3"
+            }
+          ]
+        },
+        {
+          "jornada": 2,
+          "matches": [
+            {
+              "home": "Pájara B",
+              "away": "La Lajita",
+              "score": "0/12 · 8/12"
+            },
+            {
+              "home": "Tarajalejo",
+              "away": "Tequital",
+              "score": "6/12 · 12/9"
+            },
+            {
+              "home": "Menta y Chocolate",
+              "away": "La Burrera",
+              "score": null
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

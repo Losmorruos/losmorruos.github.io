@@ -82,57 +82,75 @@
   "standingsB": [
     {
       "pos": 1,
-      "team": "La Marisma",
-      "pj": 0,
-      "g": 0,
+      "team": "Cualquier Cosa",
+      "pj": 2,
+      "g": 2,
       "e": 0,
       "p": 0,
-      "pts": 0
+      "pts": 4,
+      "tf": 49,
+      "tc": 21,
+      "dif": 28
     },
     {
       "pos": 2,
-      "team": "Cualquier Cosa",
-      "pj": 0,
-      "g": 0,
-      "e": 0,
+      "team": "Morro Jable B",
+      "pj": 2,
+      "g": 1,
+      "e": 1,
       "p": 0,
-      "pts": 0
+      "pts": 3,
+      "tf": 37,
+      "tc": 19,
+      "dif": 18
     },
     {
       "pos": 3,
-      "team": "Morro Jable B",
-      "pj": 0,
-      "g": 0,
+      "team": "El Tablero",
+      "pj": 1,
+      "g": 1,
       "e": 0,
       "p": 0,
-      "pts": 0
+      "pts": 2,
+      "tf": 24,
+      "tc": 6,
+      "dif": 18
     },
     {
       "pos": 4,
       "team": "El Cuchillete",
-      "pj": 0,
+      "pj": 2,
       "g": 0,
-      "e": 0,
-      "p": 0,
-      "pts": 0
+      "e": 1,
+      "p": 1,
+      "pts": 1,
+      "tf": 18,
+      "tc": 37,
+      "dif": -19
     },
     {
       "pos": 5,
-      "team": "El Tablero",
-      "pj": 0,
+      "team": "La Marisma",
+      "pj": 1,
       "g": 0,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 1,
+      "pts": 0,
+      "tf": 7,
+      "tc": 24,
+      "dif": -17
     },
     {
       "pos": 6,
       "team": "Atlético Pájara A",
-      "pj": 0,
+      "pj": 2,
       "g": 0,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 2,
+      "pts": 0,
+      "tf": 21,
+      "tc": 49,
+      "dif": -28
     }
   ],
   "standings": [

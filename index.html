@@ -2067,14 +2067,27 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
     function getNextMatches() {
       if (!data) return [];
+      const now = new Date();
+      const isUpcoming = (m) => {
+        if (!m || !m.rival) return false;
+        if (!m.date) return true;
+        const time = /^\\d{2}:\\d{2}$/.test(String(m.time || "")) ? m.time : "23:59";
+        const scheduled = new Date(String(m.date) + "T" + time + ":00");
+        return !Number.isNaN(scheduled.getTime()) && scheduled >= now;
+      };
       if (Array.isArray(data.nextMatches) && data.nextMatches.length) {
-        return data.nextMatches.filter(m => m && m.rival);
+        return data.nextMatches.filter(isUpcoming);
       }
-      if (data.nextMatch && data.nextMatch.rival) {
+      if (data.nextMatch && isUpcoming(data.nextMatch)) {
         return [data.nextMatch];
       }
       return [];
     }
+    // Actualizar la portada automáticamente cuando pase la fecha y hora de un partido.
+    setInterval(() => {
+      try { if (typeof renderHome === "function") renderHome(); } catch (e) { console.warn(e); }
+    }, 60000);
+
     function ourTeamName(m) {
       if (m && m.team) return m.team;
       const list = getNextMatches();

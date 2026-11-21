@@ -2301,8 +2301,36 @@ Chándal|45€|Chándal completo|si"></textarea>
     }
 
     function renderResultados() {
+      const root = document.getElementById("resultados-list");
+      if (!root) return;
+      const groups = Array.isArray(data.groupResults) ? data.groupResults : [];
+      const scoreCard = (m) => {
+        const sets = String(m.score || "").split("·").map(part => part.trim().split("/").map(Number)).filter(pair => pair.length === 2 && pair.every(Number.isFinite));
+        const homeSets = sets.filter(([a,b]) => a > b).length;
+        const awaySets = sets.filter(([a,b]) => b > a).length;
+        const outcome = homeSets > awaySets ? "V" : homeSets < awaySets ? "D" : "E";
+        return `<div class="rounded-xl border border-dark-border bg-dark-card/70 px-3 py-3">
+          <div class="flex items-center justify-between gap-2">
+            <p class="text-sm font-medium leading-snug">${m.home} <span class="text-gold font-bold whitespace-nowrap">${m.score}</span> ${m.away}</p>
+            <span class="text-[10px] font-bold px-2 py-1 rounded-full ${outcome === "V" ? "badge-win" : outcome === "D" ? "badge-loss" : "badge-draw"}">${outcome}</span>
+          </div>
+          <p class="text-[11px] text-gray-500 mt-1">Jornada ${m.jornada}</p>
+        </div>`;
+      };
+      if (groups.length) {
+        root.innerHTML = groups.map(group => `
+          <section class="card p-3 mb-4">
+            <h3 class="font-display text-gold text-base mb-3">${group.title}</h3>
+            ${group.rounds.map(round => `
+              <div class="mb-4 last:mb-0">
+                <h4 class="text-xs uppercase tracking-wide text-gray-400 font-semibold mb-2">Jornada ${round.jornada}</h4>
+                <div class="space-y-2">${round.matches.map(scoreCard).join("") || '<p class="text-xs text-gray-500">Resultados pendientes.</p>'}</div>
+              </div>`).join("")}
+          </section>`).join("");
+        return;
+      }
       const past = (data.matches || []).filter(m => m.result).sort((a, b) => b.date.localeCompare(a.date));
-      document.getElementById("resultados-list").innerHTML = past.map(m => {
+      root.innerHTML = past.map(m => {
         const raw = String(m.result || "");
         const sets = raw.split("·").map(part => part.trim().split("/").map(Number)).filter(pair => pair.length === 2 && pair.every(Number.isFinite));
         const [g1, g2] = raw.split("-").map(Number);

@@ -27,56 +27,74 @@
     {
       "pos": 1,
       "team": "Pollo Máguez",
-      "pj": 0,
-      "g": 0,
+      "pj": 2,
+      "g": 2,
       "e": 0,
       "p": 0,
-      "pts": 0
+      "pts": 4,
+      "tf": 48,
+      "tc": 13,
+      "dif": 35
     },
     {
       "pos": 2,
-      "team": "Morro Jable A",
-      "pj": 0,
-      "g": 0,
-      "e": 0,
+      "team": "Tamasite",
+      "pj": 2,
+      "g": 1,
+      "e": 1,
       "p": 0,
-      "pts": 0
+      "pts": 3,
+      "tf": 42,
+      "tc": 19,
+      "dif": 23
     },
     {
       "pos": 3,
-      "team": "Tamasite",
-      "pj": 0,
-      "g": 0,
+      "team": "Morro Jable A",
+      "pj": 2,
+      "g": 1,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 1,
+      "pts": 2,
+      "tf": 32,
+      "tc": 38,
+      "dif": -6
     },
     {
       "pos": 4,
-      "team": "T. Chamajo",
-      "pj": 0,
-      "g": 0,
+      "team": "La Placeta",
+      "pj": 2,
+      "g": 1,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 1,
+      "pts": 2,
+      "tf": 31,
+      "tc": 37,
+      "dif": -6
     },
     {
       "pos": 5,
-      "team": "Lajares",
-      "pj": 0,
+      "team": "Chamajo Tindaya",
+      "pj": 2,
       "g": 0,
-      "e": 0,
-      "p": 0,
-      "pts": 0
+      "e": 1,
+      "p": 1,
+      "pts": 1,
+      "tf": 17,
+      "tc": 42,
+      "dif": -25
     },
     {
       "pos": 6,
-      "team": "La Placeta",
-      "pj": 0,
+      "team": "Lajares",
+      "pj": 2,
       "g": 0,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 2,
+      "pts": 0,
+      "tf": 27,
+      "tc": 48,
+      "dif": -21
     }
   ],
   "standingsB": [
@@ -157,56 +175,74 @@
     {
       "pos": 1,
       "team": "Pollo Máguez",
-      "pj": 0,
-      "g": 0,
+      "pj": 2,
+      "g": 2,
       "e": 0,
       "p": 0,
-      "pts": 0
+      "pts": 4,
+      "tf": 48,
+      "tc": 13,
+      "dif": 35
     },
     {
       "pos": 2,
-      "team": "Morro Jable A",
-      "pj": 0,
-      "g": 0,
-      "e": 0,
+      "team": "Tamasite",
+      "pj": 2,
+      "g": 1,
+      "e": 1,
       "p": 0,
-      "pts": 0
+      "pts": 3,
+      "tf": 42,
+      "tc": 19,
+      "dif": 23
     },
     {
       "pos": 3,
-      "team": "Tamasite",
-      "pj": 0,
-      "g": 0,
+      "team": "Morro Jable A",
+      "pj": 2,
+      "g": 1,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 1,
+      "pts": 2,
+      "tf": 32,
+      "tc": 38,
+      "dif": -6
     },
     {
       "pos": 4,
-      "team": "T. Chamajo",
-      "pj": 0,
-      "g": 0,
+      "team": "La Placeta",
+      "pj": 2,
+      "g": 1,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 1,
+      "pts": 2,
+      "tf": 31,
+      "tc": 37,
+      "dif": -6
     },
     {
       "pos": 5,
-      "team": "Lajares",
-      "pj": 0,
+      "team": "Chamajo Tindaya",
+      "pj": 2,
       "g": 0,
-      "e": 0,
-      "p": 0,
-      "pts": 0
+      "e": 1,
+      "p": 1,
+      "pts": 1,
+      "tf": 17,
+      "tc": 42,
+      "dif": -25
     },
     {
       "pos": 6,
-      "team": "La Placeta",
-      "pj": 0,
+      "team": "Lajares",
+      "pj": 2,
       "g": 0,
       "e": 0,
-      "p": 0,
-      "pts": 0
+      "p": 2,
+      "pts": 0,
+      "tf": 27,
+      "tc": 48,
+      "dif": -21
     }
   ],
   "matches": [
@@ -710,7 +746,7 @@
       "time": "10:12"
     }
   ],
-  "_syncStamp": "2026-10-27T00:32:05.456Z",
+  "_syncStamp": "2026-11-21T01:16:49.904Z",
   "trainings": [],
   "gallery": [],
   "venue": {

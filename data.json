@@ -782,6 +782,19 @@
   "standingsL": [
     {
       "pos": 1,
+      "team": "Menta y Chocolate",
+      "pj": 2,
+      "g": 2,
+      "e": 0,
+      "p": 0,
+      "pts": 4,
+      "tf": 43,
+      "tc": 22,
+      "dif": 21,
+      "total": 65
+    },
+    {
+      "pos": 2,
       "team": "Tequital",
       "pj": 2,
       "g": 1,
@@ -794,30 +807,17 @@
       "total": 70
     },
     {
-      "pos": 2,
-      "team": "Menta y Chocolate",
-      "pj": 1,
-      "g": 1,
-      "e": 0,
-      "p": 0,
-      "pts": 2,
-      "tf": 24,
-      "tc": 10,
-      "dif": 14,
-      "total": 34
-    },
-    {
       "pos": 3,
       "team": "La Burrera",
-      "pj": 1,
+      "pj": 2,
       "g": 1,
       "e": 0,
-      "p": 0,
+      "p": 1,
       "pts": 2,
-      "tf": 24,
-      "tc": 15,
-      "dif": 9,
-      "total": 39
+      "tf": 36,
+      "tc": 34,
+      "dif": 2,
+      "total": 70
     },
     {
       "pos": 4,
@@ -989,7 +989,7 @@
             {
               "home": "Menta y Chocolate",
               "away": "La Burrera",
-              "score": null
+              "score": "7/12 · 12/0"
             }
           ]
         }

@@ -1,16 +1,27 @@
 {
   "nextMatch": {
-    "team": "Morro Jable A",
-    "date": "2026-11-27",
-    "time": "19:00",
-    "rival": "Chamajos Tindaya",
+    "team": "Morro Jable B",
+    "date": "2026-11-24",
+    "time": "20:00",
+    "rival": "Cualquier Cosa",
     "home": false,
     "result": null,
     "jornada": 3,
-    "place": "Centro Cultural · Tindaya",
-    "comp": "1ª Categoría Masculina · Grupo B"
+    "place": "Centro Cultural · Tequital",
+    "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
   },
   "nextMatches": [
+    {
+      "team": "Morro Jable B",
+      "date": "2026-11-24",
+      "time": "20:00",
+      "rival": "Cualquier Cosa",
+      "home": false,
+      "result": null,
+      "jornada": 3,
+      "place": "Centro Cultural · Tequital",
+      "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
+    },
     {
       "team": "Morro Jable A",
       "date": "2026-11-27",
@@ -391,7 +402,7 @@
     },
     {
       "team": "Morro Jable B",
-      "date": "2026-11-27",
+      "date": "2026-11-24",
       "time": "20:00",
       "rival": "Cualquier Cosa",
       "home": false,

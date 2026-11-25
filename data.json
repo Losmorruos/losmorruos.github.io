@@ -123,26 +123,26 @@
     {
       "pos": 1,
       "team": "Cualquier Cosa",
-      "pj": 2,
-      "g": 2,
+      "pj": 3,
+      "g": 3,
       "e": 0,
       "p": 0,
       "pts": 4,
-      "tf": 49,
-      "tc": 21,
-      "dif": 28
+      "tf": 73,
+      "tc": 32,
+      "dif": 41
     },
     {
       "pos": 2,
       "team": "Morro Jable B",
-      "pj": 2,
+      "pj": 3,
       "g": 1,
       "e": 1,
-      "p": 0,
+      "p": 1,
       "pts": 3,
-      "tf": 37,
-      "tc": 19,
-      "dif": 18
+      "tf": 48,
+      "tc": 43,
+      "dif": 5
     },
     {
       "pos": 3,
@@ -406,7 +406,7 @@
       "time": "20:00",
       "rival": "Cualquier Cosa",
       "home": false,
-      "result": null,
+      "result": "12/0 · 12/11",
       "jornada": 3,
       "place": "Centro Cultural · Tequital",
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
@@ -956,6 +956,16 @@
               "home": "La Marisma",
               "away": "El Tablero",
               "score": null
+            }
+          ]
+        },
+        {
+          "jornada": 3,
+          "matches": [
+            {
+              "home": "Cualquier Cosa",
+              "away": "Morro Jable B",
+              "score": "12/0 · 12/11"
             }
           ]
         }

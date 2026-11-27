@@ -159,26 +159,26 @@
     {
       "pos": 4,
       "team": "El Cuchillete",
-      "pj": 2,
-      "g": 0,
+      "pj": 3,
+      "g": 1,
       "e": 1,
       "p": 1,
-      "pts": 1,
-      "tf": 18,
-      "tc": 37,
-      "dif": -19
+      "pts": 3,
+      "tf": 42,
+      "tc": 57,
+      "dif": -15
     },
     {
       "pos": 5,
       "team": "La Marisma",
-      "pj": 2,
+      "pj": 3,
       "g": 0,
       "e": 1,
-      "p": 1,
+      "p": 2,
       "pts": 1,
-      "tf": 22,
-      "tc": 46,
-      "dif": -24
+      "tf": 42,
+      "tc": 70,
+      "dif": -28
     },
     {
       "pos": 6,
@@ -976,6 +976,11 @@
               "home": "Cualquier Cosa",
               "away": "Morro Jable B",
               "score": "12/0 · 12/11"
+            },
+            {
+              "home": "La Marisma",
+              "away": "El Cuchillete",
+              "score": "9/12 · 11/12"
             }
           ]
         }

@@ -23,17 +23,6 @@
       "comp": "2ª Categoría Masculina · Grupo Quinto (E)"
     },
     {
-      "team": "Morro Jable A",
-      "date": "2026-11-27",
-      "time": "19:00",
-      "rival": "Chamajos Tindaya",
-      "home": false,
-      "result": null,
-      "jornada": 3,
-      "place": "Centro Cultural · Tindaya",
-      "comp": "1ª Categoría Masculina · Grupo B"
-    },
-    {
       "team": "La Lajita",
       "date": "2026-11-28",
       "time": "19:00",
@@ -85,26 +74,26 @@
     {
       "pos": 4,
       "team": "Morro Jable A",
-      "pj": 2,
+      "pj": 3,
       "g": 1,
       "e": 0,
-      "p": 1,
+      "p": 2,
       "pts": 2,
-      "tf": 32,
-      "tc": 38,
-      "dif": -6
+      "tf": 44,
+      "tc": 62,
+      "dif": -18
     },
     {
       "pos": 5,
       "team": "Chamajo Tindaya",
-      "pj": 2,
-      "g": 0,
+      "pj": 3,
+      "g": 1,
       "e": 1,
       "p": 1,
-      "pts": 1,
-      "tf": 17,
-      "tc": 42,
-      "dif": -25
+      "pts": 3,
+      "tf": 41,
+      "tc": 54,
+      "dif": -13
     },
     {
       "pos": 6,
@@ -233,26 +222,26 @@
     {
       "pos": 4,
       "team": "Morro Jable A",
-      "pj": 2,
+      "pj": 3,
       "g": 1,
       "e": 0,
-      "p": 1,
+      "p": 2,
       "pts": 2,
-      "tf": 32,
-      "tc": 38,
-      "dif": -6
+      "tf": 44,
+      "tc": 62,
+      "dif": -18
     },
     {
       "pos": 5,
       "team": "Chamajo Tindaya",
-      "pj": 2,
-      "g": 0,
+      "pj": 3,
+      "g": 1,
       "e": 1,
       "p": 1,
-      "pts": 1,
-      "tf": 17,
-      "tc": 42,
-      "dif": -25
+      "pts": 3,
+      "tf": 41,
+      "tc": 54,
+      "dif": -13
     },
     {
       "pos": 6,
@@ -296,7 +285,7 @@
       "time": "18:00",
       "rival": "Tindaya Chamajos",
       "home": false,
-      "result": null,
+      "result": "12/8 · 12/4",
       "jornada": 3,
       "place": "Centro Cultural · Tindaya",
       "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
@@ -768,7 +757,7 @@
       "time": "10:12"
     }
   ],
-  "_syncStamp": "2026-11-21T01:16:49.904Z",
+  "_syncStamp": "2026-11-27T21:13:14.643Z",
   "trainings": [],
   "gallery": [],
   "venue": {
@@ -921,6 +910,11 @@
               "home": "Pollo Máguez",
               "away": "La Placeta",
               "score": "11/12 · 12/5"
+            },
+            {
+              "home": "Chamajos",
+              "away": "Morro Jable A",
+              "score": "12/8 · 12/4"
             }
           ]
         }

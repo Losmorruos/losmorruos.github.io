@@ -73,18 +73,6 @@
     },
     {
       "pos": 4,
-      "team": "Morro Jable A",
-      "pj": 3,
-      "g": 1,
-      "e": 0,
-      "p": 2,
-      "pts": 2,
-      "tf": 44,
-      "tc": 62,
-      "dif": -18
-    },
-    {
-      "pos": 5,
       "team": "Chamajo Tindaya",
       "pj": 3,
       "g": 1,
@@ -94,6 +82,18 @@
       "tf": 41,
       "tc": 54,
       "dif": -13
+    },
+    {
+      "pos": 5,
+      "team": "Morro Jable A",
+      "pj": 3,
+      "g": 1,
+      "e": 0,
+      "p": 2,
+      "pts": 2,
+      "tf": 44,
+      "tc": 62,
+      "dif": -18
     },
     {
       "pos": 6,
@@ -221,18 +221,6 @@
     },
     {
       "pos": 4,
-      "team": "Morro Jable A",
-      "pj": 3,
-      "g": 1,
-      "e": 0,
-      "p": 2,
-      "pts": 2,
-      "tf": 44,
-      "tc": 62,
-      "dif": -18
-    },
-    {
-      "pos": 5,
       "team": "Chamajo Tindaya",
       "pj": 3,
       "g": 1,
@@ -242,6 +230,18 @@
       "tf": 41,
       "tc": 54,
       "dif": -13
+    },
+    {
+      "pos": 5,
+      "team": "Morro Jable A",
+      "pj": 3,
+      "g": 1,
+      "e": 0,
+      "p": 2,
+      "pts": 2,
+      "tf": 44,
+      "tc": 62,
+      "dif": -18
     },
     {
       "pos": 6,

@@ -49,14 +49,14 @@
     {
       "pos": 1,
       "team": "Pollo Maguez",
-      "pj": 2,
+      "pj": 3,
       "g": 2,
-      "e": 0,
+      "e": 1,
       "p": 0,
-      "pts": 4,
-      "tf": 48,
-      "tc": 13,
-      "dif": 35
+      "pts": 5,
+      "tf": 71,
+      "tc": 30,
+      "dif": 41
     },
     {
       "pos": 2,
@@ -72,6 +72,18 @@
     },
     {
       "pos": 3,
+      "team": "La Placeta",
+      "pj": 3,
+      "g": 1,
+      "e": 1,
+      "p": 1,
+      "pts": 3,
+      "tf": 48,
+      "tc": 60,
+      "dif": -12
+    },
+    {
+      "pos": 4,
       "team": "Morro Jable A",
       "pj": 2,
       "g": 1,
@@ -80,18 +92,6 @@
       "pts": 2,
       "tf": 32,
       "tc": 38,
-      "dif": -6
-    },
-    {
-      "pos": 4,
-      "team": "La Placeta",
-      "pj": 2,
-      "g": 1,
-      "e": 0,
-      "p": 1,
-      "pts": 2,
-      "tf": 31,
-      "tc": 37,
       "dif": -6
     },
     {
@@ -197,14 +197,14 @@
     {
       "pos": 1,
       "team": "Pollo Maguez",
-      "pj": 2,
+      "pj": 3,
       "g": 2,
-      "e": 0,
+      "e": 1,
       "p": 0,
-      "pts": 4,
-      "tf": 48,
-      "tc": 13,
-      "dif": 35
+      "pts": 5,
+      "tf": 71,
+      "tc": 30,
+      "dif": 41
     },
     {
       "pos": 2,
@@ -220,6 +220,18 @@
     },
     {
       "pos": 3,
+      "team": "La Placeta",
+      "pj": 3,
+      "g": 1,
+      "e": 1,
+      "p": 1,
+      "pts": 3,
+      "tf": 48,
+      "tc": 60,
+      "dif": -12
+    },
+    {
+      "pos": 4,
       "team": "Morro Jable A",
       "pj": 2,
       "g": 1,
@@ -228,18 +240,6 @@
       "pts": 2,
       "tf": 32,
       "tc": 38,
-      "dif": -6
-    },
-    {
-      "pos": 4,
-      "team": "La Placeta",
-      "pj": 2,
-      "g": 1,
-      "e": 0,
-      "p": 1,
-      "pts": 2,
-      "tf": 31,
-      "tc": 37,
       "dif": -6
     },
     {
@@ -832,6 +832,19 @@
     },
     {
       "pos": 4,
+      "team": "Tarajalejo",
+      "pj": 3,
+      "g": 1,
+      "e": 1,
+      "p": 1,
+      "pts": 3,
+      "tf": 57,
+      "tc": 59,
+      "dif": -2,
+      "total": 78
+    },
+    {
+      "pos": 5,
       "team": "La Lajita",
       "pj": 2,
       "g": 1,
@@ -844,29 +857,16 @@
       "total": 63
     },
     {
-      "pos": 5,
-      "team": "Tarajalejo",
-      "pj": 2,
-      "g": 0,
-      "e": 1,
-      "p": 1,
-      "pts": 1,
-      "tf": 33,
-      "tc": 45,
-      "dif": -12,
-      "total": 78
-    },
-    {
       "pos": 6,
       "team": "Atlético Pájara B",
-      "pj": 2,
+      "pj": 3,
       "g": 0,
       "e": 0,
-      "p": 2,
+      "p": 3,
       "pts": 0,
-      "tf": 18,
-      "tc": 48,
-      "dif": -30,
+      "tf": 32,
+      "tc": 72,
+      "dif": -40,
       "total": 66
     }
   ],
@@ -911,6 +911,16 @@
               "home": "Morro Jable A",
               "away": "Lajares",
               "score": "12/11 · 12/3"
+            }
+          ]
+        },
+        {
+          "jornada": 3,
+          "matches": [
+            {
+              "home": "Pollo Máguez",
+              "away": "La Placeta",
+              "score": "11/12 · 12/5"
             }
           ]
         }
@@ -1011,6 +1021,16 @@
               "home": "Menta y Chocolate",
               "away": "La Burrera",
               "score": "7/12 · 12/0"
+            }
+          ]
+        },
+        {
+          "jornada": 3,
+          "matches": [
+            {
+              "home": "Pájara B",
+              "away": "Tarajalejo",
+              "score": "4/12 · 10/12"
             }
           ]
         }

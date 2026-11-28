@@ -32,6 +32,17 @@
       "jornada": 3,
       "place": "Cancha Fútbol · La Lajita",
       "comp": "2ª Categoría Masculina · Grupo Cuarto (D)"
+    },
+    {
+      "team": "Morro Jable A",
+      "date": "2026-12-02",
+      "time": "19:00",
+      "rival": "Tamasite",
+      "home": false,
+      "result": null,
+      "jornada": 4,
+      "place": "Entrada hotel · Las Playitas",
+      "comp": "1ª Categoría Masculina · Grupo Segundo (B)"
     }
   ],
   "standingsA": [
@@ -292,8 +303,8 @@
     },
     {
       "team": "Morro Jable A",
-      "date": "2026-12-04",
-      "time": "20:00",
+      "date": "2026-12-02",
+      "time": "19:00",
       "rival": "Tamasite",
       "home": false,
       "result": null,

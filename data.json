@@ -50,14 +50,14 @@
     {
       "pos": 2,
       "team": "Tamasite",
-      "pj": 2,
-      "g": 1,
+      "pj": 3,
+      "g": 2,
       "e": 1,
       "p": 0,
-      "pts": 3,
-      "tf": 42,
-      "tc": 19,
-      "dif": 23
+      "pts": 5,
+      "tf": 66,
+      "tc": 30,
+      "dif": 36
     },
     {
       "pos": 3,
@@ -98,14 +98,14 @@
     {
       "pos": 6,
       "team": "Lajares",
-      "pj": 2,
+      "pj": 3,
       "g": 0,
       "e": 0,
-      "p": 2,
+      "p": 3,
       "pts": 0,
-      "tf": 27,
-      "tc": 48,
-      "dif": -21
+      "tf": 38,
+      "tc": 72,
+      "dif": -34
     }
   ],
   "standingsB": [
@@ -198,14 +198,14 @@
     {
       "pos": 2,
       "team": "Tamasite",
-      "pj": 2,
-      "g": 1,
+      "pj": 3,
+      "g": 2,
       "e": 1,
       "p": 0,
-      "pts": 3,
-      "tf": 42,
-      "tc": 19,
-      "dif": 23
+      "pts": 5,
+      "tf": 66,
+      "tc": 30,
+      "dif": 36
     },
     {
       "pos": 3,
@@ -246,14 +246,14 @@
     {
       "pos": 6,
       "team": "Lajares",
-      "pj": 2,
+      "pj": 3,
       "g": 0,
       "e": 0,
-      "p": 2,
+      "p": 3,
       "pts": 0,
-      "tf": 27,
-      "tc": 48,
-      "dif": -21
+      "tf": 38,
+      "tc": 72,
+      "dif": -34
     }
   ],
   "matches": [
@@ -915,6 +915,11 @@
               "home": "Chamajos",
               "away": "Morro Jable A",
               "score": "12/8 · 12/4"
+            },
+            {
+              "home": "Tamasite",
+              "away": "Lajares",
+              "score": "12/4 · 12/7"
             }
           ]
         }
